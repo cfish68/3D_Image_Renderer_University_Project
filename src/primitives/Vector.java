@@ -28,8 +28,60 @@ public class Vector extends Point{
      * Performs addition between two vectors and returns the result as a vector.
      * @param vector
      */
-    public add(Vector vector) {
+    public Vector add(Vector vector) {
+        return new Vector(this.xyz.add(vector.xyz));
+    }
 
+    /**
+     * multiplies a vector by a number.
+     * @param scalar
+     * @return  Returns a new vector which is the old vector scaled
+     */
+    public Vector scale(double scalar){
+        return new Vector(this.xyz.scale(scalar));
+    }
+
+    /**
+     * uses variables from Double3 to get the dot product where A . B = a1 * b1 + a2 * b2 + a3 * b3
+     * @param vector
+     * @return
+     */
+    public double dotProduct(Vector vector){
+        return this.xyz.d1*vector.xyz.d1+this.xyz.d2*vector.xyz.d2 + this.xyz.d3*vector.xyz.d3;
+    }
+
+    /**
+     * uses variables from Double3 to get the cross product where
+     * A X B = (b*z-c*y, cx -az, ay - bx)
+     * @param vector
+     * @return
+     */
+    public Vector crossProduct(Vector vector){
+        return new Vector(this.xyz.d2*vector.xyz.d3-this.xyz.d3*vector.xyz.d2, this.xyz.d3*vector.xyz.d1-this.xyz.d1*vector.xyz.d3, this.xyz.d1*vector.xyz.d2-this.xyz.d2*vector.xyz.d1);
+    }
+
+    /**
+     * (a,b,c) -> a^2+ b^2 +c^2
+     * @return
+     */
+    public double lengthSquared(){
+        return this.dotProduct(this);
+    }
+
+    /**
+     * using the length squared formula we achieve the length of the vector by using the sqrt
+     * @return
+     */
+    public double length(){
+        return Math.sqrt(this.lengthSquared());
+    }
+
+    /**
+     * method to get a vector of length 1 uses the vector/the magnitude.
+     * @return
+     */
+    public Vector normalize(){
+        return this.scale(1/this.length());
     }
 
 }
