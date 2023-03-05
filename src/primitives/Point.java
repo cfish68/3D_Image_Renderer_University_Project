@@ -3,25 +3,43 @@ package primitives;
 public class Point {
     Double3 xyz;
 
+    /**
+     * constructor which takes 3 doubles
+     * @param x
+     * @param y
+     * @param z
+     */
     public Point(double x, double y, double z) {
         xyz = new Double3(x,y,z);
     }
 
+    /**
+     * constructor which takes the defined double3 class variable and creates point
+     * @param x
+     */
     public Point(Double3 x) {
         xyz = x;
     }
 
     /**
-     *
-     * @param p
-     * @return
+     *– receives a Point as a parameter, returns a vector from second point to the point which
+     * called the method
+     * ix x is the point that called the method and y is the pt that is the parameter then x-y is the point we are interested in.
+     * @param pt
+     * @return return a vector as a result of the subtraction
      */
-    public Vector subtract(Point p){
-        //return xyz.subtract(p.xyz);
+    public Vector subtract(Point pt){
+        return new Vector(this.xyz.subtract(pt.xyz));
     }
 
-    public Point add(Vector v) {
-        return new Point(xyz.add(v.xyz));
+    /**
+     * adds a vector to the point. Returns a new point
+     * (in other words; move a point in the direction and distance of given vector
+     * @param moverVector
+     * @return the new point after the move.
+     */
+    public Point add(Vector moverVector) {
+        return new Point(xyz.add(moverVector.xyz));
     }
 
     /***
@@ -34,7 +52,8 @@ public class Point {
     }
 
     /***
-     *
+     *the formula we are computing here is ((x2 – x1)² + (y2 – y1)²) + (z2 – z1)²
+     * the first line does the subtraction the second line squares the result and finally the return statement line also adds them up.
      * @param point
      * @return
      */
