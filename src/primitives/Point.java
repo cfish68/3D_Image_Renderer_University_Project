@@ -63,4 +63,18 @@ public class Point {
         return squared.d1+squared.d2+squared.d3;
     }
 
+    /**
+     * checks first the object passed is in-fact a point so that we don't have a runtime error and then checks if it's the same point
+     * @param obj
+     * @return true if it is the same point false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Point)){
+            return false;
+        }
+        if(this.xyz.equals(((Point) obj).xyz))
+            return true;
+        return false;
+    }
 }

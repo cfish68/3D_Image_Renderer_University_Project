@@ -84,4 +84,18 @@ public class Vector extends Point{
         return this.scale(1/this.length());
     }
 
+    /**
+     * checks first the object passed is in-fact a vector so that we don't have a runtime error and then checks if it's the same vector
+     * @param obj
+     * @return true if it is the same vector false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Vector)){
+            return false;
+        }
+        if(this.xyz.equals(((Point) obj).xyz))
+            return true;
+        return false;
+    }
 }
