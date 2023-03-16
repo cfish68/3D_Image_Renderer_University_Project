@@ -5,7 +5,7 @@ package primitives;
  */
 public class Vector extends Point{
     /**
-     * Cronstructs a vector
+     * Constructs a vector
      * @param x coordinate
      * @param y coordinate
      * @param z coordinate

@@ -80,4 +80,14 @@ public class Point {
             return true;
         return false;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "Point with coordinates:\n" +
+                xyz.toString();
+    }
 }
