@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * this class is used to represent a vector it uses; a point for its representation.
+ */
 public class Vector extends Point{
     /**
      * Cronstructs a vector

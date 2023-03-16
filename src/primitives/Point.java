@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * this class will be used to represent a point, this point is 3 dimensional.
+ */
 public class Point {
     Double3 xyz;
 
