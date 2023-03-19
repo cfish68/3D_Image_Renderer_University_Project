@@ -101,4 +101,9 @@ public class Vector extends Point{
             return true;
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Vector: " + xyz.toString();
+    }
 }
