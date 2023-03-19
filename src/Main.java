@@ -1,3 +1,8 @@
+/**
+ * Avi Weiner - 330330796 avi.weiner12@gmail.com
+ * Chaim Fishman - 208509349 csfwny@gmail.com
+ */
+
 package test;
 
 import static java.lang.System.out;
