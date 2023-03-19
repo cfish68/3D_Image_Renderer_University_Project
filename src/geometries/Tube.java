@@ -8,7 +8,7 @@ public class Tube extends RadialGeometry {
     protected Ray axisRay;
 
     /**
-     * constructor which takes in a radius and a ray to create a tube.
+     * Constructor which takes in a radius and a ray to create a tube.
      * @param radius
      * @param ray
      */
@@ -18,7 +18,7 @@ public class Tube extends RadialGeometry {
     }
 
     /**
-     * returns the normal at a given point.
+     * Returns the normal at a given point.
      * (for now returns null)
      * @param point
      * @return
