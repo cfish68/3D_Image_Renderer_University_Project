@@ -81,10 +81,6 @@ public class Point {
         return false;
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public String toString() {
         return "Point: " + xyz.toString();
