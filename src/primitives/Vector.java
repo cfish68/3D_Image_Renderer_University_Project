@@ -6,7 +6,7 @@ package primitives;
 public class Vector extends Point{
 
     /**
-     * Constructs a vector
+     * Constructs a vector that takes in 3 doubles
      * @param x coordinate
      * @param y coordinate
      * @param z coordinate

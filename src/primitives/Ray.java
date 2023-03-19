@@ -6,6 +6,12 @@ package primitives;
 public class Ray {
     Point point;
     Vector vector;
+
+    /**
+     * Constructor for Ray that takes in a point and vector.
+     * @param point
+     * @param vector
+     */
     public Ray(Point point, Vector vector){
         this.point = point;
         this.vector = vector;

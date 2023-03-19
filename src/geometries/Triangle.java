@@ -19,6 +19,7 @@ public class Triangle extends Polygon{
         vertices.add(point3);
 
     }
+
     @Override
     public String toString() {
         String points = "";
