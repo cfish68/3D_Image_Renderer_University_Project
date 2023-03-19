@@ -28,4 +28,13 @@ public class Cylinder extends Tube{
     public Vector getNormal(Point point) {
         return null;
     }
+
+    /**
+     * to string for a cylinder
+     * @return
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " and Tube with height: " + this.height;
+    }
 }

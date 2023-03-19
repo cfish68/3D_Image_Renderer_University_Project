@@ -8,7 +8,7 @@ import primitives.Point;
 public class Triangle extends Polygon{
 
     /**
-     * constructor for a triangle takes in 3 points and saves them to a list of vertices.
+     * Constructor for a triangle takes in 3 points and saves them to a list of vertices.
      * @param point1
      * @param point2
      * @param point3
@@ -18,5 +18,9 @@ public class Triangle extends Polygon{
         vertices.add(point2);
         vertices.add(point3);
 
+    }
+    @Override
+    public String toString() {
+        return super.toString() + " and a traingle with point 3 points: " + vertices;
     }
 }
