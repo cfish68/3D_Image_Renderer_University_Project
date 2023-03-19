@@ -87,7 +87,6 @@ public class Point {
      */
     @Override
     public String toString() {
-        return "Point with coordinates:\n" +
-                xyz.toString();
+        return "Point: " + xyz.toString();
     }
 }

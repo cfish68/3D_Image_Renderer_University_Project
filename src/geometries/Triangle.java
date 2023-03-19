@@ -21,6 +21,6 @@ public class Triangle extends Polygon{
     }
     @Override
     public String toString() {
-        return super.toString() + " and a traingle with point 3 points: " + vertices;
+        return super.toString() + " and a triangle with point 3 points: " + vertices;
     }
 }

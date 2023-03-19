@@ -10,4 +10,10 @@ public class Ray {
         this.point = point;
         this.vector = vector;
     }
+
+    @Override
+    public String toString() {
+        return "Ray starting at " + point.toString()
+                + "\nWith " + vector.toString();
+    }
 }

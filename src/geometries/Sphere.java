@@ -29,6 +29,7 @@ public class Sphere extends RadialGeometry{
 
     @Override
     public String toString() {
-        return super.toString() + " and sphere with center: " + this.center;
+        return super.toString() +
+                "\nand sphere with center at " + this.center.toString();
     }
 }

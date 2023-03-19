@@ -30,6 +30,7 @@ public class Tube extends RadialGeometry {
 
     @Override
     public String toString() {
-        return super.toString() + "and a Tube with axisRay: " + this.axisRay;
+        return super.toString()
+                + "\nand tube with axis " + this.axisRay.toString();
     }
 }
