@@ -4,6 +4,10 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * Class cylinder which inherits from Tube. This class has a height (not infinite like tube.)
+ * an axisRay from Tube and a radius because it is a RadialGeometry.
+ */
 public class Cylinder extends Tube{
 
     double height;

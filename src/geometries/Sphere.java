@@ -3,6 +3,10 @@ package geometries;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * Class Sphere which represents a sphere which is a type of RadialGeometry and therefor inherits from it.
+ * This Class has a center, which is the center of the sphere. This class also has a radius.
+ */
 public class Sphere extends RadialGeometry{
 
     private Point center;
