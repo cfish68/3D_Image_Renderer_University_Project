@@ -37,6 +37,13 @@ public class Vector extends Point{
     }
 
     /**
+     * performs subtraction between two vectors and returns the resulting vector
+     * @param vector
+     * @return
+     */
+    public Vector subtract(Vector vector){return new Vector(this.xyz.subtract(vector.xyz));}
+
+    /**
      * multiplies a vector by a number.
      * @param scalar
      * @return  Returns a new vector which is the old vector scaled
