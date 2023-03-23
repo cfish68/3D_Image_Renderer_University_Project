@@ -22,7 +22,4 @@ class PointTest {
     void distanceSquared() {
     }
 
-    @Test
-    void testEquals() {
-    }
 }
