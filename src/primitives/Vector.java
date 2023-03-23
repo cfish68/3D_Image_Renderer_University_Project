@@ -95,10 +95,12 @@ public class Vector extends Point{
      */
     @Override
     public boolean equals(Object obj) {
+        if(this == obj)
+            return true;
         if(!(obj instanceof Vector)){
             return false;
         }
-        if(this.xyz.equals(((Point) obj).xyz))
+        if(this.xyz.equals(((Point) obj).xyz))//ToDo: changethis.
             return true;
         return false;
     }

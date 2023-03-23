@@ -4,22 +4,23 @@ package primitives;
  * this class is used to represent a ray. (a vector from  a certain point)
  */
 public class Ray {
-    Point point;
-    Vector vector;
+    Point p0;
+    Vector dir;
 
     /**
      * Constructor for Ray that takes in a point and vector.
      * @param point
-     * @param vector
+     * @param dir
      */
-    public Ray(Point point, Vector vector){
-        this.point = point;
-        this.vector = vector;
+    public Ray(Point point, Vector dir){
+        this.p0 = point;
+        this.dir = dir;
     }
+//TODO: make equals
 
     @Override
     public String toString() {
-        return "Ray starting at " + point.toString()
-                + "\nWith " + vector.toString();
+        return "Ray starting at " + p0.toString()
+                + "\nWith " + dir.toString();
     }
 }

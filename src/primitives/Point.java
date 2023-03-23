@@ -73,10 +73,12 @@ public class Point {
      */
     @Override
     public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
         if(!(obj instanceof Point)){
             return false;
         }
-        if(this.xyz.equals(((Point) obj).xyz))
+        if(this.xyz.equals(((Point) obj).xyz))//ToDo: make into one line.
             return true;
         return false;
     }
