@@ -78,9 +78,8 @@ public class Point {
         if(!(obj instanceof Point)){
             return false;
         }
-        if(this.xyz.equals(((Point) obj).xyz))//ToDo: make into one line.
-            return true;
-        return false;
+        return this.xyz.equals(((Point) obj).xyz);
+
     }
 
     @Override

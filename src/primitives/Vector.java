@@ -100,9 +100,8 @@ public class Vector extends Point{
         if(!(obj instanceof Vector)){
             return false;
         }
-        if(this.xyz.equals(((Point) obj).xyz))//ToDo: changethis.
-            return true;
-        return false;
+        return this.xyz.equals(((Point) obj).xyz);
+
     }
 
     @Override
