@@ -16,7 +16,22 @@ public class Ray {
         this.p0 = point;
         this.dir = dir;
     }
-//TODO: make equals
+
+    /**
+     * Checks first the object passed is in-fact a ray so that we don't have a runtime error
+     * and then checks if it's the same ray with the same attributes.
+     * @param obj
+     * @return true if it is the same point false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if(!(obj instanceof Ray)){
+            return false;
+        }
+        return this.p0.equals(((Ray) obj).p0) && this.dir.equals(((Ray) obj).dir);
+    }
 
     @Override
     public String toString() {
