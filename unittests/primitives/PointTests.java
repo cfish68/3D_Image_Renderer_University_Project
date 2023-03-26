@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PointTest {
+class PointTests {
 
     @Test
     void subtract() {//assertEquals() (expected, actual, message "errorrorro");
