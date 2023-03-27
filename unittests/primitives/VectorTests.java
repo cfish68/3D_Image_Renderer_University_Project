@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VectorTest {
 
+    /**
+     * test method for {@link primitives.Vector#Vector(double, double, double)}
+     */
     @Test
     void TestVectorConstructor(){
         // ============ Equivalence Partitions Tests ==============
@@ -28,7 +31,9 @@ class VectorTest {
                 () ->new Vector(0,0,0), //
                 "ERROR: Vectors cannot be added up to equal the zero vector.");
     }
-
+    /**
+     * test method for {@link primitives.Vector#add(Vector)}
+     */
     @Test
     void testAdd() {
         // ============ Equivalence Partitions Tests ==============
@@ -41,7 +46,9 @@ class VectorTest {
                 "ERROR: Vectors cannot be added up to equal the zero vector.");
 
     }
-
+    /**
+     * test method for {@link primitives.Vector#subtract(Point)}
+     */
     @Test
     void testSubtract() {
         // ============ Equivalence Partitions Tests ==============
@@ -53,7 +60,9 @@ class VectorTest {
                 () ->new Vector(1,2,3).add(new Vector(1,2,3)), //
                 "ERROR: Two equal vectors cannot be subtracted.");
     }
-
+    /**
+     * test method for {@link primitives.Vector#scale(double)}
+     */
     @Test
     void testScaling() {
         // =============== Boundary Values Tests ==================
@@ -69,7 +78,9 @@ class VectorTest {
         assertEquals(new Vector(-3, -6,-9), new Vector(1,2,3).scale(-3), "ERROR: Simple vector scaling not working properly");
 
     }
-
+    /**
+     * test method for {@link primitives.Vector#dotProduct(Vector)}
+     */
     @Test
     void testDotProduct() {
         // ============ Equivalence Partitions Tests ==============
@@ -82,7 +93,9 @@ class VectorTest {
         assertEquals(0.0 , new Vector(1,2,3).dotProduct(new Vector(0,3,-2)), "ERROR: Orthogonal dot product should equal zero" );
 
     }
-
+    /**
+     * test method for {@link primitives.Vector#crossProduct(Vector)}
+     */
     @Test
     void testCrossProduct() {
         // ============ Equivalence Partitions Tests ==============
@@ -93,7 +106,9 @@ class VectorTest {
                 () ->new Vector(1,2,3).crossProduct(new Vector(-2,-4,-6)), //
                 "ERROR: crossProduct() for parallel vectors does not throw an exception");
     }
-
+    /**
+     * test method for {@link Vector#lengthSquared()}
+     */
     @Test
     void TestLengthSquared() {
         // ============ Equivalence Partitions Tests ==============
@@ -101,7 +116,9 @@ class VectorTest {
         assertEquals(14.0, new Vector(1,2,3).lengthSquared(), "ERROR: simple lengthSquared returning the wrong value.");
         // =============== Boundary Values Tests ==================
     }
-
+    /**
+     * test method for {@link Vector#length()}
+     */
     @Test
     void testLength() {
         // ============ Equivalence Partitions Tests ==============
@@ -111,7 +128,9 @@ class VectorTest {
         //TC02: Length test for a vector with length 1. (0,1,0)
         assertEquals(1.0, new Vector(0,1,0).length(), "ERROR: vector length for a length of 1 not returning the correct value");
     }
-
+    /**
+     * test method for {@link Vector#normalize()}
+     */
     @Test
     void testNormalize() {
         // ============ Equivalence Partitions Tests ==============
