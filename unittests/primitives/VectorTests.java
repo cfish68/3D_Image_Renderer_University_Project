@@ -134,6 +134,13 @@ class VectorTest {
     @Test
     void testNormalize() {
         // ============ Equivalence Partitions Tests ==============
+        //TC01: Regular simple normalize test.
+        assertEquals(new Vector(1,0,0),new Vector(15,0,0).normalize(),"ERROR: Simple Vector noramlize test does not work properly");
+        //TC02: Normalize test which is a bit more complex
+        assertEquals(new Vector(5/Math.sqrt(75),5/Math.sqrt(75),5/Math.sqrt(75)), new Vector(5,5,5).normalize(),"ERROR: Vector normalize for more complex vector does not work properly");
+        //TC03: Normalize test with vector length less than 1
+        assertEquals(new Vector(1,0,0),new Vector(0.5,0,0).normalize(),"ERROR: Vector normalize with vector length less then 1 does not work properly");
         // =============== Boundary Values Tests ==================
+
     }
 }
