@@ -60,14 +60,14 @@ class CylinderTests {
     @Test
     void testGetNormal() {
         //Create test cylinder, vertical cylinder of radius 1, height 2
-        Cylinder C = new Cylinder(1,new Ray(new Point(0,0,0),new Vector(0,0,1)),2);
+        Cylinder cylinder = new Cylinder(1,new Ray(new Point(0,0,0),new Vector(0,0,1)),2);
 
         // ============ Equivalence Partitions Tests ==============
         //TC01: On round surface
         // ensure no exceptions
-        assertDoesNotThrow(() -> C.getNormal(new Point(0,1,1)));
+        assertDoesNotThrow(() -> cylinder.getNormal(new Point(0,1,1)));
         //generate test result
-        Vector result = C.getNormal(new Point(0,1,1));
+        Vector result = cylinder.getNormal(new Point(0,1,1));
         //Ensure |result| = 1
         assertEquals(1, result.length(),0.00000001, "Cylinder's normal is not a unit vector");
         //Ensure result is expected vector
@@ -75,9 +75,9 @@ class CylinderTests {
 
         //TC02: On base at origin (slightly further to x-axis)
         // ensure no exceptions
-        assertDoesNotThrow(() -> C.getNormal(new Point(0.5,0,0)));
+        assertDoesNotThrow(() -> cylinder.getNormal(new Point(0.5,0,0)));
         //generate test result
-        result = C.getNormal(new Point(0.5,0,0));
+        result = cylinder.getNormal(new Point(0.5,0,0));
         //Ensure |result| = 1
         assertEquals(1, result.length(),0.00000001, "Normal to base of cylinder is not a unit vector");
         //Ensure result is expected vector (opposite ray of Cylinder)
@@ -85,9 +85,9 @@ class CylinderTests {
 
         //TC03: On base at top of cylinder (slightly further to x-axis)
         // ensure no exceptions
-        assertDoesNotThrow(() -> C.getNormal(new Point(0.5,0,2)));
+        assertDoesNotThrow(() -> cylinder.getNormal(new Point(0.5,0,2)));
         //generate test result
-        result = C.getNormal(new Point(0.5,0,2));
+        result = cylinder.getNormal(new Point(0.5,0,2));
         //Ensure |result| = 1
         assertEquals(1, result.length(),0.00000001, "Normal to top of cylinder is not a unit vector");
         //Ensure result is expected vector (same as ray of Cylinder)
@@ -96,9 +96,9 @@ class CylinderTests {
         // =============== Boundary Values Tests ==================
         //TC11: On base edge at bottom
         // ensure no exceptions
-        assertDoesNotThrow(() -> C.getNormal(new Point(1,0,0)));
+        assertDoesNotThrow(() -> cylinder.getNormal(new Point(1,0,0)));
         //generate test result
-        result = C.getNormal(new Point(1,0,0));
+        result = cylinder.getNormal(new Point(1,0,0));
         //Ensure |result| = 1
         assertEquals(1, result.length(),0.00000001,
                 "Normal to base edge at bottom of cylinder is not a unit vector");
@@ -108,9 +108,9 @@ class CylinderTests {
 
         //TC12: On base edge at top
         // ensure no exceptions
-        assertDoesNotThrow(() -> C.getNormal(new Point(1,0,2)));
+        assertDoesNotThrow(() -> cylinder.getNormal(new Point(1,0,2)));
         //generate test result
-        result = C.getNormal(new Point(1,0,2));
+        result = cylinder.getNormal(new Point(1,0,2));
         //Ensure |result| = 1
         assertEquals(1, result.length(),0.00000001,
                 "Normal to base edge at top of cylinder is not a unit vector");
