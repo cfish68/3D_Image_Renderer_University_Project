@@ -39,6 +39,7 @@ class VectorTest {
         assertThrows(IllegalArgumentException.class, //
                 () ->new Vector(1,1,1).add(new Vector(-1,-1,-1)), //
                 "ERROR: Vectors cannot be added up to equal the zero vector.");
+
     }
 
     @Test
