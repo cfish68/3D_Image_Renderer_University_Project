@@ -33,8 +33,8 @@ public class Tube extends RadialGeometry {
         Double t = axisRay.getDir().dotProduct(point.subtract(axisRay.getP0()));
         //Figuring out point 0, the point on the ray orthogonal to point
         Point O = axisRay.getP0().add(axisRay.getDir().scale(t));
-        //Normal is the normalized vector from O to P
-        return (point.subtract(axisRay.getP0())).normalize();
+        //Normal is the normalized vector from point O to point P
+        return (point.subtract(O)).normalize();
     }
 
     @Override
