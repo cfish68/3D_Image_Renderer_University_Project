@@ -28,7 +28,9 @@ public class Sphere extends RadialGeometry{
      */
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        //no check for point on surface.
+        // (P-center)-> normalized.
+        return point.subtract(this.center).normalize();
     }
 
     @Override
