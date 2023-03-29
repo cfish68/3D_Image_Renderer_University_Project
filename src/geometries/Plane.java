@@ -20,8 +20,12 @@ public class Plane implements Geometry{
      */
     Plane(Point point1, Point point2, Point point3){
         this.q0 = point1;
-        this.normal = null;
-        //calculate the normal vector
+        //calculate the normal
+        Vector a = point1.subtract(point2);
+        Vector b = point3.subtract(point2);
+        Vector normalNormalized = (a.crossProduct(b)).normalize();
+        //save the normalized normal
+        this.normal = normalNormalized;
     }
 
     /**
@@ -41,7 +45,7 @@ public class Plane implements Geometry{
      */
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        return this.normal;
     }
 
     /**
