@@ -12,6 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SphereTests {
 
+
+    /**
+     * Test method for {@link geometries.Sphere#Sphere(double, Point)}
+     */
     @Test
     void testSphereConstructor(){
         // ============ Equivalence Partitions Tests ==============
