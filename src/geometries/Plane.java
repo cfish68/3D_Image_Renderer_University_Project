@@ -21,8 +21,8 @@ public class Plane implements Geometry{
     Plane(Point point1, Point point2, Point point3){
         this.q0 = point1;
         //calculate the normal
-        Vector a = point1.subtract(point2);
-        Vector b = point3.subtract(point2);
+        Vector a = point2.subtract(point1);
+        Vector b = point3.subtract(point1);
         Vector normalNormalized = (a.crossProduct(b)).normalize();
         //save the normalized normal
         this.normal = normalNormalized;
