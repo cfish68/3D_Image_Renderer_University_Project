@@ -18,6 +18,22 @@ public class Ray {
     }
 
     /**
+     * Getter for point of ray
+     * @return
+     */
+    public Point getP0(){
+        return p0;
+    }
+
+    /**
+     * Getter for direction of ray
+     * @return
+     */
+    public Vector getDir() {
+        return dir;
+    }
+
+    /**
      * Checks first the object passed is in-fact a ray so that we don't have a runtime error
      * and then checks if it's the same ray with the same attributes.
      * @param obj
@@ -38,4 +54,6 @@ public class Ray {
         return "Ray starting at " + p0.toString()
                 + "\nWith " + dir.toString();
     }
+
+
 }

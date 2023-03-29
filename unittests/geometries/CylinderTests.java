@@ -15,6 +15,7 @@ class CylinderTests {
     /**
      * Test method for {@link geometries.Cylinder#Cylinder(double, primitives.Ray, double)}
      */
+    @Test
     public void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
 

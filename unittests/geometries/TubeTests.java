@@ -15,6 +15,7 @@ class TubeTests {
     /**
      * Test method for {@link geometries.Tube#Tube(double, primitives.Ray)}
      */
+    @Test
     public void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Correct Tube
@@ -51,9 +52,9 @@ class TubeTests {
         //generate test result
         Vector result = tube.getNormal(new Point(0,1,1));
         //Ensure |result| = 1
-        assertEquals(1, result.length(),0.00000001, "Tube's normal is not a unit vector");
+        assertEquals(1, result.length(),0.00000001, "TC01: Tube's normal is not a unit vector");
         //Ensure result is expected vector
-        assertEquals(new Vector(0,1,0),result,"Tube's normal to round surface is wrong");
+        assertEquals(new Vector(0,1,0),result,"TC01: Tube's normal to round surface is wrong");
 
         // =============== Boundary Values Tests ==================
         //TC11: When projection of normal goes to the start of the ray of the tube
@@ -62,9 +63,9 @@ class TubeTests {
         //generate test result
         result = tube.getNormal(new Point(0,1,0));
         //Ensure |result| = 1
-        assertEquals(1, result.length(),0.00000001, "Tube's normal is not a unit vector");
+        assertEquals(1, result.length(),0.00000001, "TC11: Tube's normal is not a unit vector");
         //Ensure result is expected vector
-        assertEquals(new Vector(0,1,0),result,"Tube's normal at origin of ray is wrong");
+        assertEquals(new Vector(0,1,0),result,"TC11: Tube's normal at origin of ray is wrong");
 
     }
 }
