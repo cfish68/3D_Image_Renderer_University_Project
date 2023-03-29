@@ -29,7 +29,12 @@ public class Tube extends RadialGeometry {
      */
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        //Direction vector of ray dot-product with the vector between point and p0
+        Double t = axisRay.getDir().dotProduct(point.subtract(axisRay.getP0()));
+        //Figuring out point 0, the point on the ray orthogonal to point
+        Point O = axisRay.getP0().add(axisRay.getDir().scale(t));
+        //Normal is the normalized vector from O to P
+        return (point.subtract(axisRay.getP0())).normalize();
     }
 
     @Override
