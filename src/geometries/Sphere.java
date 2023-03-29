@@ -29,7 +29,7 @@ public class Sphere extends RadialGeometry{
     @Override
     public Vector getNormal(Point point) {
         //no check for point on surface.
-        // (P-center)-> normalized.
+        // ( P minus center) is the normal and then normalized
         return point.subtract(this.center).normalize();
     }
 

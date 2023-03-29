@@ -15,6 +15,7 @@ class TriangleTests {
     /**
      * Test method for {@link geometries.Triangle#Triangle(primitives.Point, primitives.Point, primitives.Point)}
      */
+    @Test
     public void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Correct Cylinder
