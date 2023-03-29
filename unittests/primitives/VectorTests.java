@@ -57,7 +57,7 @@ class VectorTest {
         // =============== Boundary Values Tests ==================
         //TC02: subtraction between two equal Vectors equalling the zero vector which is supposed to throw an exception.
         assertThrows(IllegalArgumentException.class, //
-                () ->new Vector(1,2,3).add(new Vector(1,2,3)), //
+                () ->new Vector(1,2,3).subtract(new Vector(1,2,3)), //
                 "ERROR: Two equal vectors cannot be subtracted.");
     }
     /**
@@ -85,12 +85,13 @@ class VectorTest {
     void testDotProduct() {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Dot product for vectors equalling a positive number
-        assertEquals(10.0, new Vector(1,2,3).dotProduct(new Vector(3,2,1)), "ERROR: simple dot product equalling a positive number is not working properly");
+        assertEquals(10.0, new Vector(1,2,3).dotProduct(new Vector(3,2,1)), "TC01: simple dot product equalling a positive number is not working properly");
         //TC02: Dot product for vectors equalling a negative number
-        assertEquals(-28.0 , new Vector(1,2,3).dotProduct(new Vector(0,3,-2)), "ERROR: simple dot product equalling a negative number is not working properly" );
+        assertEquals(-5 , new Vector(1,1,4).dotProduct(new Vector(0,3,-2)), "TC02: simple dot product equalling a negative number is not working properly" );
+
         // =============== Boundary Values Tests ==================
-        //TC01: 90 degree angle test
-        assertEquals(0.0 , new Vector(1,2,3).dotProduct(new Vector(0,3,-2)), "ERROR: Orthogonal dot product should equal zero" );
+        //TC11: 90 degree angle test
+        assertEquals(0.0 , new Vector(1,2,3).dotProduct(new Vector(0,3,-2)), "TC11: Orthogonal dot product should equal zero" );
 
     }
     /**
