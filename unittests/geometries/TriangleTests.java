@@ -51,7 +51,7 @@ class TriangleTests {
         assertEquals(1, result.length(),0.00000001, "Triangle's normal is not a unit vector");
         //Ensure result is expected vector (same as z-axis)
         assertEquals(new Vector(0,0,1), result, "Normal to triangle is wrong");
-
+        //TODO: check both directions
         // =============== Boundary Values Tests ==================
         //No Boundary tests for Triangle
     }
