@@ -49,9 +49,8 @@ class TriangleTests {
         Vector result = triangle.getNormal(new Point(1,1,0));
         //Ensure |result| = 1
         assertEquals(1, result.length(),0.00000001, "Triangle's normal is not a unit vector");
-        //Ensure result is expected vector (same as z-axis)
-        assertEquals(new Vector(0,0,1), result, "Normal to triangle is wrong");
-        //TODO: check both directions
+        //Ensure result is expected vector (same as z-axis) + or -
+        assertTrue ( result.equals(new Vector(0,0,1)) || result.scale(-1).equals(new Vector(0,0,1)),"Normal to triangle is wrong");
         // =============== Boundary Values Tests ==================
         //No Boundary tests for Triangle
     }

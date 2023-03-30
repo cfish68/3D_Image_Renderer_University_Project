@@ -49,8 +49,8 @@ class PlaneTests {
         //Ensure |result| = 1
         assertEquals(1, result.length(),0.00000001, "PLane's normal is not a unit vector");
         //Ensure result is expected vector (assuming positive for now, not sure what to do if negative normal (0,0,-1)
-        //TODO: might need to implement negative normal vector (do assertTrue, check both directions)
-        assertEquals(new Vector(0,0,1),result,"x,y plane's normal at (1,1,0) is wrong (not (0,0,1))");
+        assertTrue(result.equals(new Vector(0,0,1)) || result.equals(new Vector(0,0,-1)),
+                "x,y plane's normal at (1,1,0) is wrong (not (0,0,1/-1))");
         // =============== Boundary Values Tests ==================
         //No edge cases
 
