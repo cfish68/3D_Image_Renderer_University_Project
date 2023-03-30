@@ -3,6 +3,7 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import primitives.Util;
 
 /**
  * Class cylinder which inherits from Tube. This class has a height (not infinite like tube.)
@@ -19,6 +20,9 @@ public class Cylinder extends Tube{
      */
     Cylinder(double radius, Ray ray, double height) {
         super(radius, ray);
+        if (height <= 0){
+            throw new IllegalArgumentException("Height must be greater than 0.");
+        }
         this.height = height;
     }
 
@@ -30,7 +34,16 @@ public class Cylinder extends Tube{
      */
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        //Check if on base
+        if (Util.isZero(axisRay.getDir().dotProduct(point.subtract(this.axisRay.getP0())))){
+            //returns negative of axis ray normalised
+            return this.axisRay.getDir().normalize().scale(-1);
+
+        } else if (Util.isZero(axisRay.getDir().dotProduct(point. //Check if on top
+                subtract(this.axisRay.getP0().add(this.axisRay.getDir().normalize().scale(this.height))))))
+            return this.axisRay.getDir().normalize();
+        //If neither do super(point)
+        return super.getNormal(point);
     }
 
     /**

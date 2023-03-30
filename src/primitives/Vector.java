@@ -42,7 +42,12 @@ public class Vector extends Point{
      * @param vector
      * @return
      */
-    public Vector subtract(Vector vector){return new Vector(this.xyz.subtract(vector.xyz));}
+    public Vector subtract(Vector vector){
+        if (this.equals(vector)){
+            throw new IllegalArgumentException("Two equal vectors cannot be subtracted.");
+        }
+        return new Vector(this.xyz.subtract(vector.xyz));
+    }
 
     /**
      * multiplies a vector by a number.
@@ -59,7 +64,9 @@ public class Vector extends Point{
      * @return
      */
     public double dotProduct(Vector vector){
-        return this.xyz.d1*vector.xyz.d1+this.xyz.d2*vector.xyz.d2 + this.xyz.d3*vector.xyz.d3;
+        return this.xyz.d1 * vector.xyz.d1 +
+                this.xyz.d2 * vector.xyz.d2 +
+                this.xyz.d3 * vector.xyz.d3;
     }
 
     /**
