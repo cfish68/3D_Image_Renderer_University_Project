@@ -42,7 +42,7 @@ public class Sphere extends RadialGeometry{
                 "\nand sphere with center at " + this.center.toString();
     }
     @Override
-    public List<Point> findIntsersections(Ray ray) {
+    public List<Point> findIntersections(Ray ray) {
         return null;
     }
 }
