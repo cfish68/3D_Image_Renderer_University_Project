@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * Class Sphere which represents a sphere which is a type of RadialGeometry and therefor inherits from it.
@@ -37,5 +40,9 @@ public class Sphere extends RadialGeometry{
     public String toString() {
         return super.toString() +
                 "\nand sphere with center at " + this.center.toString();
+    }
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
     }
 }

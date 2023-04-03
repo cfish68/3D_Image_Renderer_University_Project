@@ -1,6 +1,9 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
+
+import java.util.List;
 
 /**
  * Triangle class. A triangle has 3 corners and is a polygon, so it inherits from polygon.
@@ -25,5 +28,10 @@ public class Triangle extends Polygon{
             points += point.toString() + ' ';
         }
         return super.toString() + " and a triangle with point 3 points: " + points;
+    }
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
     }
 }

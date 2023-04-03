@@ -5,6 +5,8 @@ import primitives.Ray;
 import primitives.Vector;
 import primitives.Util;
 
+import java.util.List;
+
 /**
  * Class cylinder which inherits from Tube. This class has a height (not infinite like tube.)
  * an axisRay from Tube and a radius because it is a RadialGeometry.
@@ -53,5 +55,10 @@ public class Cylinder extends Tube{
     @Override
     public String toString() {
         return super.toString() + " and Tube with height: " + this.height;
+    }
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
     }
 }

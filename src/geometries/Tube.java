@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Class Tube which extends RadialGeometry.
  * This class has an axisRay (which is a ray through the middle.) Tube also has a radius from Radial Geometry.
@@ -46,5 +48,9 @@ public class Tube extends RadialGeometry {
     public String toString() {
         return super.toString()
                 + "\nand tube with axis " + this.axisRay.toString();
+    }
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
     }
 }
