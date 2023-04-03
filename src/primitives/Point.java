@@ -86,4 +86,26 @@ public class Point {
     public String toString() {
         return "Point: " + xyz.toString();
     }
+
+    /**
+     * getter function to return the x value of (x,y,z) from point
+     * @return
+     */
+    public double getX(){
+        return this.xyz.d1;
+    }
+    /**
+     * getter function to return the y value of (x,y,z) from point
+     * @return
+     */
+    public double getY(){
+        return this.xyz.d2;
+    }
+    /**
+     * getter function to return the z value of (x,y,z) from point
+     * @return
+     */
+    public double getZ(){
+        return this.xyz.d3;
+    }
 }
