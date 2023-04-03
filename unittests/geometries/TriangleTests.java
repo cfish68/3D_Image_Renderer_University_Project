@@ -5,6 +5,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -60,6 +62,37 @@ class TriangleTests {
      */
     @Test
     public void testFindIntersections() {
+        Triangle triangle = new Triangle(new Point(0,0,0), new Point(0,2,0), new Point(0,1,2));
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Inside Triangle
+        List<Point> result = triangle.findIntersections(new Ray(new Point(1,1,1), new Vector(-1, 0,0)));
+        assertEquals(1, result.size(),
+                "Wrong number of points. Expected intersections is 1 for ray which goes through the triangle.");
+        assertEquals(List.of(new Point(0,1,1)), result,
+                "Ray crosses triangle at wrong point");
+        //TC02: Outside against edge
+        result = triangle.findIntersections(new Ray(new Point(1,0,1), new Vector(-1, 0,0)));
+        assertEquals(0, result.size(),
+                "Wrong number of points. Expected intersections is 0 for ray which is outside against edge.");
+        //TC03: Outside against vertex
+        result = triangle.findIntersections(new Ray(new Point(1,-1,-1), new Vector(-1, 0,0)));
+        assertEquals(0, result.size(),
+                "Wrong number of points. Expected intersections is 0 for ray which is outside against vertex.");
+        // =============== Boundary Values Tests ==================
+        //TC11: On edge
+        result = triangle.findIntersections(new Ray(new Point(-1,-1,0), new Vector(1, 0,0)));
+        assertEquals(0, result.size(),
+                "Wrong number of points, 0 expected when on edge");
+        //TC12: In vertex
+        result = triangle.findIntersections(new Ray(new Point(-1,0,0), new Vector(1, 0,0)));
+        assertEquals(0, result.size(),
+                "Wrong number of points. 0 expected when in vertex.");
+        //TC13: On edge's continuation
+        result = triangle.findIntersections(new Ray(new Point(1,3,0), new Vector(1, 0,0)));
+        assertEquals(0, result.size(),
+                "Wrong number of points. 0 expected on edge's continuation.");
+
+
     }
 
 
