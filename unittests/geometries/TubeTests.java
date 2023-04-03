@@ -68,4 +68,11 @@ class TubeTests {
         assertEquals(new Vector(0,1,0),result,"TC11: Tube's normal at origin of ray is wrong");
 
     }
+
+    /**
+     * Test method for {@link geometries.Cylinder#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    public void testFindIntersections() {
+    }
 }

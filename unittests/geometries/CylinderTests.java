@@ -119,4 +119,11 @@ class CylinderTests {
         //not the normal of round surface)
         assertEquals(new Vector(0,0,1),result,"Normal to top edge of cylinder is wrong");
     }
+
+    /**
+     * Test method for {@link geometries.Cylinder#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    public void testFindIntersections() {
+    }
 }

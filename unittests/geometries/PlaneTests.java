@@ -55,4 +55,11 @@ class PlaneTests {
         //No edge cases
 
     }
+
+    /**
+     * Test method for {@link geometries.Plane#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    public void testFindIntersections() {
+    }
 }

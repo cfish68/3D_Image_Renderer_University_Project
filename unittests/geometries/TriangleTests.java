@@ -55,4 +55,13 @@ class TriangleTests {
         //No Boundary tests for Triangle
     }
 
+    /**
+     * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    public void testFindIntersections() {
+    }
+
+
+
 }
