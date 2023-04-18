@@ -6,6 +6,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * this class, Plane represents a plain with a point and normal vector of the plane
  */
@@ -64,6 +67,24 @@ public class Plane implements Geometry{
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+        try {
+            double denom = this.getNormal().dotProduct(ray.getDir().normalize());
+            if (isZero(denom)) {
+                return null;//this means the direction of the vector is parallel to the plane. and therefore there are no intersections
+            }
+            double numerator = this.getNormal().dotProduct(this.q0.subtract(ray.getP0()));
+            if (isZero(numerator)) {
+                return null;//p0 lies in the plane and therefore there are no intersections
+            }
+            double t = alignZero(numerator / denom);
+            if (t > 0) {
+                if (isZero(this.getNormal().dotProduct(this.q0.subtract(ray.getP0().add(ray.getDir().normalize().scale(t))))))
+                    return List.of(ray.getP0().add(ray.getDir().normalize().scale(t)));
+            }
+                return null;
+        }
+        catch(IllegalArgumentException i) {
+            return null;
+        }
     }
 }
