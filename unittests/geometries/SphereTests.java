@@ -60,11 +60,11 @@ class SphereTests {
      */
     @Test
     public void testFindIntersections() {
-        Sphere sphere = new Sphere(1d, new Point (1, 0, 0));
+        Sphere sphere = new Sphere(1, new Point (1, 0, 0));
 // ============ Equivalence Partitions Tests ==============
 // TC01: Ray's line is outside the sphere (0 points)
         assertNull(sphere.findIntersections(new Ray(new Point(-1, 0, 0), new Vector(1, 1, 0))),
-        "Ray's line out of sphere");
+        "Ray's line out of sphere, should be 0 intersections");
 // TC02: Ray starts before and crosses the sphere (2 points)
         Point p1 = new Point(0.0651530771650466, 0.355051025721682, 0);
         Point p2 = new Point(1.53484692283495, 0.844948974278318, 0);
@@ -102,7 +102,7 @@ class SphereTests {
 
 // **** Group: Ray's line goes through the center
 // TC13: Ray starts before the sphere (2 points)
-         result = sphere.findIntersections(new Ray(new Point(0,2,1),
+        result = sphere.findIntersections(new Ray(new Point(0,2,1),
                 new Vector(0,-1,0)));
         assertEquals(2, (result).size(),
                 "Wrong number of points. Expected intersections is 2 for ray from before sphere towards the center of the sphere");
@@ -155,6 +155,6 @@ class SphereTests {
         result = sphere.findIntersections(new Ray(new Point(0,2,1), new Vector(0,0,1)));
         assertEquals(0, result.size(),
                 "Wrong number of points. Expected intersections is 0 for ray which starts after the tangent point");
-    }
+    }     //TODO: change above message to correct (currently the same as TC21)
 
 }
