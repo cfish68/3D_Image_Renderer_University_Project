@@ -46,23 +46,38 @@ public class Sphere extends RadialGeometry{
     public List<Point> findIntersections(Ray ray) {
 
         Vector u = center.subtract(ray.getP0());
-        double t = ray.getDir().dotProduct(u);
-        double d = Math.sqrt(u.lengthSquared() - t*t);
-        //if d is greater than the radius then there are no intersection points and we return null
-        if(d>=radius) {
+        double t = ray.getDir().normalize().dotProduct(u);
+        double tSquared = t*t;
+        double uLengthSquared = u.lengthSquared();
+        double d;
+        if(uLengthSquared-tSquared < 0) {// in this case p0 is inside the sphere
+            d = Math.sqrt(tSquared - uLengthSquared);
+            if (d >= radius) {
+                return null;
+            }
+            return List.of(ray.getP0().add(ray.getDir().normalize().scale(-t)));
+        }
+        else
+            d = Math.sqrt(uLengthSquared - tSquared);
+        //if d is greater than the radius then there are no intersection points then we return null
+        if (d >= radius) {
             return null;
         }
-        double th = Math.sqrt(radius*radius - d*d);
+        double th = Math.sqrt(radius * radius - d * d);
         List<Point> result = new ArrayList<Point>();
         double t1 = t + th;
         double t2 = t - th;
-        if(t1>0){
-            result.add(ray.getP0().add(ray.getDir().scale(t1)));
-        }
-        if(t2>0){
-            result.add(ray.getP0().add(ray.getDir().scale(t2)));
-        }
-        return result;
+        //if t1 is greater than zero then we have a point
+        if (t1 > 0) {
+            //if t2 is greater than zero then we have 2 points
+            if (t2 > 0) {
+                return List.of(ray.getP0().add(ray.getDir().normalize().scale(t1)), ray.getP0().add(ray.getDir().normalize().scale(t2)));
+            } else {//t2 is not greater than zero hence we only have t1
+                return List.of(ray.getP0().add(ray.getDir().normalize().scale(t1)));
+            }
+        } else {//t1 is not greater than zero hence we only have t2
+            return List.of(ray.getP0().add(ray.getDir().normalize().scale(t2)));
         }
 
+    }
 }
