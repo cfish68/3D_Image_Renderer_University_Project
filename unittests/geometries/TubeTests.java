@@ -74,5 +74,35 @@ class TubeTests {
      */
     @Test
     public void testFindIntersections() {
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Ray is outside tube (0 points)
+
+        //TC02: Ray crosses tube (2 points)
+
+        //TC03: Ray starts inside tube and isn't parallel to the tubes ray (1 point)
+
+        //TC04: Ray would cross tube but starts after tube (0 points)
+
+        // =============== Boundary Values Tests ==================
+            // **** Group: Ray's line crosses the sphere (but not the center)
+        //TC11: Ray starts at tube face and goes inside (1 point)
+        //TC12: Ray starts at sphere and goes outside (0 points)
+            // **** Group: Ray's line goes through the tubes ray and isn't parralel to it
+        //TC13: Ray starts before the tube (2 points)
+        //TC14: Ray starts at tube and goes inside (1 points)
+        //TC15: Ray starts inside the tube (1 points)
+        //TC16: Ray starts at the base of tubes ray (1 points)
+        //TC17: Ray starts at tube and goes outside (0 points)
+        //TC18: Ray starts after sphere (0 points)
+            // **** Group: Ray's line is tangent to the tube (all tests 0 points)
+        //TC19: Ray starts before the tangent point
+        //TC20: Ray starts at the tangent point
+        //TC21: Ray starts after the tangent point
+        //TC24: Ray is parallel to tubes ray and starts at radius of tube
+            // **** Group: Special cases
+        //TC22: Ray's line is outside, ray start is orthogonal to the line to tubes' ray start (0 points)
+        //TC22: Ray is parallel to Tubes ray and starts inside (0 points)
+        //TC23: Ray is parallel to tubes ray and starts outside (0 points)
+
     }
 }
