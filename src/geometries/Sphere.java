@@ -82,6 +82,6 @@ public class Sphere extends RadialGeometry{
         } else {//t1 is not greater than zero hence we only have t2
             return List.of(ray.getP0().add(ray.getDir().normalize().scale(t2)));
         }
-
+            //TODO: replace ray.getP0().add(ray.getDir().normalize().scale(t2)) with ray.getPoint(t2), I tried but it failed tests (Avi)
     }
 }
