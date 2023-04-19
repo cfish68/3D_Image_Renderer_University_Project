@@ -18,15 +18,15 @@ public class Geometries implements Intersectable{
      * Empty Constructor which creates an empty list of geometries
      */
     public Geometries() {
-        geometries = new ArrayList<>();
+        geometries = List.of();
     }
 
     /**
      * Constructor that takes in a list of geometries
      * @param geometries
      */
-    public Geometries(List<Intersectable> geometries) {
-        this.geometries = geometries;
+    public Geometries(Intersectable... geometries) {
+        this.geometries = List.of(geometries);
     }
 
     /**
