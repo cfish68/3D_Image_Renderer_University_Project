@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,8 +38,26 @@ public class Geometries implements Intersectable{
         geometries.add(g);
     }
 
+    /**
+     * Takes in a ray and returns all intersections with the geometries within the list geometries
+     * @param ray
+     * @return
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+        if (geometries.isEmpty())
+            return null;
+        else
+        { //TODO: I don't know how to do this without creating a list beforehand
+            List<Point> result = List.of();
+            for (Intersectable geometry : geometries) {
+                result.addAll(geometry.findIntersections(ray));
+            }
+
+            if (!geometries.isEmpty())
+                return result;
+            else
+                return null;
+        }
     }
 }
