@@ -51,6 +51,39 @@ public class Tube extends RadialGeometry {
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+        //Intersection points are roots of: at^2 + bt + c = 0 where a,b,c are the following
+        Vector normalizedAxis = axisRay.getDir().normalize();
+        Vector v = ray.getDir();
+        Vector w = ray.getP0().subtract(axisRay.getP0());
+
+        double a = (v.dotProduct(v)) - Math.pow(v.dotProduct(normalizedAxis),2);
+        double b = 2 * (v.dotProduct(w) - (v.dotProduct(normalizedAxis) * (w.dotProduct(normalizedAxis))));
+        double c = (w.dotProduct(w) - Math.pow(w.dotProduct(normalizedAxis),2)) - Math.pow(radius,2);
+
+        double distance;
+        double t1, t2; //will become scalars for the equation ray.p0 + t1*ray.dir
+        Point int1, int2; //Intersection 1 and 2
+        double discriminant = b*b - 4*a*c;
+
+        //if true, line is tangent or greater than radius from axisRay
+        if (discriminant <= 0)
+            return null;
+        else //there are 1-2 intersections depending on where ray.p0 is
+            t1 = -b + Math.sqrt(discriminant)/2*a;
+            t2 = -b - Math.sqrt(discriminant)/2*a;
+            int1 = ray.getP0().add(ray.getDir().scale(t1));
+            int2 = ray.getP0().add(ray.getDir().scale(t2));
+
+            //Only return intersections with positive non-zero scalars
+            //as the rest are behind the ray
+            if(t1 > 0 && t2 > 0)
+                return List.of(int1, int2);
+            else if(t1 > 0)
+                return List.of(int1);
+            else if(t2 > 0)
+                return List.of(int2);
+            else
+                return null;
+
     }
 }

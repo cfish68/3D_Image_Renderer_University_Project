@@ -164,8 +164,8 @@ class TubeTests {
                 "TC23: Should be 0 intersections");
 
             // **** Group: Special cases
-        //TC24: Ray's line is outside, ray start is orthogonal to the line to tubes' ray start (0 points)
-        //TODO: not sure how to do above test case (Avi)
+        //TC24: Ray's line is outside, ray's start is where the axisRay is orthogonal to ray (0 points)
+        assertNull(tube.findIntersections(new Ray(new Point(-1,0,0), new Vector(0,1,0))));
 
         //TC25: Ray is parallel to Tubes ray and starts inside (0 points)
         assertNull(tube.findIntersections(new Ray(new Point(0.5,0,0), new Vector(0,0,1))),
