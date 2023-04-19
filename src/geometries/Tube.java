@@ -49,6 +49,12 @@ public class Tube extends RadialGeometry {
         return super.toString()
                 + "\nand tube with axis " + this.axisRay.toString();
     }
+
+    /**
+     * Returns the intersection/s of the given ray and the tube.
+     * @param ray
+     * @return
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         //Intersection points are roots of: at^2 + bt + c = 0 where a,b,c are the following
