@@ -121,7 +121,7 @@ class TubeTests {
         //TC14: Ray starts at tube and goes inside (1 points)
         result = tube.findIntersections(new Ray(new Point(1,-1,0), new Vector(0,1,0)));
         assertEquals(1, result.size(), "TC14: Wrong number of intersections, expected is 1");
-        assertEquals(List.of(new Point(0,1,0)), result,
+        assertEquals(List.of(new Point(1,1,0)), result,
                 "TC14: Ray intercepts tube at wrong point when starting at tube and going inside");
 
         //TC15: Ray starts inside the tube (1 points)
@@ -174,6 +174,12 @@ class TubeTests {
         //TC26: Ray is parallel to tubes ray and starts outside (0 points)
         assertNull(tube.findIntersections(new Ray(new Point(3,3,0), new Vector(0,0,1))),
                 "TC26: Should be 0 intersections");
+
+        //TC27: If p0 of axisRay is same as p0 of ray
+        result = tube.findIntersections(new Ray(new Point(1,0,0), new Vector(1,0,0)));
+        assertEquals(1, result.size(), "TC27: Wrong number of intersections, expected is 1 for ray from inside the tube");
+        assertEquals(List.of(new Point(2,0,0)), result, "TC27: Intersection of ray from inside tube is wrong.");
+
 
     }
 }
