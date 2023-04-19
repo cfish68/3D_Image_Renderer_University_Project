@@ -44,7 +44,7 @@ class SphereTests {
         // ============ Equivalence Partitions Tests ==============
         //TC01: There is a simple single test here
         //Ensure no exceptions
-        assertDoesNotThrow(() -> sphere.getNormal(new Point(3,0,0)), "ERROR: get Normal throws an excpetion.");
+        assertDoesNotThrow(() -> sphere.getNormal(new Point(3,0,0)), "ERROR: get Normal throws an exception.");
         //Generate test result.
         Vector result = sphere.getNormal(new Point(3,0,0));
         //Ensure |result| = 1
@@ -142,7 +142,7 @@ class SphereTests {
         assertNull(sphere.findIntersections(new Ray(new Point(0,1,1), new Vector(0,0,1))),"Ray which starts at the tangent point has 0 intersections");
 
 // TC21: Ray starts after the tangent point
-        assertNull(sphere.findIntersections(new Ray(new Point(0,1,1), new Vector(0,0,1))), "Ray which starts after the tanget point has 0 intersections");
+        assertNull(sphere.findIntersections(new Ray(new Point(0,1,1), new Vector(0,0,1))), "Ray which starts after the tangent point has 0 intersections");
 
 // **** Group: Special cases
 // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
