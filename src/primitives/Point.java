@@ -94,6 +94,7 @@ public class Point {
     public double getX(){
         return this.xyz.d1;
     }
+
     /**
      * getter function to return the y value of (x,y,z) from point
      * @return
@@ -101,6 +102,7 @@ public class Point {
     public double getY(){
         return this.xyz.d2;
     }
+
     /**
      * getter function to return the z value of (x,y,z) from point
      * @return

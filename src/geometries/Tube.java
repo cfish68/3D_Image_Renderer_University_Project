@@ -90,19 +90,12 @@ public class Tube extends RadialGeometry {
 
             //Only return intersections with positive non-zero scalars
             //as the rest are behind the ray
-            if(t1 > 0 && t2 > 0) {
-                int1 = ray.getP0().add(ray.getDir().scale(t1));
-                int2 = ray.getP0().add(ray.getDir().scale(t2));
-                return List.of(int1, int2);
-            }
-            else if(t1 > 0) {
-                int1 = ray.getP0().add(ray.getDir().scale(t1));
-                return List.of(int1);
-            }
-            else if(t2 > 0) {
-                int2 = ray.getP0().add(ray.getDir().scale(t2));
-                return List.of(int2);
-            }
+            if(t1 > 0 && t2 > 0)
+                return List.of(ray.getPoint(t1), ray.getPoint(t2));
+            else if(t1 > 0)
+                return List.of(ray.getPoint(t1));
+            else if(t2 > 0)
+                return List.of(ray.getPoint(t2));
             else
                 return null;
 

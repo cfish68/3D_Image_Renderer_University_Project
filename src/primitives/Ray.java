@@ -55,5 +55,13 @@ public class Ray {
                 + "\nWith " + dir.toString();
     }
 
+    /**
+     * returns the point P = p0 + dir.scale(t)
+     * @param t
+     * @return
+     */
+    public Point getPoint(double t){
+        return p0.add(dir.scale(t));
+    }
 
 }
