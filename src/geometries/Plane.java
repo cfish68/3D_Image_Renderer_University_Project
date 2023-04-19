@@ -67,24 +67,45 @@ public class Plane implements Geometry{
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        try {
-            double denom = this.getNormal().dotProduct(ray.getDir().normalize());
-            if (isZero(denom)) {
-                return null;//this means the direction of the vector is parallel to the plane. and therefore there are no intersections
-            }
-            double numerator = this.getNormal().dotProduct(this.q0.subtract(ray.getP0()));
+//        try {
+//            double denom = this.getNormal().dotProduct(ray.getDir().normalize());
+//            if (isZero(denom)) {
+//                return null;//this means the direction of the vector is parallel to the plane. and therefore there are no intersections
+//            }
+//            double numerator = this.getNormal().dotProduct(this.q0.subtract(ray.getP0()));
+//            if (isZero(numerator)) {
+//                return null;//p0 lies in the plane and therefore there are no intersections
+//            }
+//            double t = alignZero(numerator / denom);
+//            if (t > 0) {
+//                if (isZero(this.getNormal().dotProduct(this.q0.subtract(ray.getP0().add(ray.getDir().normalize().scale(t))))))
+//                    return List.of(ray.getP0().add(ray.getDir().normalize().scale(t)));
+//            }
+//                return null;
+//        }
+//        catch(IllegalArgumentException i) {
+//            return null;
+//        }
+        if(this.q0.equals(ray.getP0())){
+            return null;
+        }
+        double denom = this.getNormal().dotProduct(ray.getDir().normalize());
+        if (isZero(denom)) {
+            return null;//this means the direction of the vector is parallel to the plane. and therefore there are no intersections
+        }
+        double numerator = this.getNormal().dotProduct(this.q0.subtract(ray.getP0()));
             if (isZero(numerator)) {
                 return null;//p0 lies in the plane and therefore there are no intersections
             }
-            double t = alignZero(numerator / denom);
-            if (t > 0) {
-                if (isZero(this.getNormal().dotProduct(this.q0.subtract(ray.getP0().add(ray.getDir().normalize().scale(t))))))
-                    return List.of(ray.getP0().add(ray.getDir().normalize().scale(t)));
-            }
-                return null;
+        double t = alignZero(numerator / denom);
+        Point p0PlusTV = ray.getP0().add(ray.getDir().normalize());
+        if(this.q0.equals(p0PlusTV)){//the ray intersects the plane at point P0
+            return List.of(this.q0);
         }
-        catch(IllegalArgumentException i) {
-            return null;
+        else if(t>0){
+
+            return List.of(ray.getP0().add(ray.getDir().normalize().scale(t)));
         }
+        return null;
     }
 }

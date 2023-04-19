@@ -63,7 +63,7 @@ class PlaneTests {
      */
     @Test
     public void testFindIntersections() {
-        Plane plane = new Plane(new Point(1,0,0), new Vector(0,1,0), new Vector(0,0,0));
+        Plane plane = new Plane(new Point(0,0,0), new Vector(1,0,0), new Vector(0,1,0));
         // ============ Equivalence Partitions Tests ==============
         //**** Group: The ray must be neither orthogonal nor parallel to the plane
         //TC01: Ray intersect the plane
@@ -93,7 +93,6 @@ class PlaneTests {
 
         //TC15: head (p0) is after the plane
         assertNull(plane.findIntersections(new Ray(new Point(0,0,1), new Vector(0,0,1))),"Head after the plane and orthogonal should be 0 intersection points");
-        assertEquals(0, (result).size(), "Head after the plane and orthogonal should be 0 intersection points");
         //**** Group: Ray is neither orthogonal nor parallel to and begins at the plane (p0 is in the plane, but not the ray)
         //TC16: Ray begins at the plane
         assertNull(plane.findIntersections(new Ray(new Point(1,1,0), new Vector(1,1,1))),"Head in the plane and not orthogonal or parallel should be 0 intersection points");
