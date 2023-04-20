@@ -5,6 +5,7 @@ import primitives.Ray;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -47,20 +48,17 @@ public class Geometries implements Intersectable{
     public List<Point> findIntersections(Ray ray) {
         if (geometries.isEmpty())
             return null;
-        else
-        { //TODO: I don't know how to do this without creating a list beforehand
-            List<Point> result = new ArrayList<Point>();
+        else { //TODO: I don't know how to do this without creating a list beforehand
+            LinkedList<Point> result = null;
             for (Intersectable geometry : geometries) {
                 List<Point> intersections = geometry.findIntersections(ray);
-                if(intersections!=null){
-                    result.addAll(intersections);
+                if (intersections != null) {
+                    if (result == null) result = new LinkedList<>(intersections);
+                    else result.addAll(intersections);
                 }
             }
 
-            if (!result.isEmpty())
-                return result;
-            else
-                return null;
+            return result;
         }
     }
 }
