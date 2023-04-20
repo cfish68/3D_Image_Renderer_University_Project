@@ -79,15 +79,16 @@ public class Plane implements Geometry{
             if (isZero(numerator)) {
                 return null;//p0 lies in the plane and therefore there are no intersections
             }
-        double t = alignZero(numerator / denom);
+        double t = (alignZero(numerator / denom))/ray.getDir().length();
         Point p0PlusTV = ray.getP0().add(ray.getDir().normalize());
         if(this.q0.equals(p0PlusTV)){//the ray intersects the plane at point P0
             return List.of(this.q0);
         }
         else if(t>0){
 
-            return List.of(ray.getP0().add(ray.getDir().normalize().scale(t)));
+            return List.of(ray.getPoint(t));
         }
         return null;
+
     }
 }

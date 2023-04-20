@@ -70,20 +70,21 @@ public class Sphere extends RadialGeometry{
         }
         double th = Math.sqrt(radius * radius - d * d);
 
-        double t1 = t + th;
-        double t2 = t - th;
+        double t1 = (t + th)/ray.getDir().length();
+        double t2 = (t - th)/ray.getDir().length();
         //if t1 is greater than zero then we have a point
         if (t1 > 0) {
             //if t2 is greater than zero then we have 2 points
             if (t2 > 0) {
-                return List.of(ray.getP0().add(ray.getDir().normalize().scale(t1)), ray.getP0().add(ray.getDir().normalize().scale(t2)));
+                return List.of(ray.getPoint(t1), ray.getPoint(t2));
             } else {//t2 is not greater than zero hence we only have t1
-                return List.of(ray.getP0().add(ray.getDir().normalize().scale(t1)));
+                return List.of(ray.getPoint(t1));
             }
         } else if(t2 > 0) {//t1 is not greater than zero hence we only have t2
-            return List.of(ray.getP0().add(ray.getDir().normalize().scale(t2)));
+            return List.of(ray.getPoint(t2));
         }
         return null;
-            //TODO: replace ray.getP0().add(ray.getDir().normalize().scale(t2)) with ray.getPoint(t2), I tried but it failed tests (Avi)
+
+//ray.getP0().add(ray.getDir().normalize().scale(t1)), ray.getP0().add(ray.getDir().normalize().scale(t2))
     }
 }
