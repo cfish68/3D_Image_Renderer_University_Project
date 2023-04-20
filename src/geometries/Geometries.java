@@ -49,12 +49,15 @@ public class Geometries implements Intersectable{
             return null;
         else
         { //TODO: I don't know how to do this without creating a list beforehand
-            List<Point> result = List.of();
+            List<Point> result = new ArrayList<Point>();
             for (Intersectable geometry : geometries) {
-                result.addAll(geometry.findIntersections(ray));
+                List<Point> intersections = geometry.findIntersections(ray);
+                if(intersections!=null){
+                    result.addAll(intersections);
+                }
             }
 
-            if (!geometries.isEmpty())
+            if (!result.isEmpty())
                 return result;
             else
                 return null;

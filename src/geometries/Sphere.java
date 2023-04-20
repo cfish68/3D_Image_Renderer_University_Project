@@ -51,6 +51,7 @@ public class Sphere extends RadialGeometry{
             return List.of(ray.getP0().add(ray.getDir().normalize().scale(radius)));
         }
         double t = ray.getDir().normalize().dotProduct(u);
+
         double tSquared = t*t;
         double uLengthSquared = u.lengthSquared();
         double d;
@@ -68,7 +69,7 @@ public class Sphere extends RadialGeometry{
             return null;
         }
         double th = Math.sqrt(radius * radius - d * d);
-        List<Point> result = new ArrayList<Point>();
+
         double t1 = t + th;
         double t2 = t - th;
         //if t1 is greater than zero then we have a point
@@ -79,9 +80,10 @@ public class Sphere extends RadialGeometry{
             } else {//t2 is not greater than zero hence we only have t1
                 return List.of(ray.getP0().add(ray.getDir().normalize().scale(t1)));
             }
-        } else {//t1 is not greater than zero hence we only have t2
+        } else if(t2 > 0) {//t1 is not greater than zero hence we only have t2
             return List.of(ray.getP0().add(ray.getDir().normalize().scale(t2)));
         }
+        return null;
             //TODO: replace ray.getP0().add(ray.getDir().normalize().scale(t2)) with ray.getPoint(t2), I tried but it failed tests (Avi)
     }
 }
