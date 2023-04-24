@@ -1,6 +1,7 @@
 package renderer;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 import static primitives.Util.isZero;
@@ -17,6 +18,14 @@ public class Camera {
     private double height;
     private double distance;
 
+    /**
+     * Constructor for a Camera object, taking in location and vectors 'up' and 'to'.
+     * vectors 'up' and 'to' must be orthogonal. The constructor creats the vector 'right'
+     * being perpendicular to 'up' and 'to'.
+     * @param location
+     * @param up
+     * @param to
+     */
     Camera(Point location, Vector up, Vector to){
         if(!isZero(up.dotProduct(to))){
             throw new IllegalArgumentException("ERROR: Camera vectors up and to must be perpendicular");
@@ -80,6 +89,18 @@ public class Camera {
      */
     public Camera setVPDistance(double distance) {
         this.distance = distance;
+        return null;
+    }
+
+    /**
+     * Constructs a Ray through a pixel for creating the image on the view plane.
+     * @param nX
+     * @param nY
+     * @param j
+     * @param i
+     * @return
+     */
+    public Ray constructRay(int nX, int nY, int j, int i){
         return null;
     }
 
