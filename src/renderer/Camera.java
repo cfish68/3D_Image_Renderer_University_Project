@@ -15,7 +15,7 @@ public class Camera {
     //View Plane attributes
     private double width;
     private double height;
-    private Vector direction;
+    private double distance;
 
     Camera(Point location, Vector up, Vector to){
         if(!isZero(up.dotProduct(to))){
@@ -59,6 +59,28 @@ public class Camera {
         return right;
     }
 
+    /**
+     *A set function for the View Plane size which receives two parameters -
+     * width and height (in this order) and returns the camera’s object it self (this)
+     * @param width
+     * @param height
+     * @return
+     */
+    public Camera setVPSize(double width, double height){
+        this.width = width;
+        this.height = height;
+        return this;
+    }
 
+    /**
+     *A set function for the View Plane distance from the camera,
+     * the function returns the camera’s object (this).
+     * @param distance
+     * @return
+     */
+    public Camera setVPDistance(double distance) {
+        this.distance = distance;
+        return null;
+    }
 
 }
