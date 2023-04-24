@@ -24,7 +24,7 @@ public class Plane implements Geometry{
      * @param point2
      * @param point3
      */
-    Plane(Point point1, Point point2, Point point3){
+    public Plane(Point point1, Point point2, Point point3){
         if (point1.equals(point2) || point1.equals(point3) || point2.equals(point3)){
             throw new IllegalArgumentException("Plane must be 3 unique points.");
         }

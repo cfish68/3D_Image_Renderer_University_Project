@@ -18,7 +18,7 @@ public class Tube extends RadialGeometry {
      * @param radius
      * @param ray
      */
-    Tube(double radius, Ray ray) {
+    public Tube(double radius, Ray ray) {
         super(radius);
         axisRay = ray;
     }

@@ -26,7 +26,7 @@ public class Camera {
      * @param up
      * @param to
      */
-    Camera(Point location, Vector up, Vector to){
+    public Camera(Point location, Vector up, Vector to){
         if(!isZero(up.dotProduct(to))){
             throw new IllegalArgumentException("ERROR: Camera vectors up and to must be perpendicular");
         }
@@ -89,7 +89,7 @@ public class Camera {
      */
     public Camera setVPDistance(double distance) {
         this.distance = distance;
-        return null;
+        return this;
     }
 
     /**
