@@ -6,10 +6,16 @@ import primitives.Vector;
 import static primitives.Util.isZero;
 
 public class Camera {
+    //Camera attributes
     private Point location;
     private Vector to;
     private Vector up;
     private Vector right;
+
+    //View Plane attributes
+    private double width;
+    private double height;
+    private Vector direction;
 
     Camera(Point location, Vector up, Vector to){
         if(!isZero(up.dotProduct(to))){
