@@ -1,9 +1,6 @@
 package renderer;
 
-import geometries.Geometry;
-import geometries.Intersectable;
-import geometries.Plane;
-import geometries.Sphere;
+import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
@@ -62,6 +59,9 @@ public class CameraGeometryIntegrationTests {
         assertEquals(2, sphere.findIntersections(camera.constructRay(3,3,1,1)).size(), "ERROR: TC01 failed simple case sphere after plane with one ray thru the middle of the plane");
     }
 
+    /**
+     * Function for testing Camera Plane integration and ray intersection points between them.
+     */
     @Test
     void CameraPlaneTests() {
         Camera camera = new Camera(new Point(4, 0, 0),new Vector(0,0,1), new Vector(-1,0,0))
@@ -84,5 +84,24 @@ public class CameraGeometryIntegrationTests {
 
     }
 
+    /**
+     * Function for testing Camera Triangle integration and ray intersection points between them.
+     */
+    @Test
+    void CameraTriangleTests() {
+        Camera camera = new Camera(new Point(4, 0, 0),new Vector(0,0,1), new Vector(-1,0,0))
+                .setVPDistance(1).setVPSize(3, 3);
+
+        //TCO1: Triangle only intersects 1 middle ray
+        Triangle triangle = new Triangle(new Point(1,-0.5,-0.5), new Point(1,0.5,-0.5), new Point(1,0,0.5));
+        assertEquals(1, viewPlaneIntersections(camera, triangle),
+                "TC01: Incorrect number of intersections, expected: 1");
+
+        //TC02: Triangle intersects middle and top middle rays
+        triangle = new Triangle(new Point(1,-0.5,-0.5), new Point(1,0.5,-0.5), new Point(1,0,50));
+        assertEquals(2, viewPlaneIntersections(camera, triangle),
+                "TC02: Incorrect number of intersections, expected: 2");
+
+    }
 
 }
