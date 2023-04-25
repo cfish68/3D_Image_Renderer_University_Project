@@ -104,7 +104,7 @@ public class Camera {
     public Ray constructRay(int nX, int nY, int j, int i){
         //move to the 'top left' of the viewPlane
         Point p0 = location.add(to.scale(distance));//p0 is the middle of the viewPlane
-        Point topLeftCorner = p0.add(up.scale(height/2)).add(right.scale(-1*(width/2)));
+        Point topLeftCorner = p0.add(up.scale(height/2)).add(right.scale(-1*(width/2)));//NOTICE!!! this could also be the 'top right corner'. It'll still work just from the opposite direction.
         double pixelheight = height/nX;
         double pixelWidth = width/nY;
         Point centerOfPixel = topLeftCorner.add(right.scale(pixelWidth*(j+0.5))).add(up.scale(-1*pixelheight*(i+0.5)));
