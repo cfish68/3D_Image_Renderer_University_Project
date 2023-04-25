@@ -2,6 +2,7 @@ package renderer;
 
 import geometries.Geometry;
 import geometries.Intersectable;
+import geometries.Plane;
 import geometries.Sphere;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
@@ -19,14 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CameraGeometryIntegrationTests {
 
     /**
-     * Returns the number of intersections for camera at given resolution Nx*Ny
+     * Returns the number of intersections for camera at resolution 3*3
      * @param camera
      * @param geometry
-     * @param nX
-     * @param nY
      * @return
      */
-    private int viewPlaneIntersections(Camera camera, Geometry geometry, int nX, int nY) {
+    private int viewPlaneIntersections(Camera camera, Geometry geometry) {
+        int nX = 3, nY = 3;
         int total = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -64,6 +64,23 @@ public class CameraGeometryIntegrationTests {
 
     @Test
     void CameraPlaneTests() {
+        Camera camera = new Camera(new Point(4, 0, 0),new Vector(0,0,1), new Vector(-1,0,0))
+                .setVPDistance(1).setVPSize(3, 3);
+
+        //TC01: Plane is directly in front and orthogonal to the camera
+        Plane plane = new Plane(new Point(1,0,0), new Point(1,1,0), new Point(1,0,1));
+        assertEquals(9, viewPlaneIntersections(camera, plane),
+                "TC01: Incorrect number of intersections, expected: 9");
+
+        //TC02: Plane is slanted with slope 3:1
+        plane = new Plane(new Point(1,0,0), new Point(1,1,0), new Point(2,0,3));
+        assertEquals(9, viewPlaneIntersections(camera, plane),
+                "TC02: Incorrect number of intersections, expected: 9");
+
+        //TC03: Plane is slanted so that only the top and middle row rays intersect the plane at slope 1:2
+        plane = new Plane(new Point(1,0,0), new Point(1,1,0), new Point(2,0,1));
+        assertEquals(6, viewPlaneIntersections(camera, plane),
+                "TC03: Incorrect number of intersections, expected: 6");
 
     }
 

@@ -20,7 +20,7 @@ class CameraTest {
      * {@link renderer.Camera#constructRay(int, int, int, int)}.
      */
     @Test
-    void testConstructRay() {
+    void testConstructRay() { //TODO: may need to swap all the vectors of up and to due to our Camera constructors not having the same order as here.
         Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(10);
         String badRay = "Bad ray";
 
