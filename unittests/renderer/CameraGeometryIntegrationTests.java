@@ -1,5 +1,7 @@
 package renderer;
 
+import geometries.Geometry;
+import geometries.Intersectable;
 import geometries.Sphere;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
@@ -16,8 +18,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class CameraGeometryIntegrationTests {
 
+    /**
+     * Returns the number of intersections for camera at given resolution Nx*Ny
+     * @param camera
+     * @param geometry
+     * @param nX
+     * @param nY
+     * @return
+     */
+    private int viewPlaneIntersections(Camera camera, Geometry geometry, int nX, int nY) {
+        int total = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                total += geometry.findIntersections(camera.constructRay(nX,nY,j,i)).size();
+            }
+        }
+        return total;
+    }
 
-
+    /**
+     * Function for testing Camera sphere integration and ray intersection points between them.
+     */
     @Test
     void CameraSphereTests() {
         Camera camera = new Camera(new Point(0, 0, 0),new Vector(0,0,1), new Vector(0,-1,0)).setVPDistance(1).setVPSize(3, 3);;
@@ -36,10 +57,14 @@ public class CameraGeometryIntegrationTests {
 //
 //        }
 
-
         //first test seems to only use the center pixel hence the above implementation (incomplete) has been abandoned and kept for further tests.
         //TC01: Sphere is after view plane expected is 2 intersection points
         assertEquals(2, sphere.findIntersections(camera.constructRay(3,3,1,1)).size(), "ERROR: TC01 failed simple case sphere after plane with one ray thru the middle of the plane");
+    }
+
+    @Test
+    void CameraPlaneTests() {
+
     }
 
 
