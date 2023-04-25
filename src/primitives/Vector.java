@@ -38,7 +38,7 @@ public class Vector extends Point{
     }
 
     /**
-     * performs subtraction between two vectors and returns the resulting vector
+     * performs subtraction between two vectors and returns the resulting vector. ((A-B) vector from B to A)
      * @param vector
      * @return
      */

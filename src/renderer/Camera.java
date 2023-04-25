@@ -26,10 +26,11 @@ public class Camera {
      * @param up
      * @param to
      */
-    public Camera(Point location, Vector up, Vector to){
+    public Camera(Point location, Vector to, Vector up){
         if(!isZero(up.dotProduct(to))){
             throw new IllegalArgumentException("ERROR: Camera vectors up and to must be perpendicular");
         }
+        this.location = location;
         right = to.crossProduct(up).normalize();
         this.to = to.normalize();
         this.up = up.normalize();
@@ -101,7 +102,15 @@ public class Camera {
      * @return
      */
     public Ray constructRay(int nX, int nY, int j, int i){
-        return null;
+        //move to the 'top left' of the viewPlane
+        Point p0 = location.add(to.scale(distance));//p0 is the middle of the viewPlane
+        Point topLeftCorner = p0.add(up.scale(height/2)).add(right.scale(-1*(width/2)));
+        double pixelheight = height/nX;
+        double pixelWidth = width/nY;
+        Point centerOfPixel = topLeftCorner.add(right.scale(pixelWidth*(j+0.5))).add(up.scale(-1*pixelheight*(i+0.5)));
+        return new Ray(location, centerOfPixel.subtract(location));
+
+
     }
 
 }
