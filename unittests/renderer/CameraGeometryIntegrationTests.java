@@ -54,6 +54,25 @@ public class CameraGeometryIntegrationTests {
         //first test seems to only use the center pixel hence the above implementation (incomplete) has been abandoned and kept for further tests.
         //TC01: Sphere is after view plane expected is 2 intersection points
         assertEquals(2, sphere.findIntersections(camera.constructRay(3,3,1,1)).size(), "ERROR: TC01 failed simple case sphere after plane with one ray thru the middle of the plane");
+
+        //TC02: Sphere is in view plane and all pixels intersect twice equalling 18
+        sphere = new Sphere(2.5,new Point(0,-2.5,0));
+        assertEquals(18, viewGeometryIntersections(camera,sphere), "TC02: camera is before sphere, view plane is in sphere and all pixels go through two points. expected intersections is 18");
+        //TC03: Sphere is on view plane where expected amount of intersections is 10 (the corners don't intersect
+        sphere = new Sphere(2,new Point(0,-2.5,0));
+        assertEquals(10, viewGeometryIntersections(camera,sphere), "TC03: sphere is on view plane and there are 10 intersections is not working correctly");
+
+        //TC04: camera is inside sphere expected amount of intersections is 9
+        sphere = new Sphere(1,new Point(0,0.5,0));
+        assertEquals(9,viewGeometryIntersections(camera,sphere), "TC04: camera is inside sphere. Expected intersections is 9");
+
+        //TC05: sphere is before camera
+        sphere = new Sphere(1, new Point(0,3,0));
+        assertEquals(0, viewGeometryIntersections(camera, sphere), "TC05: sphere is before the camera. Expected amount of intersections is 0");
+
+        //TC06: camera is on sphere pointing out
+        sphere = new Sphere(1, new Point(0,1,0));
+        assertEquals(0, viewGeometryIntersections(camera, sphere),"TC06: Camera is on sphere pointing outward. Expected amount of intersections is 0");
     }
 
     /**

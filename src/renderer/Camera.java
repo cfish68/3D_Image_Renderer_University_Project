@@ -30,7 +30,7 @@ public class Camera {
         if(!isZero(up.dotProduct(to))){
             throw new IllegalArgumentException("ERROR: Camera vectors up and to must be perpendicular");
         }
-        right = up.crossProduct(to).normalize();
+        right = to.crossProduct(up).normalize();
         this.to = to.normalize();
         this.up = up.normalize();
 
