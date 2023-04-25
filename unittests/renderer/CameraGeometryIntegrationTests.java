@@ -3,10 +3,7 @@ package renderer;
 import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,7 +19,7 @@ public class CameraGeometryIntegrationTests {
      * @param geometry
      * @return
      */
-    private int viewPlaneIntersections(Camera camera, Geometry geometry) {
+    private int viewGeometryIntersections(Camera camera, Geometry geometry) {
         int nX = 3, nY = 3;
         int total = 0;
         for (int i = 0; i < 3; i++) {
@@ -69,17 +66,17 @@ public class CameraGeometryIntegrationTests {
 
         //TC01: Plane is directly in front and orthogonal to the camera
         Plane plane = new Plane(new Point(1,0,0), new Point(1,1,0), new Point(1,0,1));
-        assertEquals(9, viewPlaneIntersections(camera, plane),
+        assertEquals(9, viewGeometryIntersections(camera, plane),
                 "TC01: Incorrect number of intersections, expected: 9");
 
         //TC02: Plane is slanted with slope 3:1
         plane = new Plane(new Point(1,0,0), new Point(1,1,0), new Point(2,0,3));
-        assertEquals(9, viewPlaneIntersections(camera, plane),
+        assertEquals(9, viewGeometryIntersections(camera, plane),
                 "TC02: Incorrect number of intersections, expected: 9");
 
         //TC03: Plane is slanted so that only the top and middle row rays intersect the plane at slope 1:2
         plane = new Plane(new Point(1,0,0), new Point(1,1,0), new Point(2,0,1));
-        assertEquals(6, viewPlaneIntersections(camera, plane),
+        assertEquals(6, viewGeometryIntersections(camera, plane),
                 "TC03: Incorrect number of intersections, expected: 6");
 
     }
@@ -94,12 +91,12 @@ public class CameraGeometryIntegrationTests {
 
         //TCO1: Triangle only intersects 1 middle ray
         Triangle triangle = new Triangle(new Point(1,-0.5,-0.5), new Point(1,0.5,-0.5), new Point(1,0,0.5));
-        assertEquals(1, viewPlaneIntersections(camera, triangle),
+        assertEquals(1, viewGeometryIntersections(camera, triangle),
                 "TC01: Incorrect number of intersections, expected: 1");
 
         //TC02: Triangle intersects middle and top middle rays
         triangle = new Triangle(new Point(1,-0.5,-0.5), new Point(1,0.5,-0.5), new Point(1,0,50));
-        assertEquals(2, viewPlaneIntersections(camera, triangle),
+        assertEquals(2, viewGeometryIntersections(camera, triangle),
                 "TC02: Incorrect number of intersections, expected: 2");
 
     }
