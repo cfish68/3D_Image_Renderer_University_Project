@@ -61,8 +61,8 @@ public class CameraGeometryIntegrationTests {
         assertEquals(2, sphere.findIntersections(camera.constructRay(3,3,1,1)).size(), "ERROR: TC01 failed simple case sphere after plane with one ray thru the middle of the plane");
 
         //TC02: Sphere is in view plane and all pixels intersect twice equalling 18
-        //sphere = new Sphere(2.5,new Point(0,-2,0));
-        //assertEquals(18, viewGeometryIntersections(camera,sphere), "TC02: camera is before sphere, view plane is in sphere and all pixels go through two points. expected intersections is 18");
+        sphere = new Sphere(2.5,new Point(0,-3,0));
+        assertEquals(18, viewGeometryIntersections(camera,sphere), "TC02: camera is before sphere, view plane is in sphere and all pixels go through two points. expected intersections is 18");
         //TC03: Sphere is on view plane where expected amount of intersections is 10 (the corners don't intersect)
         sphere = new Sphere(2,new Point(0,-2.5,0));
         assertEquals(10, viewGeometryIntersections(camera,sphere), "TC03: sphere is on view plane and there are 10 intersections is not working correctly");
