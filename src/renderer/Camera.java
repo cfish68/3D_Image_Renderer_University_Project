@@ -102,13 +102,57 @@ public class Camera {
      * @return
      */
     public Ray constructRay(int nX, int nY, int j, int i){
-        //move to the 'top left' of the viewPlane
-        Point p0 = location.add(to.scale(distance));//p0 is the middle of the viewPlane
-        Point topLeftCorner = p0.add(up.scale(height/2)).add(right.scale(-1*(width/2)));//NOTICE!!! this could also be the 'top right corner'. It'll still work just from the opposite direction.
         double pixelheight = height/nX;
         double pixelWidth = width/nY;
-        Point centerOfPixel = topLeftCorner.add(right.scale(pixelWidth*(j+0.5))).add(up.scale(-1*pixelheight*(i+0.5)));
-        return new Ray(location, centerOfPixel.subtract(location));
+        Point p0 = location.add(to.scale(distance));
+        Point pPixel;
+
+        int x = (int)(nX / 2);
+        int y = (int)(nY / 2);
+        int moveX = i - x;
+        int moveY = j - y;
+        //calculate "how many pixels" we need to move
+        if(moveX == 0 && moveY == 0)//if they are both 0 then we are in the 'middle'
+            pPixel = location.add(to.scale(distance));
+        else if(moveX == 0)//if move x is 0 then the other 1 is not
+            pPixel = p0.add(right.scale(moveY));
+        else if(moveY == 0) {//otherwise move y is 0 and the other 1 is not
+            pPixel = p0.add(up.scale(moveX));
+        }
+        else//if both were not 0 then both are not zero.
+        {
+            pPixel = p0.add(up.scale(pixelheight * moveX).add(right.scale(pixelWidth * moveY)));
+        }
+        //check for odd and even cases. if odd we are already in the middle of the wanted pixel
+        if(nX%2 == 1 && nY%2 == 1)
+            return new Ray(location, pPixel.subtract(location));
+        //rows are even. we must add half a pixel in height
+        else if(nX%2 == 0 &nY%2 == 1){
+            pPixel =pPixel.add(up.scale(height*0.5));
+            return new Ray(location, pPixel.subtract(location));
+        }
+        //columns are even we must add 0.5 in width
+        else if(nX%2 == 1 && nY%2 == 0){
+            pPixel =pPixel.add(right.scale(width*0.5));
+            return new Ray(location, pPixel.subtract(location));
+        }
+        else//both rows and columns is even, add both height and width half a pixel.
+        {
+            pPixel =pPixel.add(right.scale(width*0.5).add(up.scale(height*0.5)));
+            return new Ray(location, pPixel.subtract(location));
+        }
+
+
+
+
+
+
+        //move to the 'top left' of the viewPlane
+        //p0 is the middle of the viewPlane
+        //Point topLeftCorner = p0.add(up.scale(height/2)).add(right.scale(-1*(width/2)));//NOTICE!!! this could also be the 'top right corner'. It'll still work just from the opposite direction.
+
+        //Point centerOfPixel = topLeftCorner.add(right.scale(pixelWidth*(j+0.5))).add(up.scale(-1*pixelheight*(i+0.5)));
+        //return new Ray(location, centerOfPixel.subtract(location));
 
 
     }
