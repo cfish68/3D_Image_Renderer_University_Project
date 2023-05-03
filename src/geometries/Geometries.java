@@ -35,8 +35,10 @@ public class Geometries implements Intersectable{
      * Adds a Geometry g to geometries
      * @param g
      */
-    public void add(Geometry g){
-        geometries.add(g);
+    public void add(Intersectable... g){
+        for(Intersectable item : g){
+            geometries.add(item);//Todo: Hi avi I changed add implementation please let me know if this is ok.
+        }
     }
 
     /**

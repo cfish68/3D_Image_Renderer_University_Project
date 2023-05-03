@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * this class is used to represent a ray. (a vector from  a certain point)
  */
@@ -62,6 +64,28 @@ public class Ray {
      */
     public Point getPoint(double t){
         return p0.add(dir.scale(t));
+    }
+
+    /**
+     * returns a the closest point, in a list, to the head of a ray
+     * @param points
+     * @return
+     */
+    public Point findClosestPoint(List<Point> points){
+        if(points == null){
+            return null;
+        }
+        double inf =  Double.POSITIVE_INFINITY;
+
+        Point closestPoint = null;
+        for(Point point : points){
+            double distance = this.p0.distance(point);
+            if(distance < inf){
+                closestPoint = point;
+                inf = distance;
+            }
+        }
+        return closestPoint;
     }
 
 }

@@ -4,6 +4,7 @@ package primitives;
  * this class will be used to represent a point, this point is 3 dimensional.
  */
 public class Point {
+    public static final Point ZERO = new Point(0,0,0);
     Double3 xyz;
 
     /**

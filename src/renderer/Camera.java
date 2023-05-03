@@ -1,8 +1,11 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+
+import java.util.MissingResourceException;
 
 import static primitives.Util.isZero;
 
@@ -13,6 +16,41 @@ public class Camera {
     private Vector up;
     private Vector right;
 
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracerBase;
+
+    //TODO: comment
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    //TODO: comment
+    public Camera setRayTracer(RayTracerBase rayTracerBase) {
+        this.rayTracerBase = rayTracerBase;
+        return this;
+    }
+    //todo: comment
+    public void renderImage(){
+        //todo: split if statement to appropriate segments and throw appropriate MissingResourceException
+        if(this.location== null || this.imageWriter == null || this.rayTracerBase == null ){
+            throw new MissingResourceException("renderImage must have all attributes instantiated", "RayTracerBasic", "1" );
+        }
+        throw new UnsupportedOperationException();
+    }
+    //todo: comment
+    public void printGrid(int interval, Color color){
+        if(imageWriter == null)
+            throw new MissingResourceException("imageWriter is null", "imageWriter", "2");
+        //todo: implement this
+    }
+
+    //todo:comment
+    public void writeToImage(){
+        if(imageWriter == null)
+            throw new MissingResourceException("imageWriter is null", "imageWriter", "2");
+
+    }
     //View Plane attributes
     private double width;
     private double height;
