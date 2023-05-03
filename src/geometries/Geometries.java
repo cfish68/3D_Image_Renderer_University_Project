@@ -28,9 +28,12 @@ public class Geometries implements Intersectable{
      * @param geometries
      */
     public Geometries(Intersectable... geometries) {
-        for(Intersectable g: geometries)
-        {
-            this.geometries.add(g);
+        if(geometries!=null) {
+            if(this.geometries == null)
+                this.geometries = new LinkedList<>();
+            for (Intersectable g : geometries) {
+                this.geometries.add(g);
+            }
         }
         //this.geometries.addAll(geometries);
     }

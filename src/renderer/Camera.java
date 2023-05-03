@@ -22,6 +22,16 @@ public class Camera {
 
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
+    public Camera(Point location, Vector to, Vector up){
+        if(!isZero(up.dotProduct(to))){
+            throw new IllegalArgumentException("ERROR: Camera vectors up and to must be perpendicular");
+        }
+        this.location = location;
+        right = up.crossProduct(to).normalize();
+        this.to = to.normalize();
+        this.up = up.normalize();
+
+    }
 
     //TODO: comment
     public Camera setImageWriter(ImageWriter imageWriter) {
@@ -47,7 +57,7 @@ public class Camera {
             for(int j = 0; j < Ny; j++){
                 Color color = rayTracerBase.traceRay(constructRay(Nx, Ny,j,i));
                 if(color != null)
-                    this.imageWriter.writePixel(i,j,color);
+                    this.imageWriter.writePixel(j,i,color);
             }
         }
     }
@@ -84,16 +94,7 @@ public class Camera {
      * @param up
      * @param to
      */
-    public Camera(Point location, Vector to, Vector up){
-        if(!isZero(up.dotProduct(to))){
-            throw new IllegalArgumentException("ERROR: Camera vectors up and to must be perpendicular");
-        }
-        this.location = location;
-        right = up.crossProduct(to).normalize();
-        this.to = to.normalize();
-        this.up = up.normalize();
 
-    }
 
     /**
      * getter for location
@@ -167,36 +168,37 @@ public class Camera {
 
         int x = (nX / 2);
         int y = (nY / 2);
-        int moveX = i - x;
-        int moveY = j - y;//todo: look into why movey is x and movex is y
+
+        int moveX = -1*(i-x);//todo: fix.
+        int moveY = -1*(j-y);
         //calculate "how many pixels" we need to move
         if(moveX == 0 && moveY == 0)//if they are both 0 then we are in the 'middle'
             pPixel = p0;
         else if(moveX == 0)//if move x is 0 then the other 1 is not
-            pPixel = p0.add(right.scale(moveY));
+            pPixel = p0.add(right.scale(moveY*pixelWidth));
         else if(moveY == 0) {//otherwise move y is 0 and the other 1 is not
-            pPixel = p0.add(up.scale(moveX));
+            pPixel = p0.add(up.scale(moveX*pixelheight));
         }
         else//if both were not 0 then both are not zero.
         {
-            pPixel = p0.add(up.scale(pixelheight * moveX).add(right.scale(pixelWidth * moveY)));
+            pPixel = p0.add(right.scale(pixelWidth * moveY)).add(up.scale(pixelheight * moveX));//p0.add(up.scale(pixelheight * moveX).add(right.scale(pixelWidth * moveY)));
         }
         //check for odd and even cases. if odd we are already in the middle of the wanted pixel
         if(nX%2 == 1 && nY%2 == 1)
             return new Ray(location, pPixel.subtract(location));
         //rows are even. we must add half a pixel in height
         else if(nX%2 == 0 &nY%2 == 1){
-            pPixel = pPixel.add(up.scale(pixelheight*0.5));
+            pPixel = pPixel.add(up.scale(pixelheight*-0.5));
             return new Ray(location, pPixel.subtract(location));
         }
         //columns are even we must add 0.5 in width
         else if(nX%2 == 1 && nY%2 == 0){
-            pPixel = pPixel.add(right.scale(pixelWidth*0.5));
+            pPixel = pPixel.add(right.scale(pixelWidth*-0.5));
             return new Ray(location, pPixel.subtract(location));
         }
         else//both rows and columns is even, add both height and width half a pixel.
         {
-            pPixel = pPixel.add(right.scale(pixelWidth*0.5).add(up.scale(pixelheight*0.5)));
+            pPixel = pPixel.add(right.scale(pixelWidth*-0.5).add(up.scale(pixelheight*-0.5)));
             return new Ray(location, pPixel.subtract(location));
         }
 
