@@ -40,12 +40,14 @@ public class Camera {
         if(this.location== null || this.imageWriter == null || this.rayTracerBase == null ){
             throw new MissingResourceException("renderImage must have all attributes instantiated", "RayTracerBasic", "1" );
         }
+        int Nx = imageWriter.getNx();
+        int Ny = imageWriter.getNy();
         //throw new UnsupportedOperationException();
-        for(int i = 0; i<imageWriter.getNx(); i++){
-            for(int j = 0; j < imageWriter.getNy(); j++){
-                Color color = rayTracerBase.traceRay(constructRay(imageWriter.getNx(), imageWriter.getNy(),j,i));
+        for(int i = 0; i < Nx; i++){
+            for(int j = 0; j < Ny; j++){
+                Color color = rayTracerBase.traceRay(constructRay(Nx, Ny,j,i));
                 if(color != null)
-                    this.imageWriter.writePixel(j,i,color);
+                    this.imageWriter.writePixel(i,j,color);
             }
         }
     }
@@ -56,12 +58,12 @@ public class Camera {
         //todo: check this is correct and comment
         int Nx = imageWriter.getNx();
         int Ny = imageWriter.getNy();
-        for(int i = 1; i< Nx; i+=interval)
-            for(int j = 1; j < Ny; j++){
+        for(int i = 0; i < Nx; i+=interval)
+            for(int j = 0; j < Ny; j++){
                 imageWriter.writePixel(i,j, color);
             }
-        for(int j = 1; j<Ny; j+=interval)
-            for(int i = 1; i < Nx; i++){
+        for(int j = 0; j<Ny; j+=interval)
+            for(int i = 0; i < Nx; i++){
                 imageWriter.writePixel(i,j, color);
             }
     }
@@ -163,13 +165,13 @@ public class Camera {
         Point p0 = location.add(to.scale(distance));
         Point pPixel;
 
-        int x = (int)(nX / 2);
-        int y = (int)(nY / 2);
-        int moveY = i - x;
-        int moveX = j - y;//todo: look into why movey is x and movex is y
+        int x = (nX / 2);
+        int y = (nY / 2);
+        int moveX = i - x;
+        int moveY = j - y;//todo: look into why movey is x and movex is y
         //calculate "how many pixels" we need to move
         if(moveX == 0 && moveY == 0)//if they are both 0 then we are in the 'middle'
-            pPixel = location.add(to.scale(distance));
+            pPixel = p0;
         else if(moveX == 0)//if move x is 0 then the other 1 is not
             pPixel = p0.add(right.scale(moveY));
         else if(moveY == 0) {//otherwise move y is 0 and the other 1 is not
@@ -184,17 +186,17 @@ public class Camera {
             return new Ray(location, pPixel.subtract(location));
         //rows are even. we must add half a pixel in height
         else if(nX%2 == 0 &nY%2 == 1){
-            pPixel =pPixel.add(up.scale(pixelheight*0.5));
+            pPixel = pPixel.add(up.scale(pixelheight*0.5));
             return new Ray(location, pPixel.subtract(location));
         }
         //columns are even we must add 0.5 in width
         else if(nX%2 == 1 && nY%2 == 0){
-            pPixel =pPixel.add(right.scale(pixelWidth*0.5));
+            pPixel = pPixel.add(right.scale(pixelWidth*0.5));
             return new Ray(location, pPixel.subtract(location));
         }
         else//both rows and columns is even, add both height and width half a pixel.
         {
-            pPixel =pPixel.add(right.scale(pixelWidth*0.5).add(up.scale(pixelheight*0.5)));
+            pPixel = pPixel.add(right.scale(pixelWidth*0.5).add(up.scale(pixelheight*0.5)));
             return new Ray(location, pPixel.subtract(location));
         }
 

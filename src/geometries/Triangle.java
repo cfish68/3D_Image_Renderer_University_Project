@@ -71,7 +71,7 @@ public class Triangle extends Polygon{
             double u = areaABP/areaABC;
             double v = areaBCP/areaABC;
             double w = areaCAP/areaABC;
-            if(u+v+w != 1){
+            if(u+v+w < 0.99999999999999 || u+v+w > 1.000000000000001){
                 return null;
             }
             return planeIntersection;
