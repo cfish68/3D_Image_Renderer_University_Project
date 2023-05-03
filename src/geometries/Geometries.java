@@ -20,7 +20,7 @@ public class Geometries implements Intersectable{
      * Empty Constructor which creates an empty list of geometries
      */
     public Geometries() {
-        geometries = List.of();
+        geometries = new ArrayList<>();
     }
 
     /**
@@ -28,7 +28,11 @@ public class Geometries implements Intersectable{
      * @param geometries
      */
     public Geometries(Intersectable... geometries) {
-        this.geometries = List.of(geometries);
+        for(Intersectable g: geometries)
+        {
+            this.geometries.add(g);
+        }
+        //this.geometries.addAll(geometries);
     }
 
     /**
@@ -36,9 +40,10 @@ public class Geometries implements Intersectable{
      * @param g
      */
     public void add(Intersectable... g){
-        for(Intersectable item : g){
-            geometries.add(item);//Todo: Hi avi I changed add implementation please let me know if this is ok.
-        }
+        geometries.addAll(List.of(g));
+        //for(Intersectable item : g){
+          //  geometries.add(item);//Todo: Hi avi I changed add implementation please let me know if this is ok.
+        //}
     }
 
     /**

@@ -10,7 +10,7 @@ public class AmbientLight {
         intensity = color.scale(double3);
     }
     public AmbientLight(){
-        intensity = new Color(0,0,0);
+        intensity = Color.BLACK;
     }
 
     public Color getIntensity() {

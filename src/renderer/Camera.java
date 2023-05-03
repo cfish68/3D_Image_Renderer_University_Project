@@ -15,6 +15,10 @@ public class Camera {
     private Vector to;
     private Vector up;
     private Vector right;
+    //View Plane attributes
+    private int width;
+    private int height;
+    private double distance;
 
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
@@ -36,25 +40,39 @@ public class Camera {
         if(this.location== null || this.imageWriter == null || this.rayTracerBase == null ){
             throw new MissingResourceException("renderImage must have all attributes instantiated", "RayTracerBasic", "1" );
         }
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        for(int i = 0; i<imageWriter.getNx(); i++){
+            for(int j = 0; j < imageWriter.getNy(); j++){
+                Color color = rayTracerBase.traceRay(constructRay(imageWriter.getNx(), imageWriter.getNy(),j,i));
+                if(color != null)
+                    this.imageWriter.writePixel(j,i,color);
+            }
+        }
     }
     //todo: comment
     public void printGrid(int interval, Color color){
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null", "imageWriter", "2");
-        //todo: implement this
+        //todo: check this is correct and comment
+        int Nx = imageWriter.getNx();
+        int Ny = imageWriter.getNy();
+        for(int i = 1; i< Nx; i+=interval)
+            for(int j = 1; j < Ny; j++){
+                imageWriter.writePixel(i,j, color);
+            }
+        for(int j = 1; j<Ny; j+=interval)
+            for(int i = 1; i < Nx; i++){
+                imageWriter.writePixel(i,j, color);
+            }
     }
 
     //todo:comment
     public void writeToImage(){
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null", "imageWriter", "2");
-
+        imageWriter.writeToImage();//todo:is this correct(not sure what was intended)
     }
-    //View Plane attributes
-    private double width;
-    private double height;
-    private double distance;
+
 
     /**
      * Constructor for a Camera object, taking in location and vectors 'up' and 'to'.
@@ -69,7 +87,7 @@ public class Camera {
             throw new IllegalArgumentException("ERROR: Camera vectors up and to must be perpendicular");
         }
         this.location = location;
-        right = to.crossProduct(up).normalize();
+        right = up.crossProduct(to).normalize();
         this.to = to.normalize();
         this.up = up.normalize();
 
@@ -114,7 +132,7 @@ public class Camera {
      * @param height
      * @return
      */
-    public Camera setVPSize(double width, double height){
+    public Camera setVPSize(int width, int height){
         this.width = width;
         this.height = height;
         return this;
@@ -140,15 +158,15 @@ public class Camera {
      * @return
      */
     public Ray constructRay(int nX, int nY, int j, int i){
-        double pixelheight = height/nX;
-        double pixelWidth = width/nY;
+        double pixelheight = (double)height/nX;
+        double pixelWidth = (double)width/nY;
         Point p0 = location.add(to.scale(distance));
         Point pPixel;
 
         int x = (int)(nX / 2);
         int y = (int)(nY / 2);
-        int moveX = i - x;
-        int moveY = j - y;
+        int moveY = i - x;
+        int moveX = j - y;//todo: look into why movey is x and movex is y
         //calculate "how many pixels" we need to move
         if(moveX == 0 && moveY == 0)//if they are both 0 then we are in the 'middle'
             pPixel = location.add(to.scale(distance));
@@ -166,17 +184,17 @@ public class Camera {
             return new Ray(location, pPixel.subtract(location));
         //rows are even. we must add half a pixel in height
         else if(nX%2 == 0 &nY%2 == 1){
-            pPixel =pPixel.add(up.scale(height*0.5));
+            pPixel =pPixel.add(up.scale(pixelheight*0.5));
             return new Ray(location, pPixel.subtract(location));
         }
         //columns are even we must add 0.5 in width
         else if(nX%2 == 1 && nY%2 == 0){
-            pPixel =pPixel.add(right.scale(width*0.5));
+            pPixel =pPixel.add(right.scale(pixelWidth*0.5));
             return new Ray(location, pPixel.subtract(location));
         }
         else//both rows and columns is even, add both height and width half a pixel.
         {
-            pPixel =pPixel.add(right.scale(width*0.5).add(up.scale(height*0.5)));
+            pPixel =pPixel.add(right.scale(pixelWidth*0.5).add(up.scale(pixelheight*0.5)));
             return new Ray(location, pPixel.subtract(location));
         }
 
