@@ -56,7 +56,7 @@ public class Camera {
         for(int i = 0; i < Nx; i++){
             for(int j = 0; j < Ny; j++){
                 Color color = rayTracerBase.traceRay(constructRay(Nx, Ny,j,i));
-                if(color != null)
+
                     this.imageWriter.writePixel(j,i,color);
             }
         }
@@ -169,7 +169,7 @@ public class Camera {
         int x = (nX / 2);
         int y = (nY / 2);
 
-        int moveX = -1*(i-x);//todo: fix.
+        int moveX = -1*(i-x);
         int moveY = -1*(j-y);
         //calculate "how many pixels" we need to move
         if(moveX == 0 && moveY == 0)//if they are both 0 then we are in the 'middle'

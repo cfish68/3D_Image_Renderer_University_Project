@@ -6,6 +6,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * Triangle class. A triangle has 3 corners and is a polygon, so it inherits from polygon.
  */
@@ -71,7 +74,9 @@ public class Triangle extends Polygon{
             double u = areaABP/areaABC;
             double v = areaBCP/areaABC;
             double w = areaCAP/areaABC;
-            if(u+v+w < 0.99999999999999 || u+v+w > 1.000000000000001){
+            if(isZero(alignZero(u)) || isZero(alignZero(v))||isZero(alignZero(w)))
+                return null;
+            if(!isZero(u+v+w-1)){
                 return null;
             }
             return planeIntersection;
