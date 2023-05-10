@@ -15,8 +15,10 @@ import scene.Scene;
  * @author Dan */
 public class RenderTests {
 
-   /** Produce a scene with basic 3D model and render it into a png image with a
-    * grid */
+   /**
+    * Produce a scene with basic 3D model and render
+    * it into a png image with a grid
+    */
    @Test
    public void basicRenderTwoColorTest() {
       Scene scene = new Scene("Test scene")//
@@ -44,8 +46,10 @@ public class RenderTests {
    }
 
    // For stage 6 - please disregard in stage 5
-   /** Produce a scene with basic 3D model - including individual lights of the
-    * bodies and render it into a png image with a grid */
+   /**
+    * Produce a scene with basic 3D model - including individual lights of the
+    * bodies and render it into a png image with a grid
+    * */
 //    @Test
 //    public void basicRenderMultiColorTest() {
 //    Scene scene = new Scene("Test scene")//
@@ -78,7 +82,9 @@ public class RenderTests {
 //    camera.writeToImage();
 //    }
 
-   /** Test for XML based scene - for bonus */
+   /**
+    * Test for XML based scene - for bonus
+    */
    @Test
    public void basicRenderXml() {
       Scene  scene  = new Scene("XML Test scene");

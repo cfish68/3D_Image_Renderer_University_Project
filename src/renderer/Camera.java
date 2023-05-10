@@ -21,7 +21,16 @@ public class Camera {
     private double distance;
 
     private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase;
+    private RayTraceBase rayTraceBase;
+
+    /**
+     * Constructor for a Camera object, taking in location and vectors 'up' and 'to'.
+     * vectors 'up' and 'to' must be orthogonal. The constructor creats the vector 'right'
+     * being perpendicular to 'up' and 'to'.
+     * @param location
+     * @param up
+     * @param to
+     */
     public Camera(Point location, Vector to, Vector up){
         if(!isZero(up.dotProduct(to))){
             throw new IllegalArgumentException("ERROR: Camera vectors up and to must be perpendicular");
@@ -30,7 +39,6 @@ public class Camera {
         right = up.crossProduct(to).normalize();
         this.to = to.normalize();
         this.up = up.normalize();
-
     }
 
     /**
@@ -45,20 +53,21 @@ public class Camera {
 
     /**
      * rayTracer setter
-     * @param rayTracerBase
+     * @param rayTraceBase
      * @return
      */
-    public Camera setRayTracer(RayTracerBase rayTracerBase) {
-        this.rayTracerBase = rayTracerBase;
+    public Camera setRayTracer(RayTraceBase rayTraceBase) {
+        this.rayTraceBase = rayTraceBase;
         return this;
     }
 
     /**
-     * constructs a ray for everypont and writes pixel
+     * For every pixel in the view plane, trace the ray from that pixel
+     * and write the corresponding color to the imageWriter
      */
     public void renderImage(){
         //todo: split if statement to appropriate segments and throw appropriate MissingResourceException
-        if(this.location== null || this.imageWriter == null || this.rayTracerBase == null ){
+        if(this.location== null || this.imageWriter == null || this.rayTraceBase == null ){
             throw new MissingResourceException("renderImage must have all attributes instantiated", "RayTracerBasic", "1" );
         }
         int Nx = imageWriter.getNx();
@@ -66,7 +75,7 @@ public class Camera {
         //throw new UnsupportedOperationException();
         for(int i = 0; i < Nx; i++){
             for(int j = 0; j < Ny; j++){
-                Color color = rayTracerBase.traceRay(constructRay(Nx, Ny,j,i));
+                Color color = rayTraceBase.traceRay(constructRay(Nx, Ny,j,i));
 
                     this.imageWriter.writePixel(j,i,color);
             }
@@ -74,7 +83,7 @@ public class Camera {
     }
 
     /**
-     * prints a grid of a color with squares the size of interval
+     * prints a grid of a color with squares the size of interval.
      * @param interval
      * @param color
      */
@@ -94,23 +103,14 @@ public class Camera {
             }
     }
 
-    //todo:comment
+    /**
+     * If imageWriter isn't null, calls {@link ImageWriter#writeToImage()}
+     */
     public void writeToImage(){
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null", "imageWriter", "2");
         imageWriter.writeToImage();//todo:is this correct(not sure what was intended)
     }
-
-
-    /**
-     * Constructor for a Camera object, taking in location and vectors 'up' and 'to'.
-     * vectors 'up' and 'to' must be orthogonal. The constructor creats the vector 'right'
-     * being perpendicular to 'up' and 'to'.
-     * @param location
-     * @param up
-     * @param to
-     */
-
 
     /**
      * getter for location
@@ -217,10 +217,6 @@ public class Camera {
             pPixel = pPixel.add(right.scale(pixelWidth*-0.5).add(up.scale(pixelheight*-0.5)));
             return new Ray(location, pPixel.subtract(location));
         }
-
-
-
-
 
         //move to the 'top left' of the viewPlane
         //p0 is the middle of the viewPlane

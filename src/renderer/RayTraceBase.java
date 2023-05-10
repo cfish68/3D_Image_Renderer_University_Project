@@ -4,19 +4,22 @@ import primitives.Color;
 import primitives.Ray;
 import scene.Scene;
 
-public abstract class RayTracerBase {
+/**
+ * Base abstract class for all Ray Tracers
+ */
+public abstract class RayTraceBase {
     protected Scene scene;
 
     /**
-     * constructor for RayTracerbasic which receives a scene as a parameter
+     * constructor for RayTraceBase which receives a scene as a parameter
      * @param scene
      */
-    public RayTracerBase(Scene scene){
+    public RayTraceBase(Scene scene){
         this.scene = scene;
     }
 
     /**
-     * eceives a ray as a parameter and returns a color
+     * Receives a ray as a parameter and returns a color
      * @param ray
      * @return
      */

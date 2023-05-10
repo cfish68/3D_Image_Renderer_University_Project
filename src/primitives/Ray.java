@@ -67,7 +67,7 @@ public class Ray {
     }
 
     /**
-     * returns a the closest point, in a list, to the head of a ray
+     * returns the closest point, in a list, to the head of a ray
      * @param points
      * @return
      */

@@ -4,7 +4,14 @@ import primitives.Color;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Class for testing ImageWriter
+ */
 public class ImageWriterTest {
+
+    /**
+     * Test method for {@link renderer.ImageWriter#ImageWriter(String, int, int)}
+     */
     @Test
     void writeImageTest(){
     ImageWriter writer;

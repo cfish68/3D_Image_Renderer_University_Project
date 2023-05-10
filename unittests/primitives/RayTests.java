@@ -8,7 +8,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * Unit tests for primitives.Ray class
+ */
 public class RayTests {
+
+    /**
+     * test method for {@link primitives.Ray#findClosestPoint(List)}
+     */
     @Test
     public void findClosestPointTest(){
         Ray ray = new Ray(new Point(0,0,0), new Vector(1,0,0));
@@ -28,8 +35,6 @@ public class RayTests {
         //TC13: the closest point is at the end of the list
         points = List.of(new Point(1,2,3), new Point(5,5,5), new Point(7,7,7),new Point(1,0,0));
         assertEquals(new Point(1,0,0), ray.findClosestPoint(points), "TC02: point in the beginning of list is closest is not found");
-
-
 
     }
 }
