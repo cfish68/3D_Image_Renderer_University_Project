@@ -33,18 +33,29 @@ public class Camera {
 
     }
 
-    //TODO: comment
+    /**
+     * ImageWriter setter
+     * @param imageWriter
+     * @return
+     */
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
         return this;
     }
 
-    //TODO: comment
+    /**
+     * rayTracer setter
+     * @param rayTracerBase
+     * @return
+     */
     public Camera setRayTracer(RayTracerBase rayTracerBase) {
         this.rayTracerBase = rayTracerBase;
         return this;
     }
-    //todo: comment
+
+    /**
+     * constructs a ray for everypont and writes pixel
+     */
     public void renderImage(){
         //todo: split if statement to appropriate segments and throw appropriate MissingResourceException
         if(this.location== null || this.imageWriter == null || this.rayTracerBase == null ){
@@ -61,7 +72,12 @@ public class Camera {
             }
         }
     }
-    //todo: comment
+
+    /**
+     * prints a grid of a color with squares the size of interval
+     * @param interval
+     * @param color
+     */
     public void printGrid(int interval, Color color){
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null", "imageWriter", "2");
@@ -201,7 +217,6 @@ public class Camera {
             pPixel = pPixel.add(right.scale(pixelWidth*-0.5).add(up.scale(pixelheight*-0.5)));
             return new Ray(location, pPixel.subtract(location));
         }
-
 
 
 
