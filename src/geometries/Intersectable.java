@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Interface Intersectables is anything that can be intersected by a ray.
@@ -47,12 +48,19 @@ public abstract class Intersectable {
     }
 
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
-
+    public List<GeoPoint> findGeomIntersections(Ray ray){
+        return findGeoIntersectionsHelper(ray);
+    }
 
     /**
      * This function takes in a ray and returns a list of points that the ray intersects
      * @param ray
      * @return A list of points which the ray intersects
      */
-    public abstract List<Point> findIntersections(Ray ray);
+    public List<Point> findIntersections(Ray ray) {
+        var geoList = findGeomIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
+    }
+
 }

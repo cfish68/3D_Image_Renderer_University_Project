@@ -10,7 +10,7 @@ import primitives.Color;
  */
 public class Scene {
     public String name;
-    public Color Background;
+    public Color Background = Color.BLACK;
     //Ambient light with an initial color of black as the default constructor is black
     public AmbientLight ambientLight = new AmbientLight();
     public Geometries geometries;
