@@ -3,7 +3,7 @@ package geometries;
 /**
  * This class RadialGeometry is the son of Geometry but is the parent of radial geometries.
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
 
     protected double radius;
 

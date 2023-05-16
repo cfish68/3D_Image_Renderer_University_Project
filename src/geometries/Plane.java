@@ -12,7 +12,7 @@ import static primitives.Util.isZero;
 /**
  * this class, Plane represents a plain with a point and normal vector of the plane
  */
-public class Plane implements Geometry{
+public class Plane extends Geometry{
 
     Point q0;
     Vector normal;

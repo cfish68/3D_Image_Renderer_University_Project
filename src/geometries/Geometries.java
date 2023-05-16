@@ -12,7 +12,7 @@ import java.util.List;
  * This class uses the Composite design pattern to group geometries together
  * and create a scene which includes several geometries.
  */
-public class Geometries implements Intersectable{
+public class Geometries extends Intersectable{
 
     private List<Intersectable> geometries;
 
