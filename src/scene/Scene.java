@@ -1,14 +1,9 @@
 package scene;
 
-import elements.AmbientLight;
+import lighting.AmbientLight;
 import geometries.Geometries;
 import geometries.Geometry;
 import primitives.Color;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
-
-import java.util.List;
 
 /**
  * Class that handles the scene

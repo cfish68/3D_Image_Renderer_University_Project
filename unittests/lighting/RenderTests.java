@@ -1,4 +1,4 @@
-package elements;
+package lighting;
 
 import static java.awt.Color.YELLOW;
 
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import geometries.Sphere;
 import geometries.Triangle;
-import elements.AmbientLight;// was previously lighting.amb..  changed it since it contradicted instructions
 import primitives.*;
 import renderer.*;
 import scene.Scene;
