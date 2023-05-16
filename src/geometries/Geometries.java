@@ -71,4 +71,22 @@ public class Geometries extends Intersectable{
             return result;
         }
     }
+
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        if (geometries.isEmpty())
+            return null;
+        else { //TODO: I don't know how to do this without creating a list beforehand
+            LinkedList<GeoPoint> result = null;
+            for (Intersectable geometry : geometries) {
+                List<GeoPoint> intersections = geometry.findGeoIntersectionsHelper(ray);
+                if (intersections != null) {
+                    if (result == null) result = new LinkedList<>(intersections);
+                    else result.addAll(intersections);
+                }
+            }
+
+            return result;
+        }
+    }
 }

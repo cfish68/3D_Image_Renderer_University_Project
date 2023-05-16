@@ -16,14 +16,14 @@ public abstract class Intersectable {
      */
     public static class GeoPoint{
         public Geometry geometry;
-        public Double3 point;
+        public Point point;
 
         /**
          * constructor for GeoPoint.
          * @param geometry
          * @param point
          */
-        public GeoPoint(Geometry geometry, Double3 point){
+        public GeoPoint(Geometry geometry, Point point){
             this.geometry = geometry;
             this.point = point;
         }
@@ -45,6 +45,9 @@ public abstract class Intersectable {
             return ("geometry: " + geometry.toString() + '\n' + "Point: " + point.toString());
         }
     }
+
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+
 
     /**
      * This function takes in a ray and returns a list of points that the ray intersects

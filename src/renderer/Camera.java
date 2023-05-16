@@ -10,6 +10,12 @@ import java.util.MissingResourceException;
 import static primitives.Util.isZero;
 
 public class Camera {
+
+    @Override
+    public String toString() {
+        return (location.toString()+to.toString()+imageWriter.toString());
+    }
+
     //Camera attributes
     private Point location;
     private Vector to;
@@ -67,7 +73,7 @@ public class Camera {
      */
     public void renderImage(){
         //todo: split if statement to appropriate segments and throw appropriate MissingResourceException
-        if(this.location== null || this.imageWriter == null || this.rayTraceBase == null ){
+        if(this.location== null || this.imageWriter == null || this.rayTraceBase == null){
             throw new MissingResourceException("renderImage must have all attributes instantiated", "RayTracerBasic", "1" );
         }
         int Nx = imageWriter.getNx();
@@ -76,8 +82,7 @@ public class Camera {
         for(int i = 0; i < Nx; i++){
             for(int j = 0; j < Ny; j++){
                 Color color = rayTraceBase.traceRay(constructRay(Nx, Ny,j,i));
-
-                    this.imageWriter.writePixel(j,i,color);
+                this.imageWriter.writePixel(j,i,color);
             }
         }
     }
