@@ -6,8 +6,8 @@ import primitives.Double3;
 /**
  * Class for the Ambient Light.
  */
-public class AmbientLight {
-    private Color intensity;
+public class AmbientLight extends Light{
+
     //static const NONE (AmbientLight type) initialized to Color.BLACK and Double3.ZERO;
 
     /**
@@ -17,14 +17,14 @@ public class AmbientLight {
      * @param attenuationFactor
      */
     public AmbientLight(Color intensity, Double3 attenuationFactor){
-        this.intensity = intensity.scale(attenuationFactor);
+        super(intensity.scale(attenuationFactor));
     }
 
     /**
      * Empty constructor that sets the intensity to black
      */
     public AmbientLight(){
-        intensity = Color.BLACK;
+        super(Color.BLACK);
     }
 
     /**
@@ -32,7 +32,5 @@ public class AmbientLight {
      * of the ambient light
      * @return
      */
-    public Color getIntensity() {
-        return intensity;
-    }
+
 }
