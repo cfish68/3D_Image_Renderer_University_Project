@@ -3,7 +3,12 @@ package scene;
 import lighting.AmbientLight;
 import geometries.Geometries;
 import geometries.Geometry;
+import lighting.Light;
+import lighting.LightSource;
 import primitives.Color;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class that handles the scene
@@ -14,6 +19,17 @@ public class Scene {
     //Ambient light with an initial color of black as the default constructor is black
     public AmbientLight ambientLight = new AmbientLight();
     public Geometries geometries;
+    List<LightSource> lights = new LinkedList<LightSource>();
+
+    /**
+     * Setter for List<LightSource> lights that returns this (the Scene object)
+     * @param lights
+     * @return
+     */
+    public Scene setLights(List<LightSource> lights) {
+        this.lights = lights;
+        return this;
+    }
 
     /**
      *   A constructor that will receive the scene’s name,
