@@ -21,11 +21,22 @@ public class DirectionalLight extends Light implements LightSource{
         this.direction = direction;
     }
 
+    /**
+     * Returns the intensity at the point p, which is the same as intensity at the "source"
+     * as Directional light doesn't get weaker over distance
+     * @param p
+     * @return
+     */
     @Override
     public Color getIntensity(Point p) {
         return this.getIntensity();
     }
 
+    /**
+     * returns the direction L of the directional light
+     * @param p
+     * @return
+     */
     @Override
     public Vector getL(Point p) {
         return this.direction;

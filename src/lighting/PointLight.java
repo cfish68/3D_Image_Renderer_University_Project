@@ -25,19 +25,26 @@ public class PointLight extends Light implements LightSource{
         this.position = position;
     }
 
+    /**
+     * Returns the colour intensity at point p
+     * @param p
+     * @return
+     */
     @Override
     public Color getIntensity(Point p) {
-        return null;
+        double distance = this.position.distance(p);
+        return this.getIntensity().scale(1/kC + kL * distance + kQ * distance*distance);
+        //formula according to slideshow 6, slide 33
     }
 
     /**
-     * getter for l
+     * getter for direction vector for vector between the source and Point p
      * @param p
      * @return
      */
     @Override
     public Vector getL(Point p) {
-        return null;
+        return this.position.subtract(p);
     }
 
     /**

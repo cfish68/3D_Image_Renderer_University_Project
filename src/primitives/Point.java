@@ -26,9 +26,10 @@ public class Point {
     }
 
     /**
-     *– receives a Point as a parameter, returns a vector from second point to the point which
-     * called the method
-     * ix x is the point that called the method and y is the pt that is the parameter then x-y is the point we are interested in.
+     * Receives a Point as a parameter, returns a vector from
+     * the second point to the point which called the method.
+     * If x is the point that called the method and y is the pt that is the parameter
+     * then x-y is the point we are interested in.
      * @param pt
      * @return return a vector as a result of the subtraction
      */

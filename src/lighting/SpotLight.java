@@ -5,17 +5,29 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * Spotlight class which works like a stage spotlight
+ * Spotlight class which models point light source with direction.
  */
 public class SpotLight extends PointLight{
     private Vector direction;
     /**
-     * initializer for Light with param intensity color which sets the intesity
-     *
+     * initializer for Light with param intensity color which sets the intensity
      * @param intensity
      */
     protected SpotLight(Color intensity, Point position, Vector direction) {
         super(intensity, position);
         this.direction = direction;
     }
+
+    /**
+     * Returns the colour intensity at point p
+     * @param p
+     * @return
+     */
+    @Override
+    public Color getIntensity(Point p) {
+        return this.getIntensity().scale(Math.max(0, direction.normalize().dotProduct(super.getL(p))));
+        //formula according to slideshow 6, slide 35
+    }
+
+
 }
