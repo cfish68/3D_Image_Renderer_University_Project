@@ -1,5 +1,6 @@
 package geometries;
 import primitives.Color;
+import primitives.Material;
 import primitives.Vector;
 import primitives.Point;
 
@@ -9,7 +10,28 @@ import primitives.Point;
  */
 public abstract class Geometry extends Intersectable {
     protected Color emission = Color.BLACK;
+
+    private Material material = new Material();
+
     public abstract Vector getNormal(Point point);
+
+    /**
+     * Setter for material of the Geometry
+     * @return
+     */
+    public Material getMaterial() {
+        return material;
+    }
+
+    /**
+     * Setter for the material of geometry that returns the geometry this.
+     * @param material
+     * @return
+     */
+    public Geometry setMaterial(Material material) {
+        this.material = material;
+        return this;
+    }
 
     /**
      * getter for the Color emission. initially set to BLACK
