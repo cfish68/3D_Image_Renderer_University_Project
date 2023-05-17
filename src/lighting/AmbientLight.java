@@ -10,8 +10,6 @@ import primitives.Vector;
  */
 public class AmbientLight extends Light{
 
-    //static const NONE (AmbientLight type) initialized to Color.BLACK and Double3.ZERO;
-
     /**
      * Constructor for AmbientLight, receives a Color intensity and
      * a Double3 for the attenuation factor and makes the Ambient Light for that
@@ -28,12 +26,5 @@ public class AmbientLight extends Light{
     public AmbientLight(){
         super(Color.BLACK);
     }
-
-
-    /**
-     * Returns the value of the intensity (the color)
-     * of the ambient light
-     * @return
-     */
 
 }

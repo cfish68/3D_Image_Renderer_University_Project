@@ -4,6 +4,9 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * Class for a point light, a light in every direction, e.g. a light bulb
+ */
 public class PointLight extends Light implements LightSource{
 
 

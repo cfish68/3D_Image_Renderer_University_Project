@@ -4,6 +4,9 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * Spotlight class which works like a stage spotlight
+ */
 public class SpotLight extends PointLight{
     private Vector direction;
     /**

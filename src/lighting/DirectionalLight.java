@@ -4,8 +4,11 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * Directional light class which has light from one direction from an "infinitely" far source
+ * e.g. the sun.
+ */
 public class DirectionalLight extends Light implements LightSource{
-
 
     private Vector direction;
     /**
@@ -20,11 +23,11 @@ public class DirectionalLight extends Light implements LightSource{
 
     @Override
     public Color getIntensity(Point p) {
-        return null;
+        return this.getIntensity();
     }
 
     @Override
     public Vector getL(Point p) {
-        return null;
+        return this.direction;
     }
 }
