@@ -80,12 +80,11 @@ public class Polygon extends Geometry {
 
    @Override
    public Vector getNormal(Point point) { return plane.getNormal(); }
-   @Override
-   public List<Point> findIntersections(Ray ray) {
 
-
-      return null;
-   }
+//   @Override //TODO: maybe can delete
+//   public List<Point> findIntersections(Ray ray) {
+//      return null;
+//   }
 
    @Override
    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {

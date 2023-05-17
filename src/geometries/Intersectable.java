@@ -1,5 +1,4 @@
 package geometries;
-import primitives.Double3;
 import primitives.Point;
 import primitives.Ray;
 
@@ -52,7 +51,7 @@ public abstract class Intersectable {
      * @param ray
      * @return
      */
-    public List<GeoPoint> findGeomIntersections(Ray ray){
+    public List<GeoPoint> findGeoIntersections(Ray ray){
         return findGeoIntersectionsHelper(ray);
     }
 
@@ -62,7 +61,7 @@ public abstract class Intersectable {
      * @return A list of points which the ray intersects
      */
     public List<Point> findIntersections(Ray ray) {
-        var geoList = findGeomIntersections(ray);
+        var geoList = findGeoIntersections(ray);
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
     }

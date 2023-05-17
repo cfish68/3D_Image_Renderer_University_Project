@@ -44,39 +44,36 @@ public class Geometries extends Intersectable{
      */
     public void add(Intersectable... g){
         geometries.addAll(List.of(g));
-        //for(Intersectable item : g){
-          //  geometries.add(item);//Todo: Hi avi I changed add implementation please let me know if this is ok.
-        //}
     }
 
-    /**
-     * Takes in a ray and returns all intersections with the geometries within the list geometries
-     * @param ray
-     * @return
-     */
-    @Override
-    public List<Point> findIntersections(Ray ray) {
-        if (geometries.isEmpty())
-            return null;
-        else { //TODO: I don't know how to do this without creating a list beforehand
-            LinkedList<Point> result = null;
-            for (Intersectable geometry : geometries) {
-                List<Point> intersections = geometry.findIntersections(ray);
-                if (intersections != null) {
-                    if (result == null) result = new LinkedList<>(intersections);
-                    else result.addAll(intersections);
-                }
-            }
-
-            return result;
-        }
-    }
+//    /**
+//     * Takes in a ray and returns all intersections with the geometries within the list geometries
+//     * @param ray
+//     * @return
+//     */
+//    @Override
+//    public List<Point> findIntersections(Ray ray) {
+//        if (geometries.isEmpty())
+//            return null;
+//        else {
+//            LinkedList<Point> result = null;
+//            for (Intersectable geometry : geometries) {
+//                List<Point> intersections = geometry.findIntersections(ray);
+//                if (intersections != null) {
+//                    if (result == null) result = new LinkedList<>(intersections);
+//                    else result.addAll(intersections);
+//                }
+//            }
+//
+//            return result;
+//        }
+//    }
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if (geometries.isEmpty())
             return null;
-        else { //TODO: I don't know how to do this without creating a list beforehand
+        else {
             LinkedList<GeoPoint> result = null;
             for (Intersectable geometry : geometries) {
                 List<GeoPoint> intersections = geometry.findGeoIntersectionsHelper(ray);
