@@ -2,6 +2,8 @@ package lighting;
 
 import primitives.Color;
 import primitives.Double3;
+import primitives.Point;
+import primitives.Vector;
 
 /**
  * Class for the Ambient Light.
@@ -26,6 +28,7 @@ public class AmbientLight extends Light{
     public AmbientLight(){
         super(Color.BLACK);
     }
+
 
     /**
      * Returns the value of the intensity (the color)
