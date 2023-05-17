@@ -31,33 +31,23 @@ public class RayTracerBasic extends RayTraceBase {
     @Override
     public Color traceRay(Ray ray) {
         List<GeoPoint> geoPoints = scene.geometries.findGeoIntersectionsHelper(ray);
-        if(geoPoints == null)
-        {
+        if(geoPoints == null) {
             return scene.Background;
         }
         Color color = calcColor(ray.findClosestGeoPoint(geoPoints));
-
-
-
-//        List<Point> points = scene.geometries.findIntersections(ray);
-//        if(points == null){
-//            return scene.Background;
-//        }
-//        //ray.findClosestPoint(points);
-//        Color color = calcColor(ray.findClosestPoint(points));
         return color;
     }
 
-    /**
-     * calcColor receives a point as a param and return the color
-     * at this stage the function shall return the color of the ambient light of the scene.
-     * @param point
-     * @return
-     */
-    public Color calcColor(Point point) {
-        return scene.ambientLight.getIntensity();
-    }
-
+    //TODO: Commented out as I think calcColor(GeoPoint) is supposed to replace this method.
+//    /**
+//     * calcColor receives a point as a param and return the color
+//     * at this stage the function shall return the color of the ambient light of the scene.
+//     * @param point
+//     * @return
+//     */
+//    public Color calcColor(Point point) {
+//        return scene.ambientLight.getIntensity();
+//    }
     /**
      * calcColor with GeoPoint, receives a geoPopint an return the color of that point
      * @param gPoint

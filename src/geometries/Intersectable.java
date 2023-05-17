@@ -29,8 +29,6 @@ public abstract class Intersectable {
             this.point = point;
         }
 
-
-
         @Override
         public boolean equals(Object object){
             if(this == object)
@@ -48,6 +46,12 @@ public abstract class Intersectable {
     }
 
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+
+    /**
+     * receives a ray and returns a List fo GeoPoints, at this point just calls findGeoIntersectionsHelper(ray)
+     * @param ray
+     * @return
+     */
     public List<GeoPoint> findGeomIntersections(Ray ray){
         return findGeoIntersectionsHelper(ray);
     }

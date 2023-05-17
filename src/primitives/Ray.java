@@ -67,34 +67,10 @@ public class Ray {
         return p0.add(dir.scale(t));
     }
 
-    /**
-     * returns the closest point, in a list, to the head of a ray
-     * @param points
-     * @return
-     */
-//    public Point findClosestPoint(List<Point> points){
-//        if(points == null){
-//            return null;
-//        }
-//        double inf =  Double.POSITIVE_INFINITY;
-//
-//        Point closestPoint = null;
-//        for(Point point : points){
-//            double distance = this.p0.distance(point);
-//            if(distance < inf){
-//                closestPoint = point;
-//                inf = distance;
-//            }
-//        }
-//        return closestPoint;
-//    }
-
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
                 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
-
-
 
     /**
      * method takes in a list of geoPoints and returns the geoPoint closest to the ray head.
@@ -118,8 +94,4 @@ public class Ray {
 
         return closestGeoPoint;
     }
-
-
-
-
 }
