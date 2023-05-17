@@ -71,7 +71,7 @@ public class Camera {
      * For every pixel in the view plane, trace the ray from that pixel
      * and write the corresponding color to the imageWriter
      */
-    public void renderImage(){
+    public Camera renderImage(){
         //todo: split if statement to appropriate segments and throw appropriate MissingResourceException
         if(this.location== null || this.imageWriter == null || this.rayTraceBase == null){
             throw new MissingResourceException("renderImage must have all attributes instantiated", "RayTracerBasic", "1" );
@@ -85,6 +85,7 @@ public class Camera {
                 this.imageWriter.writePixel(j,i,color);
             }
         }
+        return this;
     }
 
     /**
@@ -111,10 +112,11 @@ public class Camera {
     /**
      * If imageWriter isn't null, calls {@link ImageWriter#writeToImage()}
      */
-    public void writeToImage(){
+    public Camera writeToImage(){
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null", "imageWriter", "2");
         imageWriter.writeToImage();
+        return this;
     }
 
     /**

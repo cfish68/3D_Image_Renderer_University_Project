@@ -19,7 +19,7 @@ public class Scene {
     //Ambient light with an initial color of black as the default constructor is black
     public AmbientLight ambientLight = new AmbientLight();
     public Geometries geometries;
-    List<LightSource> lights = new LinkedList<LightSource>();
+    public List<LightSource> lights = new LinkedList<LightSource>();
 
     /**
      * Setter for List<LightSource> lights that returns this (the Scene object)
