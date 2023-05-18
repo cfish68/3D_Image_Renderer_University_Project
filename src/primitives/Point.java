@@ -30,6 +30,7 @@ public class Point {
      * the second point to the point which called the method.
      * If x is the point that called the method and y is the pt that is the parameter
      * then x-y is the point we are interested in.
+     * meaning y->x
      * @param pt
      * @return return a vector as a result of the subtraction
      */
