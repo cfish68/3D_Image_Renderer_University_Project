@@ -103,6 +103,23 @@ public class LightsTests {
          .writeToImage(); //
    }
 
+   @Test
+   public void sphereAllLights(){
+      Point sphereLightPositionSpot = new Point(-30, -30, 50);
+      Point sphereLightPositionPoint = new Point(100, 100, 20);
+      scene1.geometries.add(sphere);
+      scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPositionSpot, new Vector(1,0.5,-0.5))
+              .setKl(0.001).setKq(0.0001));
+      scene1.lights.add((new PointLight(sphereLightColor, sphereLightPositionPoint)
+              .setKl(0.001).setKq(0.0002)));
+      scene1.lights.add(new DirectionalLight(sphereLightColor, new Vector(1, 1, 3)));
+      ImageWriter imageWriter = new ImageWriter("SphereMultipleLights", 500, 500);
+      camera1.setImageWriter(imageWriter) //
+              .setRayTracer(new RayTracerBasic(scene1)) //
+              .renderImage() //
+              .writeToImage(); //
+   }
+
    /** Produce a picture of two triangles lighted by a directional light */
    @Test
    public void trianglesDirectional() {
