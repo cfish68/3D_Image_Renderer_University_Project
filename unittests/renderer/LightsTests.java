@@ -103,23 +103,6 @@ public class LightsTests {
          .writeToImage(); //
    }
 
-   @Test
-   public void sphereAllLights(){
-      Point sphereLightPositionSpot = new Point(-30, -30, 50);
-      Point sphereLightPositionPoint = new Point(100, 100, 20);
-      scene1.geometries.add(sphere);
-      scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPositionSpot, new Vector(1,0.5,-0.5))
-              .setKl(0.001).setKq(0.0001));
-      scene1.lights.add((new PointLight(sphereLightColor, sphereLightPositionPoint)
-              .setKl(0.001).setKq(0.0002)));
-      scene1.lights.add(new DirectionalLight(sphereLightColor, new Vector(1, 1, 3)));
-      ImageWriter imageWriter = new ImageWriter("SphereMultipleLights", 500, 500);
-      camera1.setImageWriter(imageWriter) //
-              .setRayTracer(new RayTracerBasic(scene1)) //
-              .renderImage() //
-              .writeToImage(); //
-   }
-
    /** Produce a picture of two triangles lighted by a directional light */
    @Test
    public void trianglesDirectional() {
@@ -162,20 +145,23 @@ public class LightsTests {
    }
 
    ////////////////////Added tests
-   private final Point          spotLightPosition    = new Point(-40, -50, 25);
-   private final Point          PointLightPosition  = new Point(100, 50, -150);
-   private final Vector         spotLightDirection = new Vector(-2, -2, -2);
-   private final Vector         directionalLightDirection = new Vector(0, -2, -2);
 
    /** Produce a picture of two triangles lighted by a spotlight */
    @Test
    public void trianglesMultipleLights() {
       scene2.geometries.add(triangle1, triangle2);
-      scene2.lights.add(new SpotLight(trianglesLightColor, spotLightPosition, spotLightDirection)
+//      scene2.lights.add(new SpotLight(trianglesLightColor, spotLightPosition, spotLightDirection)
+//              .setKl(0.0001).setKq(0.00001));
+//      scene2.lights.add(new PointLight(trianglesLightColor, PointLightPosition)
+//              .setKl(0.0001).setKq(0.00001).setKc(0.000001));
+//      //scene2.lights.add(new DirectionalLight(trianglesLightColor, directionalLightDirection));
+      Point sphereLightPositionSpot = new Point(-30, -30, 50);
+      Point sphereLightPositionPoint = new Point(100, 100, 20);
+      scene2.lights.add(new SpotLight(trianglesLightColor, sphereLightPositionSpot, new Vector(1,0.5,-0.5))
               .setKl(0.0001).setKq(0.00001));
-      scene2.lights.add(new PointLight(trianglesLightColor, PointLightPosition)
-              .setKl(0.0001).setKq(0.00001).setKc(0.000001));
-      //scene2.lights.add(new DirectionalLight(trianglesLightColor, directionalLightDirection));
+      scene2.lights.add((new PointLight(trianglesLightColor, sphereLightPositionPoint)
+              .setKl(0.0001).setKq(0.00002)));
+      scene2.lights.add(new DirectionalLight(trianglesLightColor, new Vector(1, 1, 3)));
 
       ImageWriter imageWriter = new ImageWriter("trianglesMultipleLights", 500, 500);
       camera2.setImageWriter(imageWriter) //
@@ -184,6 +170,25 @@ public class LightsTests {
               .writeToImage(); //
    }
 
+   /**
+    * Test for sphere with all lights
+    */
+   @Test
+   public void sphereAllLights(){
+      Point sphereLightPositionSpot = new Point(-30, -30, 50);
+      Point sphereLightPositionPoint = new Point(100, 100, 20);
+      scene1.geometries.add(sphere);
+      scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPositionSpot, new Vector(1,0.5,-0.5))
+              .setKl(0.001).setKq(0.0001));
+      scene1.lights.add((new PointLight(sphereLightColor, sphereLightPositionPoint)
+              .setKl(0.001).setKq(0.0002)));
+      scene1.lights.add(new DirectionalLight(sphereLightColor, new Vector(1, 1, 3)));
+      ImageWriter imageWriter = new ImageWriter("SphereMultipleLights", 500, 500);
+      camera1.setImageWriter(imageWriter) //
+              .setRayTracer(new RayTracerBasic(scene1)) //
+              .renderImage() //
+              .writeToImage(); //
+   }
 
    //TODO: The following tests are for the bonus as far as I can tell (Avi).
 //   /** Produce a picture of a sphere lighted by a narrow spotlight */
