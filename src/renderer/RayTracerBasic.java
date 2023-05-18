@@ -70,8 +70,8 @@ public class RayTracerBasic extends RayTraceBase {
                 //The light that gets diffused and scatters upon hitting the surface
                 color = color.add(iL.scale(calcDiffusive(material, nl)),
                         //the light that reflects more sharply and concisely
-                        iL.scale(calcSpecular(material, n, l, nl, v)));
-            }
+                        iL.scale(Double3.ZERO));
+            } //calcSpecular(material, n, l, nl, v)
         }
         return color;
     }
@@ -99,13 +99,11 @@ public class RayTracerBasic extends RayTraceBase {
      * @return
      */
     private Double3 calcSpecular(Material mat, Vector n, Vector l, double nl, Vector cameraDir){
+        Vector r = l.subtract(n.scale(nl).scale(2)); //reflectance vector
         return mat.kS
                 .scale(
                         Math.pow(Math.max(0,
-                                -1*cameraDir.dotProduct(
-                                        l.subtract(
-                                                n.scale(
-                                                        -2 * nl)))), mat.nShininess));
+                                cameraDir.scale(-1).dotProduct(r)), mat.nShininess));
     }
 
 }
