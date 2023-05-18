@@ -51,6 +51,12 @@ public class RayTracerBasic extends RayTraceBase {
         return scene.ambientLight.getIntensity().add(calcLocalEffects(gPoint, ray));
     }
 
+    /**
+     * Calculates the local effects of all lightsources and returns the corresponding color.
+     * @param gp
+     * @param ray
+     * @return
+     */
     private Color calcLocalEffects(GeoPoint gp, Ray ray) {
         Color color = gp.geometry.getEmission();
         Vector v = ray.getDir (); Vector n = gp.geometry.getNormal(gp.point);
@@ -96,7 +102,7 @@ public class RayTracerBasic extends RayTraceBase {
         return mat.kS
                 .scale(
                         Math.pow(Math.max(0,
-                                -cameraDir.dotProduct(
+                                -1*cameraDir.dotProduct(
                                         l.subtract(
                                                 n.scale(
                                                         -2 * nl)))), mat.nShininess));
