@@ -155,11 +155,11 @@ public class LightsTests {
 //      scene2.lights.add(new PointLight(trianglesLightColor, PointLightPosition)
 //              .setKl(0.0001).setKq(0.00001).setKc(0.000001));
 //      //scene2.lights.add(new DirectionalLight(trianglesLightColor, directionalLightDirection));
-      Point sphereLightPositionSpot = new Point(-30, -30, 50);
+      Point sphereLightPositionSpot = new Point(30, 30, -50);
       Point sphereLightPositionPoint = new Point(100, 100, 20);
-      scene2.lights.add(new SpotLight(trianglesLightColor, sphereLightPositionSpot, new Vector(1,0.5,-0.5))
+      scene2.lights.add(new SpotLight(new Color(255,191,100), sphereLightPositionSpot, new Vector(1,0.5,-0.5))
               .setKl(0.0001).setKq(0.00001));
-      scene2.lights.add((new PointLight(trianglesLightColor, sphereLightPositionPoint)
+      scene2.lights.add((new PointLight(new Color(191,195,255), sphereLightPositionPoint)
               .setKl(0.0001).setKq(0.00002)));
       scene2.lights.add(new DirectionalLight(trianglesLightColor, new Vector(1, 1, 3)));
 
