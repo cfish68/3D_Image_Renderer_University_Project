@@ -79,7 +79,7 @@ public class RayTracerBasic extends RayTraceBase {
      * @return
      */
     private Double3 calcDiffusive(Material mat, double nl){
-        return mat.kD.scale(nl);
+        return mat.kD.scale(Math.abs(nl));
     }
 
     /**
