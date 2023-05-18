@@ -145,18 +145,22 @@ public class LightsTests {
    }
 
    ////////////////////Added tests
-   private final Point          lightPosition1    = new Point(-50, -50, 25);
-   private final Point          lightPosition2  = new Point(30, 10, -100);
-   private final Vector         trianglesLightDirection = new Vector(-2, -2, -2);
+   private final Point          spotLightPosition    = new Point(-40, -50, 25);
+   private final Point          PointLightPosition  = new Point(100, 50, -150);
+   private final Vector         spotLightDirection = new Vector(-2, -2, -2);
+   private final Vector         directionalLightDirection = new Vector(0, -2, -2);
 
    /** Produce a picture of two triangles lighted by a spotlight */
    @Test
    public void trianglesMultipleLights() {
       scene2.geometries.add(triangle1, triangle2);
-      scene2.lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection)
-              .setKl(0.001).setKq(0.0001));
+      scene2.lights.add(new SpotLight(trianglesLightColor, spotLightPosition, spotLightDirection)
+              .setKl(0.0001).setKq(0.00001));
+      scene2.lights.add(new PointLight(trianglesLightColor, PointLightPosition)
+              .setKl(0.0001).setKq(0.00001).setKc(0.000001));
+      //scene2.lights.add(new DirectionalLight(trianglesLightColor, directionalLightDirection));
 
-      ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);
+      ImageWriter imageWriter = new ImageWriter("trianglesMultipleLights", 500, 500);
       camera2.setImageWriter(imageWriter) //
               .setRayTracer(new RayTracerBasic(scene2)) //
               .renderImage() //
