@@ -95,11 +95,11 @@ public class RayTracerBasic extends RayTraceBase {
     private Double3 calcSpecular(Material mat, Vector n, Vector l, double nl, Vector cameraDir){
         return mat.kS
                 .scale(
-                        Math.max(0,
+                        Math.pow(Math.max(0,
                                 -cameraDir.dotProduct(
                                         l.subtract(
                                                 n.scale(
-                                                        -2 * l.dotProduct(n))))));
+                                                        -2 * nl)))), mat.nShininess));
     }
 
 }
