@@ -161,6 +161,26 @@ public class LightsTests {
          .writeToImage(); //
    }
 
+   ////////////////////Added tests
+   private final Point          lightPosition1    = new Point(-50, -50, 25);
+   private final Point          lightPosition2  = new Point(30, 10, -100);
+   private final Vector         trianglesLightDirection = new Vector(-2, -2, -2);
+
+   /** Produce a picture of two triangles lighted by a spotlight */
+   @Test
+   public void trianglesMultipleLights() {
+      scene2.geometries.add(triangle1, triangle2);
+      scene2.lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection)
+              .setKl(0.001).setKq(0.0001));
+
+      ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);
+      camera2.setImageWriter(imageWriter) //
+              .setRayTracer(new RayTracerBasic(scene2)) //
+              .renderImage() //
+              .writeToImage(); //
+   }
+
+
    //TODO: The following tests are for the bonus as far as I can tell (Avi).
 //   /** Produce a picture of a sphere lighted by a narrow spotlight */
 //   @Test
