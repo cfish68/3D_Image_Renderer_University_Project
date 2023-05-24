@@ -133,8 +133,11 @@ public class RayTracerBasic extends RayTraceBase {
         } else if (!intersections.isEmpty()) {
             for (Point x : intersections) {
                 // if you find a point that is closer to the ray’s head than the distance between the ray’s head and light source – return false.
-                if (x.distance(lightSource.) >= lightSource.getDistance(gp.point)) {
+                if (point.distance(x) < point.distance(gp.point)) {
+                    double z = lightSource.getDistance(x);
+                    double t = lightSource.getDistance(gp.point);
                     return false;
+
                 }
             }
         }
