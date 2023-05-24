@@ -1,5 +1,6 @@
 package renderer;
 
+import lighting.Light;
 import lighting.LightSource;
 import primitives.*;
 import scene.Scene;
@@ -13,6 +14,11 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTraceBase {
 
+
+    /**
+     * a constant field for the amount that you want to move the ray’s head
+     */
+    private static final double DELTA = 0.1;
     /**
      * Constructer for RayTracerBasic that receives a scene
      * @param scene
@@ -66,11 +72,13 @@ public class RayTracerBasic extends RayTraceBase {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                Color iL = lightSource.getIntensity(gp.point);
-                //The light that gets diffused and scatters upon hitting the surface
-                color = color.add(iL.scale(calcDiffusive(material, nl))
-                        //the light that reflects more sharply and concisely
-                        ,iL.scale(calcSpecular(material, n, l, nl, v)));
+                if(unshaded(l, n, gp, lightSource)) {
+                    Color iL = lightSource.getIntensity(gp.point);
+                    //The light that gets diffused and scatters upon hitting the surface
+                    color = color.add(iL.scale(calcDiffusive(material, nl))
+                            //the light that reflects more sharply and concisely
+                            , iL.scale(calcSpecular(material, n, l, nl, v)));
+                }
             }
         }
         return color;
@@ -104,6 +112,27 @@ public class RayTracerBasic extends RayTraceBase {
                 .scale(
                         Math.pow(Math.max(0,
                                 cameraDir.scale(-1).dotProduct(r)), mat.nShininess));
+    }
+
+    /**
+     * function to check if a point is not being shadowed
+     * " need to check if there is something that is blocking the light from you point.  (You can add parameters if you find it more efficient)"
+     * @param l the light direction
+     * @param n the normal direction
+     * @param gp geometry intersection point
+     * @return
+     */
+    private boolean unshaded(Vector l, Vector n, GeoPoint gp, LightSource lightSource){
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector epsVector = n.scale(DELTA);
+        Point point = gp.point.add(epsVector);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<Point> intersections = scene.geometries.findIntersections(lightRay); //todo: List<geopoint> originaly changed becuase didn't want to make many differnet chagnes question is what do we want it to be
+        if(intersections == null){
+            return true;
+        }
+        else
+            return intersections.isEmpty();
     }
 
 }

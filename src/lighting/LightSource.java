@@ -2,6 +2,7 @@ package lighting;
 
 
 import primitives.Color;
+import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
 
@@ -24,4 +25,12 @@ public interface LightSource {
      * @return
      */
     public Vector getL(Point p);
+
+
+    /**
+     *gets the distance between a point and the light source
+     * @param point
+     * @return
+     */
+    //public double getDistance(Double3 point);
 }
