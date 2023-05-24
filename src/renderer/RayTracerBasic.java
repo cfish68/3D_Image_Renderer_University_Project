@@ -122,17 +122,25 @@ public class RayTracerBasic extends RayTraceBase {
      * @param gp geometry intersection point
      * @return
      */
-    private boolean unshaded(Vector l, Vector n, GeoPoint gp, LightSource lightSource){
+    private boolean unshaded(Vector l, Vector n, GeoPoint gp, LightSource lightSource) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Vector epsVector = n.scale(DELTA);
         Point point = gp.point.add(epsVector);
         Ray lightRay = new Ray(point, lightDirection);
         List<Point> intersections = scene.geometries.findIntersections(lightRay); //todo: List<geopoint> originaly changed becuase didn't want to make many differnet chagnes question is what do we want it to be
-        if(intersections == null){
+        if (intersections == null) {
             return true;
+        } else if (!intersections.isEmpty()) {
+            for (Point x : intersections) {
+                // if you find a point that is closer to the ray’s head than the distance between the ray’s head and light source – return false.
+                if (x.distance(lightSource.) >= lightSource.getDistance(gp.point)) {
+                    return false;
+                }
+            }
         }
-        else
-            return intersections.isEmpty();
+        return true;
     }
 
 }
+
+
