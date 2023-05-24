@@ -1,6 +1,7 @@
 package lighting;
 
 import primitives.Color;
+import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
 
@@ -46,6 +47,11 @@ public class PointLight extends Light implements LightSource{
     public Vector getL(Point p) {
         return p.subtract(this.position).normalize();
         //return this.position.subtract(p).normalize();
+    }
+
+    @Override
+    public double getDistance(Double3 point) {
+        return position.distance(new Point(point));
     }
 
     /**
