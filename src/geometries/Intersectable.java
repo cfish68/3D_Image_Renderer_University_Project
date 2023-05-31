@@ -5,6 +5,8 @@ import primitives.Ray;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static primitives.Util.alignZero;
+
 /**
  * Interface Intersectables is anything that can be intersected by a ray.
  */
@@ -51,9 +53,9 @@ public abstract class Intersectable {
      * @param ray
      * @return
      */
-    public List<GeoPoint> findGeoIntersections(Ray ray){
-        return findGeoIntersectionsHelper(ray);
-    }
+//    public List<GeoPoint> findGeoIntersections(Ray ray){
+//        return findGeoIntersectionsHelper(ray);
+//    }
 
     /**
      * This function takes in a ray and returns a list of points that the ray intersects
@@ -67,12 +69,30 @@ public abstract class Intersectable {
     }
 
 
-//    public final List<GeoPoint> findGeoIntersections(Ray ray) {
-//        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
-//    }
-//    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
-//        return findGeoIntersectionsHelper(ray, maxDistance);
-//    }
-//    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
+    /**
+     * find intersections where we don't care about the distance
+     * @param ray
+     * @return
+     */
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
+    }
+
+    /**
+     * find intersections only within a certain distance. This distance might be +infinity
+     * @param ray
+     * @param maxDistance
+     * @return
+     */
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelper(ray, maxDistance);
+    }
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
+        var geoList = findGeoIntersections(ray);
+        double something = ray.getP0().distance(ray.getP0()) - maxDistance;
+        return geoList == null ? null
+                : geoList.stream().filter(gp -> (alignZero(ray.getP0().distance(gp.point) - maxDistance))
+                <= 0 ).collect(Collectors.toList());
+    }
 
 }
