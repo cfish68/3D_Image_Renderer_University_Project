@@ -214,6 +214,11 @@ public class RayTracerBasic extends RayTraceBase {
         return new Ray(GP, inRay.getDir());
     }
 
+    /**
+     * finds closest geoPoint of a ray and returns it
+     * @param ray
+     * @return
+     */
     private GeoPoint findClosestIntersection(Ray ray){
         return ray.findClosestGeoPoint(scene.geometries.findGeoIntersectionsHelper(ray));
     }
