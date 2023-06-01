@@ -182,8 +182,8 @@ public class RayTracerBasic extends RayTraceBase {
         }
         intersections = intersections.stream().filter(g -> g.geometry.getMaterial().kT.equals(Double3.ZERO)
                  ).collect(Collectors.toList());
+        return intersections.isEmpty();
 
-        return false;
     }
 
     /**
@@ -198,12 +198,12 @@ public class RayTracerBasic extends RayTraceBase {
         Color color = Color.BLACK;
         Material mat = gp.geometry.getMaterial();
         Double3 kr = mat.getKr(), kkr = k.product(kr);
-        Vector n = gp.geometry.getNormal(gp.point);
+        Vector n = gp.geometry.getNormal(gp.point).normalize();
 
         //reflection segment
         Ray reflectedRay = constructReflectedRay(n, gp.point, ray);
         GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
-        if (kkr.lowerThan(MIN_CALC_COLOR_K)) {
+        if (!kkr.lowerThan(MIN_CALC_COLOR_K)) {
             color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
         }
 
@@ -211,8 +211,8 @@ public class RayTracerBasic extends RayTraceBase {
         Ray refractedRay = constructRefractedRay(gp.point, ray);
         GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 
-        Double3 kt = mat.getKr(), kkt = k .product(kt);
-        if (kkt.greaterThan( MIN_CALC_COLOR_K)) {
+        Double3 kt = mat.getKr(), kkt = k.product(kt);
+        if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
              color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
         }
         return color;

@@ -54,7 +54,7 @@ public class Material {
      * @param kT
      * @return
      */
-    public Material setkT(Double3 kT) {
+    public Material setKt(Double3 kT) {
         this.kT = kT;
         return this;
     }
@@ -64,7 +64,7 @@ public class Material {
      * @param kR
      * @return
      */
-    public Material setkR(Double3 kR) {
+    public Material setKr(Double3 kR) {
         this.kR = kR;
         return this;
     }

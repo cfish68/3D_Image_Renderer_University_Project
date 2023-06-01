@@ -26,6 +26,10 @@ public class Sphere extends RadialGeometry{
         this.center = center;
     }
 
+    public Sphere(Point center, double radius) {
+        this(radius, center);
+    }
+
     /**
      * Returns the normal at a given point.
      * @param point
