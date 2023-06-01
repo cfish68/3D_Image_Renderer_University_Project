@@ -125,11 +125,11 @@ public class RayTracerBasic extends RayTraceBase {
     private boolean unshaded( GeoPoint gp, LightSource lightSource, Vector l, Vector n, double nl) {
         Vector lightDirection = l.scale(-1); // from point to light source
         //Vector epsVector = n.scale(DELTA);
-        Vector epsVector = n.scale(nl <= 0 ? DELTA : -DELTA);
+        Vector epsVector = n.scale(nl < 0 ? DELTA : -DELTA);
         Point point = gp.point.add(epsVector);
         Ray lightRay = new Ray(point, lightDirection);
 
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(gp.point));
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(point));
         if (intersections == null) {
             return true;
             }
