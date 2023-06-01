@@ -178,14 +178,14 @@ public class RayTracerBasic extends RayTraceBase {
 
         //reflection segment
         Ray reflectedRay = constructReflectedRay(n, gp.point, ray);
-        GeoPoint reflectedPoint = reflectedRay.findClosestGeoPoint(scene.geometries.findGeoIntersectionsHelper(ray));
+        GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
         if (kkr.lowerThan(MIN_CALC_COLOR_K)) {
             color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
         }
 
         //refraction segment
         Ray refractedRay = constructRefractedRay(gp.point, ray);
-        GeoPoint refractedPoint = refractedRay.findClosestGeoPoint(scene.geometries.findGeoIntersectionsHelper(ray));
+        GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 
         Double3 kt = mat.getKr(), kkt = k .product(kt);
         if (kkt.greaterThan( MIN_CALC_COLOR_K)) {
@@ -212,6 +212,10 @@ public class RayTracerBasic extends RayTraceBase {
     //returns "refracted ray"
     private Ray constructRefractedRay(Point GP, Ray inRay){
         return new Ray(GP, inRay.getDir());
+    }
+
+    private GeoPoint findClosestIntersection(Ray ray){
+        return ray.findClosestGeoPoint(scene.geometries.findGeoIntersectionsHelper(ray));
     }
 
 }
