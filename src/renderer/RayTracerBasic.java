@@ -15,6 +15,8 @@ import static primitives.Util.alignZero;
 public class RayTracerBasic extends RayTraceBase {
 
 
+    private static final Double3 k = Double3.ONE;
+
     /**
      * a constant field for the amount that you want to move the ray’s head
      */
@@ -54,16 +56,27 @@ public class RayTracerBasic extends RayTraceBase {
         return color;
     }
 
-    /**
+    /** old calcColor
      * calcColor with GeoPoint, receives a geoPopint an return the color of that point
      * @param gPoint
      * @return
      */
-    public Color calcColor(GeoPoint gPoint, Ray ray){
-        if(gPoint == null){
-            return scene.ambientLight.getIntensity();
-        }
-        return scene.ambientLight.getIntensity().add(calcLocalEffects(gPoint, ray));
+//    public Color calcColor(GeoPoint gPoint, Ray ray){
+//        if(gPoint == null){
+//            return scene.ambientLight.getIntensity();
+//        }
+//        return scene.ambientLight.getIntensity().add(calcLocalEffects(gPoint, ray));
+//    }
+
+    /**
+     * calcColor function.(helper)
+     * @param gp
+     * @param ray
+     * @return
+     */
+    private Color calcColor(GeoPoint gp, Ray ray) {
+        return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, k)
+                .add(scene.ambientLight.getIntensity());
     }
 
 
