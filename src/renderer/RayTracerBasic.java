@@ -76,6 +76,9 @@ public class RayTracerBasic extends RayTraceBase {
      * @return
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
+        if(gp == null){
+            return scene.ambientLight.getIntensity();
+        }
         return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, k)
                 .add(scene.ambientLight.getIntensity());
     }
@@ -92,6 +95,9 @@ public class RayTracerBasic extends RayTraceBase {
      * @return
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
+        if(gp == null){
+            return scene.ambientLight.getIntensity();
+        }
         Color color = calcLocalEffects(gp, ray);
         return 1 == level ? color : color.add(calcGlobalEffects(gp, ray, level, k));
     }
@@ -171,11 +177,12 @@ public class RayTracerBasic extends RayTraceBase {
         Ray lightRay = new Ray(point, lightDirection);
 
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(point));
-        intersections = intersections.stream().filter(g -> g.geometry.getMaterial().kT.equals(Double3.ZERO)
-                 ).collect(Collectors.toList());
         if (intersections == null) {
             return true;
-            }
+        }
+        intersections = intersections.stream().filter(g -> g.geometry.getMaterial().kT.equals(Double3.ZERO)
+                 ).collect(Collectors.toList());
+
         return false;
     }
 
