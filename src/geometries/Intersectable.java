@@ -1,6 +1,7 @@
 package geometries;
 import primitives.Point;
 import primitives.Ray;
+import primitives.Util;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,11 +89,15 @@ public abstract class Intersectable {
         return findGeoIntersectionsHelper(ray, maxDistance);
     }
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
-        var geoList = findGeoIntersections(ray);
-        double something = ray.getP0().distance(ray.getP0()) - maxDistance;
-        return geoList == null ? null
-                : geoList.stream().filter(gp -> (alignZero(ray.getP0().distance(gp.point) - maxDistance))
+        var geoList = findGeoIntersectionsHelper(ray);
+        if(geoList == null)
+            return null;
+        geoList = geoList.stream().filter(gp -> Util.alignZero(ray.getP0().distance(gp.point) - maxDistance)
                 <= 0 ).collect(Collectors.toList());
+        if(geoList.isEmpty()){
+            return null;
+        }
+        return geoList;
     }
 
 }

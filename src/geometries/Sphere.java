@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 import java.util.ArrayList;
@@ -73,6 +74,10 @@ public class Sphere extends RadialGeometry{
 
         double t1 = (t + th)/ray.getDir().length();
         double t2 = (t - th)/ray.getDir().length();
+        if(Util.isZero(t1))
+            t1 = 0;
+        if(Util.isZero(t2))
+            t2=0;
         //if t1 is greater than zero then we have a point
         if (t1 > 0) {
             //if t2 is greater than zero then we have 2 points

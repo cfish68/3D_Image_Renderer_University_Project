@@ -72,7 +72,7 @@ public class RayTracerBasic extends RayTraceBase {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                if(unshaded(l, n, gp, lightSource)) {
+                if(unshaded(gp, lightSource, l, n, nl)) {//gp, lightSource, l, n, nl
                     Color iL = lightSource.getIntensity(gp.point);
                     //The light that gets diffused and scatters upon hitting the surface
                     color = color.add(iL.scale(calcDiffusive(material, nl))
@@ -122,26 +122,18 @@ public class RayTracerBasic extends RayTraceBase {
      * @param gp geometry intersection point
      * @return
      */
-    private boolean unshaded(Vector l, Vector n, GeoPoint gp, LightSource lightSource) {
+    private boolean unshaded( GeoPoint gp, LightSource lightSource, Vector l, Vector n, double nl) {
         Vector lightDirection = l.scale(-1); // from point to light source
-        Vector epsVector = n.scale(DELTA);
+
+        Vector epsVector = n.scale(nl < 0 ? DELTA : -DELTA);
         Point point = gp.point.add(epsVector);
         Ray lightRay = new Ray(point, lightDirection);
-        List<Point> intersections = scene.geometries.findIntersections(lightRay); //todo: List<geopoint> originaly changed becuase didn't want to make many differnet chagnes question is what do we want it to be
+
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(gp.point));
         if (intersections == null) {
             return true;
-        } else if (!intersections.isEmpty()) {
-            for (Point x : intersections) {
-                // if you find a point that is closer to the ray’s head than the distance between the ray’s head and light source – return false.
-                if (point.distance(x) < point.distance(gp.point)) {
-                    double z = lightSource.getDistance(x);
-                    double t = lightSource.getDistance(gp.point);
-                    return false;
-
-                }
             }
-        }
-        return true;
+        return false;
     }
 
 }
