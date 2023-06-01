@@ -48,7 +48,7 @@ public class ShadowTests {
 	@Test
 	public void sphereTriangleMove1() {
 		sphereTriangleHelper("shadowSphereTriangleMove2", //
-				new Triangle(new Point(-48.5258,-26.16512,0), new Point(-8.32961,-36.28521,-71.63491), new Point(-45.00115,-61.74509,-53.92899)), //
+				new Triangle(new Point(-60,-25,0), new Point(-25,-60,0), new Point(-70,-60,0)), //
 				new Point(-100, -100, 200));
 	}
 
