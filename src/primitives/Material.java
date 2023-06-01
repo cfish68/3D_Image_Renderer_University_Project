@@ -80,5 +80,16 @@ public class Material {
         return this;
     }
 
-
+    public Double3 getKd() {
+        return kD;
+    }
+    public Double3 getKr() {
+        return kR;
+    }
+    public Double3 getKs() {
+        return kS;
+    }
+    public Double3 getKt() {
+        return kT;
+    }
 }

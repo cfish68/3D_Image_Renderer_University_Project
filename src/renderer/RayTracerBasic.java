@@ -147,17 +147,31 @@ public class RayTracerBasic extends RayTraceBase {
     }
 
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k){
-//        Color color = Color.BLACK;
-//        Material mat = gp.geometry.geMaterial();
-//        Double3 kr = mat.getKr(), kkr = k.multiply(kr);
-//        if (kkr.greaterThan(MIN_CALC_COLOR_K)) {
-//            color = color.add(calcColor(reflectedPoint, reflectedRay, level – 1, kkr).scale(kr));
-//        }
-//        Double3 kt = mat.getKr(), kkt = k .multiply(kt);
-//        if (kkt.greaterThan( MIN_CALC_COLOR_K)) { …
-//             color = color.add(calcColor(refractedPoint, refractedRay, level – 1, kkt).scale(kt));
-//        }
-//        return color;
+        Color color = Color.BLACK;
+        Material mat = gp.geometry.getMaterial();
+        Double3 kr = mat.getKr(), kkr = k.product(kr);
+        Vector n = gp.geometry.getNormal(gp.point);
+        Ray reflectedRay = constructReflectedRay(n, gp.point, ray);
+        if (kkr.lowerThan(MIN_CALC_COLOR_K)) {
+            color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
+        }
+        Double3 kt = mat.getKr(), kkt = k .multiply(kt);
+        if (kkt.greaterThan( MIN_CALC_COLOR_K)) {
+             color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
+        }
+        return color;
+
+
+    }
+
+    /**
+     * method which calculates the refclected ray and return it
+     * @param n
+     * @param point
+     * @param ray
+     * @return
+     */
+    private Ray constructReflectedRay(Vector n, Point point, Ray ray){
 
         return null;
     }
