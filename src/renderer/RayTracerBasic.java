@@ -91,8 +91,7 @@ public class RayTracerBasic extends RayTraceBase {
      * @return
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
-        Color color = scene.ambientLight.getIntensity()
-                .add(calcLocalEffects(gp, ray));
+        Color color = calcLocalEffects(gp, ray);
         return 1 == level ? color : color.add(calcGlobalEffects(gp, ray, level, k));
     }
 
