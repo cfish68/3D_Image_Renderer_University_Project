@@ -6,6 +6,7 @@ import primitives.*;
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static primitives.Util.alignZero;
 
@@ -170,6 +171,8 @@ public class RayTracerBasic extends RayTraceBase {
         Ray lightRay = new Ray(point, lightDirection);
 
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(point));
+        intersections = intersections.stream().filter(g -> g.geometry.getMaterial().kT.equals(Double3.ZERO)
+                 ).collect(Collectors.toList());
         if (intersections == null) {
             return true;
             }
