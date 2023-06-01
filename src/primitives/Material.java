@@ -4,6 +4,9 @@ public class Material {
 
     public Double3 kD = Double3.ZERO;
     public Double3 kS = Double3.ZERO;
+    public Double3 kT = Double3.ZERO; //Transparency Coefficient
+    public Double3 kR = Double3.ZERO; //Reflection Coefficient
+
     public int nShininess = 0;
 
     /**
@@ -43,6 +46,26 @@ public class Material {
      */
     public Material setKs(double d) {
         this.kS = new Double3(d);
+        return this;
+    }
+
+    /**
+     * Setter for Transparency Coefficient
+     * @param kT
+     * @return
+     */
+    public Material setkT(Double3 kT) {
+        this.kT = kT;
+        return this;
+    }
+
+    /**
+     * Setter for Reflection Coefficient
+     * @param kR
+     * @return
+     */
+    public Material setkR(Double3 kR) {
+        this.kR = kR;
         return this;
     }
 
