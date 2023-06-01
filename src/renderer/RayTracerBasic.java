@@ -20,6 +20,15 @@ public class RayTracerBasic extends RayTraceBase {
      */
     private static final double DELTA = 0.1;
     /**
+     * Recursive stop condition for maximum of reflection and transparency
+     */
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    /**
+     * Recursive stop condition for minimum of reflection and transparency
+     */
+    private static final double MIN_CALC_COLOR_K = 0.001;
+
+    /**
      * Constructer for RayTracerBasic that receives a scene
      * @param scene
      */
@@ -116,7 +125,8 @@ public class RayTracerBasic extends RayTraceBase {
 
     /**
      * function to check if a point is not being shadowed
-     * " need to check if there is something that is blocking the light from you point.  (You can add parameters if you find it more efficient)"
+     * " need to check if there is something that is blocking the light from you point.
+     * (You can add parameters if you find it more efficient)"
      * @param l the light direction
      * @param n the normal direction
      * @param gp geometry intersection point
@@ -135,6 +145,8 @@ public class RayTracerBasic extends RayTraceBase {
             }
         return false;
     }
+
+
 
 }
 
