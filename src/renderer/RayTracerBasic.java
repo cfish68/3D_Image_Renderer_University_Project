@@ -66,6 +66,22 @@ public class RayTracerBasic extends RayTraceBase {
         return scene.ambientLight.getIntensity().add(calcLocalEffects(gPoint, ray));
     }
 
+
+    /**
+     * recursive calcColor
+     * @param gp
+     * @param ray
+     * @param level
+     * @param k
+     * @return
+     */
+    private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
+        Color color = scene.ambientLight.getIntensity()
+                .add(calcLocalEffects(gp, ray));
+        return 1 == level ? color : color.add(calcGlobalEffects(gp, ray, level, k));
+    }
+
+
     /**
      * Calculates the local effects of all lightsources and returns the corresponding color.
      * @param gp
@@ -146,17 +162,32 @@ public class RayTracerBasic extends RayTraceBase {
         return false;
     }
 
+    /**
+     * calculates reflection and refraction
+     * @param gp
+     * @param ray
+     * @param level
+     * @param k
+     * @return
+     */
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k){
         Color color = Color.BLACK;
         Material mat = gp.geometry.getMaterial();
         Double3 kr = mat.getKr(), kkr = k.product(kr);
         Vector n = gp.geometry.getNormal(gp.point);
-        Ray reflectedRay = constructReflectedRay(n, gp.point, ray);
 
+        //reflection segment
+        Ray reflectedRay = constructReflectedRay(n, gp.point, ray);
+        GeoPoint reflectedPoint = reflectedRay.findClosestGeoPoint(scene.geometries.findGeoIntersectionsHelper(ray));
         if (kkr.lowerThan(MIN_CALC_COLOR_K)) {
             color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
         }
-        Double3 kt = mat.getKr(), kkt = k .multiply(kt);
+
+        //refraction segment
+        Ray refractedRay = constructRefractedRay(gp.point, ray);
+        GeoPoint refractedPoint = refractedRay.findClosestGeoPoint(scene.geometries.findGeoIntersectionsHelper(ray));
+
+        Double3 kt = mat.getKr(), kkt = k .product(kt);
         if (kkt.greaterThan( MIN_CALC_COLOR_K)) {
              color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
         }
@@ -176,6 +207,11 @@ public class RayTracerBasic extends RayTraceBase {
         //𝒗 − 𝟐 ∙ (𝒗 ∙ 𝒏) ∙ n
         Vector r = ray.getDir().subtract(n.scale(n.dotProduct(ray.getDir())).scale(2)); //reflection vector
         return new Ray(point, r);
+    }
+
+    //returns "refracted ray"
+    private Ray constructRefractedRay(Point GP, Ray inRay){
+        return new Ray(GP, inRay.getDir());
     }
 
 }
