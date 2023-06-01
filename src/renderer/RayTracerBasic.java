@@ -146,7 +146,21 @@ public class RayTracerBasic extends RayTraceBase {
         return false;
     }
 
+    private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k){
+//        Color color = Color.BLACK;
+//        Material mat = gp.geometry.geMaterial();
+//        Double3 kr = mat.getKr(), kkr = k.multiply(kr);
+//        if (kkr.greaterThan(MIN_CALC_COLOR_K)) {
+//            color = color.add(calcColor(reflectedPoint, reflectedRay, level – 1, kkr).scale(kr));
+//        }
+//        Double3 kt = mat.getKr(), kkt = k .multiply(kt);
+//        if (kkt.greaterThan( MIN_CALC_COLOR_K)) { …
+//             color = color.add(calcColor(refractedPoint, refractedRay, level – 1, kkt).scale(kt));
+//        }
+//        return color;
 
+        return null;
+    }
 
 }
 
