@@ -152,6 +152,7 @@ public class RayTracerBasic extends RayTraceBase {
         Double3 kr = mat.getKr(), kkr = k.product(kr);
         Vector n = gp.geometry.getNormal(gp.point);
         Ray reflectedRay = constructReflectedRay(n, gp.point, ray);
+
         if (kkr.lowerThan(MIN_CALC_COLOR_K)) {
             color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
         }
@@ -172,8 +173,9 @@ public class RayTracerBasic extends RayTraceBase {
      * @return
      */
     private Ray constructReflectedRay(Vector n, Point point, Ray ray){
-
-        return null;
+        //𝒗 − 𝟐 ∙ (𝒗 ∙ 𝒏) ∙ n
+        Vector r = ray.getDir().subtract(n.scale(n.dotProduct(ray.getDir())).scale(2)); //reflection vector
+        return new Ray(point, r);
     }
 
 }
