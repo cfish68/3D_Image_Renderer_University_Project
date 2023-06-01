@@ -67,6 +67,8 @@ public class RayTracerBasic extends RayTraceBase {
     }
 
 
+
+
     /**
      * recursive calcColor
      * @param gp
