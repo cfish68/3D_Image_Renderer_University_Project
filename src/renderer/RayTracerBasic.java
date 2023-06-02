@@ -253,8 +253,8 @@ public class RayTracerBasic extends RayTraceBase {
         if (intersections == null) {
             return ktr;
         }
-        intersections = intersections.stream().filter(g -> !g.geometry.getMaterial().kT.equals(Double3.ZERO)
-        ).collect(Collectors.toList());
+        //intersections = intersections.stream().filter(g -> !g.geometry.getMaterial().kT.equals(Double3.ZERO)
+        //).collect(Collectors.toList());
         for(GeoPoint g: intersections){
             ktr = ktr.product(g.geometry.getMaterial().kT);
         }
