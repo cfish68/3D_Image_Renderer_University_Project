@@ -87,7 +87,6 @@ public class RayTracerBasic extends RayTraceBase {
         return 1 == level ? color : color.add(calcGlobalEffects(gp, ray, level, k));
     }
 
-
     /**
      * Calculates the local effects of all lightsources and returns the corresponding color.
      * @param gp
@@ -99,19 +98,21 @@ public class RayTracerBasic extends RayTraceBase {
         Vector v = ray.getDir (); Vector n = gp.geometry.getNormal(gp.point);
         double nv = alignZero(n.dotProduct(v)); if (nv == 0) return color;
         Material material = gp.geometry.getMaterial();
+
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
+
             if (nl * nv > 0) { // sign(nl) == sing(nv)
                // if(unshaded(gp, lightSource, l, n, nl)) {//gp, lightSource, l, n, nl
                 Double3 ktr = transparancy(gp, lightSource, l, n);
-                if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)){
 
+                if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)){
                     Color iL = lightSource.getIntensity(gp.point).scale(ktr);
                     //The light that gets diffused and scatters upon hitting the surface
-                    color = color.add(iL.scale(calcDiffusive(material, nl))
+                    color = color.add(iL.scale(calcDiffusive(material, nl)),
                             //the light that reflects more sharply and concisely
-                            , iL.scale(calcSpecular(material, n, l, nl, v)));
+                            iL.scale(calcSpecular(material, n, l, nl, v)));
                 }
             }
         }
@@ -168,7 +169,6 @@ public class RayTracerBasic extends RayTraceBase {
         intersections = intersections.stream().filter(g -> g.geometry.getMaterial().kT.equals(Double3.ZERO)
                  ).collect(Collectors.toList());
         return intersections.isEmpty();
-
     }
 
     /**
@@ -201,8 +201,6 @@ public class RayTracerBasic extends RayTraceBase {
              color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
         }
         return color;
-
-
     }
 
     /**
