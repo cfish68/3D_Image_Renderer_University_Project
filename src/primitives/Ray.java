@@ -10,6 +10,8 @@ public class Ray {
     Point p0;
     Vector dir;
 
+    private static final double DELTA = 0.1;
+
     /**
      * Constructor for Ray that takes in a point and vector.
      * @param point
@@ -18,6 +20,15 @@ public class Ray {
     public Ray(Point point, Vector dir){
         this.p0 = point;
         this.dir = dir.normalize();
+    }
+
+    public Ray(Point p0, Vector dir, Vector normal) {
+        this(p0, dir);
+        double nv = normal.dotProduct(this.dir);
+        if (!Util.isZero(nv)) {
+            Vector delta = normal.scale(nv > 0 ? DELTA : -DELTA);
+            this.p0 = p0.add(delta);
+        }
     }
 
     /**

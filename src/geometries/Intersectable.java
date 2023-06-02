@@ -93,7 +93,7 @@ public abstract class Intersectable {
         if(geoList == null)
             return null;
         geoList = geoList.stream().filter(gp -> Util.alignZero(ray.getP0().distance(gp.point) - maxDistance)
-                <= 0 ).collect(Collectors.toList());
+                <= 0).collect(Collectors.toList());
         if(geoList.isEmpty()){
             return null;
         }
