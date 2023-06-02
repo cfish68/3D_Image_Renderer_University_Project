@@ -5,6 +5,7 @@ package lighting;
 
 import static java.awt.Color.*;
 
+import geometries.Plane;
 import org.junit.jupiter.api.Test;
 
 import geometries.Sphere;
@@ -76,7 +77,7 @@ public class ReflectionRefractionTests {
          .writeToImage();
    }
 
-   /** Produce a picture of a two triangles lighted by a spot light with a
+   /** Produce a picture of two triangles lighted by a spot light with a
     * partially
     * transparent Sphere producing partial shadow */
    @Test
@@ -104,4 +105,33 @@ public class ReflectionRefractionTests {
          .renderImage() //
          .writeToImage();
    }
+
+   /** Produce a picture of two triangles lighted by a spot light with a
+    * partially
+    * transparent Sphere producing partial shadow */
+   @Test
+   public void ownPicture() {
+      Camera camera = new Camera(new Point(-1000, -1000, 1000), new Vector(1, 1, -1), new Vector(1, 1, 2)) //
+              .setVPSize(200, 200).setVPDistance(1000);
+
+      scene.setAmbientLight(new AmbientLight(new Color(YELLOW), 0.15));
+
+      scene.geometries.add( //
+              new Plane(new Point(0,0,0), new Point(1,0,0), new Point(0,1,0)).setEmission(new Color(1, 50 , 32))
+                      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
+              new Triangle(new Point(0,0,-100), new Point(0,100,100), new Point(0,-100,100)).setEmission(new Color(BLUE))
+                      .setMaterial(new Material().setKd(0.02).setKs(0.2).setShininess(30).setKt(Double3.ONE.scale(0.6))),
+              new Sphere(new Point(50, 0, 50), 30d).setEmission(new Color(RED)) //
+                      .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(Double3.ONE.scale(0.6))));
+
+      scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(-150, -200, 150), new Vector(0, 0, -1)) //
+              .setKl(4E-5).setKq(2E-7));
+
+      ImageWriter imageWriter = new ImageWriter("ownPicturePlaneWindowSphere", 600, 600);
+      camera.setImageWriter(imageWriter) //
+              .setRayTracer(new RayTracerBasic(scene)) //
+              .renderImage() //
+              .writeToImage();
+   }
+
 }
