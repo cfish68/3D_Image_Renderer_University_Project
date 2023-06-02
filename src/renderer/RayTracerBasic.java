@@ -221,24 +221,25 @@ public class RayTracerBasic extends RayTraceBase {
     }
 
     /**
-     * method which calculates the refclected ray and return it
+     * Method which calculates the reflected ray and return it
+     * @param gp
+     * @param dir
      * @param n
-     * @param point
-     * @param ray
      * @return
      */
-//    private Ray constructReflectedRay(Vector n, Point point, Ray ray){
-//        //𝒗 − 𝟐 ∙ (𝒗 ∙ 𝒏) ∙ n
-//        Vector r = ray.getDir().subtract(n.scale(n.dotProduct(ray.getDir())).scale(2)); //reflection vector
-//        return new Ray(point, r);
-//    }
-
     private Ray constructReflectedRay(GeoPoint gp, Vector dir, Vector n){
+        //𝒗 − 𝟐 ∙ (𝒗 ∙ 𝒏) ∙ n
         Vector r = dir.subtract(n.scale(n.dotProduct(dir)).scale(2)); //reflection vector
         return new Ray(gp.point, r, n);
     }
 
-    //returns "refracted ray"
+    /**
+     * Returns the refracted ray.
+     * @param GP
+     * @param inRay
+     * @param n
+     * @return
+     */
     private Ray constructRefractedRay(Point GP, Ray inRay, Vector n){
         return new Ray(GP, inRay.getDir(), n);
     }
@@ -252,7 +253,14 @@ public class RayTracerBasic extends RayTraceBase {
         return ray.findClosestGeoPoint(scene.geometries.findGeoIntersectionsHelper(ray));
     }
 
-
+    /**
+     * Method for calculating transparency at a GeoPoint
+     * @param gp
+     * @param lightSource
+     * @param l
+     * @param n
+     * @return
+     */
     private Double3 transparancy( GeoPoint gp, LightSource lightSource, Vector l, Vector n) {
         Double3 ktr = Double3.ONE;
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -268,9 +276,7 @@ public class RayTracerBasic extends RayTraceBase {
             ktr = ktr.product(g.geometry.getMaterial().kR);
         }
         return ktr;
-
     }
-
 }
 
 
