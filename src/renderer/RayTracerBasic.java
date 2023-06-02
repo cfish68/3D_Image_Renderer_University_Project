@@ -57,18 +57,6 @@ public class RayTracerBasic extends RayTraceBase {
         return color;
     }
 
-    /** old calcColor
-     * calcColor with GeoPoint, receives a geoPopint an return the color of that point
-     * @param gPoint
-     * @return
-     */
-//    public Color calcColor(GeoPoint gPoint, Ray ray){
-//        if(gPoint == null){
-//            return scene.ambientLight.getIntensity();
-//        }
-//        return scene.ambientLight.getIntensity().add(calcLocalEffects(gPoint, ray));
-//    }
-
     /**
      * calcColor function.(helper)
      * @param gp
@@ -82,9 +70,6 @@ public class RayTracerBasic extends RayTraceBase {
         return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, k)
                 .add(scene.ambientLight.getIntensity());
     }
-
-
-
 
     /**
      * recursive calcColor
