@@ -211,7 +211,7 @@ public class RayTracerBasic extends RayTraceBase {
         Ray refractedRay = constructRefractedRay(gp.point, ray, n);
         GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 
-        Double3 kt = mat.getKr(), kkt = k.product(kt);
+        Double3 kt = mat.getKt(), kkt = k.product(kt);
         if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
              color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
         }
@@ -219,7 +219,6 @@ public class RayTracerBasic extends RayTraceBase {
 
 
     }
-
 
     /**
      * method which calculates the refclected ray and return it
@@ -261,12 +260,12 @@ public class RayTracerBasic extends RayTraceBase {
         Ray lightRay = new Ray(gp.point, lightDirection, n);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(gp.point));
         if (intersections == null) {
-            return Double3.ONE;
+            return ktr;
         }
-        //intersections = intersections.stream().filter(g -> g.geometry.getMaterial().kT.equals(Double3.ZERO)
-        //).collect(Collectors.toList());
+        intersections = intersections.stream().filter(g -> g.geometry.getMaterial().kT.equals(Double3.ZERO)
+        ).collect(Collectors.toList());
         for(GeoPoint g: intersections){
-            ktr = ktr.product(g.geometry.getMaterial().kT);
+            ktr = ktr.product(g.geometry.getMaterial().kR);
         }
         return ktr;
 
