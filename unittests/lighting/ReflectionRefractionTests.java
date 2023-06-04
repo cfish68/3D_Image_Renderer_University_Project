@@ -111,21 +111,39 @@ public class ReflectionRefractionTests {
     * transparent Sphere producing partial shadow */
    @Test
    public void ownPicture() {
-      Camera camera = new Camera(new Point(-1000, -1000, 1000), new Vector(1, 1, -1), new Vector(1, 1, 2)) //
+      Camera camera = new Camera(new Point(-1000, -1100, 100), new Vector(1, 1, -0.1), new Vector(1, 1, 20)) //
               .setVPSize(200, 200).setVPDistance(1000);
 
       scene.setAmbientLight(new AmbientLight(new Color(YELLOW), 0.15));
 
       scene.geometries.add( //
+              //Floor
               new Plane(new Point(0,0,0), new Point(1,0,0), new Point(0,1,0)).setEmission(new Color(1, 50 , 32))
                       .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
-              new Triangle(new Point(0,0,-100), new Point(0,100,100), new Point(0,-100,100)).setEmission(new Color(BLUE))
-                      .setMaterial(new Material().setKd(0.02).setKs(0.2).setShininess(30).setKt(Double3.ONE.scale(0.6))),
-              new Sphere(new Point(50, 0, 50), 30d).setEmission(new Color(RED)) //
+              //Background/sky
+              new Plane(new Point(10000,0,0), new Point(10000,0,1), new Point(10000,1,0)).setEmission(new Color(2, 167, 222))
+                      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(10)),
+              //Window
+              new Triangle(new Point(0,0,-1000), new Point(0,100,120), new Point(0,-100,120)).setEmission(new Color(41, 44, 51))
+                      .setMaterial(new Material().setKd(0.02).setKs(0.8).setShininess(50).setKt(Double3.ONE.scale(0.6))),
+              //Ball
+              new Sphere(new Point(70, 0, 30), 30d).setEmission(new Color(48, 15, 15))
+                      .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(Double3.ONE.scale(0.6))),
+              //Streetlight
+              new Sphere(new Point(-12,-90,110), 10d).setEmission(new Color(YELLOW))
+                      .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(30).setKt(Double3.ONE.scale(0.99))),
+              //small Ball
+              new Sphere(new Point(20, 10, 15), 15d).setEmission(new Color(77, 60, 1))
                       .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(Double3.ONE.scale(0.6))));
 
-      scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(-150, -200, 150), new Vector(0, 0, -1)) //
-              .setKl(4E-5).setKq(2E-7));
+      //Sun
+      scene.lights.add(new DirectionalLight(new Color(YELLOW), new Vector(1,-1,-10)));
+
+      //Streetlight
+      scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(-12,-90,110), new Vector(0, 0, -1)) //
+              .setKl(4E-15).setKq(2E-20));
+
+
 
       ImageWriter imageWriter = new ImageWriter("ownPicturePlaneWindowSphere", 600, 600);
       camera.setImageWriter(imageWriter) //
