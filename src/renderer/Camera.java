@@ -31,7 +31,7 @@ public class Camera {
 
     /**
      * Constructor for a Camera object, taking in location and vectors 'up' and 'to'.
-     * vectors 'up' and 'to' must be orthogonal. The constructor creats the vector 'right'
+     * vectors 'up' and 'to' must be orthogonal. The constructor creates the vector 'right'
      * being perpendicular to 'up' and 'to'.
      * @param location
      * @param up

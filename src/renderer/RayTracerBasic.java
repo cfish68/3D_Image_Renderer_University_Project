@@ -1,6 +1,5 @@
 package renderer;
 
-import lighting.Light;
 import lighting.LightSource;
 import primitives.*;
 import scene.Scene;
@@ -105,7 +104,7 @@ public class RayTracerBasic extends RayTraceBase {
 
             if (nl * nv > 0) { // sign(nl) == sing(nv)
                // if(unshaded(gp, lightSource, l, n, nl)) {//gp, lightSource, l, n, nl
-                Double3 ktr = transparancy(gp, lightSource, l, n);
+                Double3 ktr = transparency(gp, lightSource, l, n);
 
                 if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)){
                     Color iL = lightSource.getIntensity(gp.point).scale(ktr);
@@ -244,7 +243,7 @@ public class RayTracerBasic extends RayTraceBase {
      * @param n
      * @return
      */
-    private Double3 transparancy( GeoPoint gp, LightSource lightSource, Vector l, Vector n) {
+    private Double3 transparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n) {
         Double3 ktr = Double3.ONE;
         Vector lightDirection = l.scale(-1); // from point to light source
 
