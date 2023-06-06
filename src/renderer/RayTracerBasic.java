@@ -259,6 +259,23 @@ public class RayTracerBasic extends RayTraceBase {
         }
         return ktr;
     }
+
+    /**
+     * function to get a list of rays to trace for soft shadows
+     * @param midRay
+     * @param gp
+     * @param lightSource
+     * @param n
+     * @return
+     */
+    private List<Ray> superSampleRays(Ray midRay, GeoPoint gp, LightSource lightSource, int n){
+        //obtain purpendicular vector to the ray
+        Vector dir = midRay.getDir();
+        Vector up = dir.getPerpendicular();
+        Vector right = up.crossProduct(dir);
+
+        return null;
+    }
 }
 
 

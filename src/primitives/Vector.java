@@ -123,4 +123,23 @@ public class Vector extends Point{
     public String toString() {
         return "Vector: " + xyz.toString();
     }
+
+
+    /**
+     * returns a perpendicular vector to the current one
+     * @return
+     */
+    public Vector getPerpendicular(){
+        Vector n = this.normalize();
+        if(n.getX()!=0){
+            return new Vector(n.getY(), -n.getX(),n.getZ());
+        }
+        else if(n.getY()!=0){
+            return new Vector(-n.getY(), n.getX(),n.getZ());
+        }
+        else{//the zero vector does not exist
+            return new Vector(-n.getZ(), n.getY(),n.getX());
+        }
+    }
+
 }
