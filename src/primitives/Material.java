@@ -2,8 +2,8 @@ package primitives;
 
 public class Material {
 
-    public Double3 kD = Double3.ZERO;
-    public Double3 kS = Double3.ZERO;
+    public Double3 kD = Double3.ZERO; //Diffusive Coefficient
+    public Double3 kS = Double3.ZERO;//specular Coefficient
     public Double3 kT = Double3.ZERO; //Transparency Coefficient
     public Double3 kR = Double3.ZERO; //Reflection Coefficient
 
