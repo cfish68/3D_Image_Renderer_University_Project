@@ -4,6 +4,8 @@ import lighting.LightSource;
 import primitives.*;
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -239,7 +241,7 @@ public class RayTracerBasic extends RayTraceBase {
      * Method for calculating transparency at a GeoPoint
      * @param gp
      * @param lightSource
-     * @param l
+     * @param l Vector from light source
      * @param n
      * @return
      */
@@ -260,21 +262,79 @@ public class RayTracerBasic extends RayTraceBase {
         return ktr;
     }
 
+
+    private Double3 newTransparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n, int num) {
+        Double3 ktr = Double3.ONE;
+        Vector lightDirection = l.scale(-1); // from point to light source
+        List<Ray> rays = superSampleRays(lightDirection, gp, lightSource, n, num);
+        if(rays == null){
+            return Double3.ZERO;
+        }
+        Double3 total = Double3.ZERO;
+        for(Ray ray: rays){
+            Double3 ktr1 = Double3.ONE;
+            List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray, lightSource.getDistance(gp.point));
+            if (intersections != null) {
+                for(GeoPoint g: intersections){
+                    ktr1 = ktr1.product(g.geometry.getMaterial().kT);
+                }
+                total = total.add(ktr1);
+            }
+            total = total.add(ktr1);
+        }
+
+        total = total.product(Double3.ONE.scale(1d/rays.size()));
+        return ktr.product(total);
+
+    }
+
+
     /**
      * function to get a list of rays to trace for soft shadows
-     * @param midRay
+     * @param midRay ray from gp to the lightSource
      * @param gp
      * @param lightSource
      * @param n
      * @return
      */
-    private List<Ray> superSampleRays(Ray midRay, GeoPoint gp, LightSource lightSource, int n){
-        //obtain purpendicular vector to the ray
-        Vector dir = midRay.getDir();
-        Vector up = dir.getPerpendicular();
-        Vector right = up.crossProduct(dir);
+    private List<Ray> superSampleRays(Vector dir, GeoPoint gp, LightSource lightSource, Vector n, int num){
+        //obtain perpendicular vector to the ray
+        if(lightSource.getDistance(gp.point) != Double.POSITIVE_INFINITY){
+        Vector up = dir.getPerpendicular().normalize();
+        Vector right = up.crossProduct(dir).normalize();
+        //now use those rays to "move around the light source"
 
-        return null;
+            Point lsPoint = gp.point.add(dir.normalize().scale(lightSource.getDistance(gp.point)));
+            List<Point> points = spiral(lsPoint, up, right, num);
+            List<Ray> rays = new ArrayList<Ray>();
+            for(Point point : points){
+                rays.add(new Ray(gp.point, point.subtract(gp.point).normalize(), n));
+            }
+            return rays;
+
+        }
+            return null;
+    }
+
+    private List<Point>  spiral(Point midPoint, Vector up, Vector right, int n){
+        Vector upRight = up.add(right).scale(0.1);
+        List<Point> points = new ArrayList<Point>();
+        points.add(midPoint);
+        Point lastPoint = midPoint;
+        for(int i = 0; i < n; i++){
+            lastPoint = lastPoint.add(upRight);
+            points.add(lastPoint);
+        }
+        return points;
+//        Point start = midPoint.add(up.scale(0.5)).add(right.scale(0.5));
+//        for(double i = 1/n; i < 1; i+=1/n){
+//            for(double j = 1/n; j<1; j+=1/n){
+//
+//                points.add(start.add(up.scale(-i).add(right.scale(-j))));
+//
+//            }
+//        }
+//        return points;
     }
 }
 
