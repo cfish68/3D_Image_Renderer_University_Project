@@ -32,6 +32,8 @@ public class RayTracerBasic extends RayTraceBase {
      */
     private static final double MIN_CALC_COLOR_K = 0.001;
 
+    private static int SOFT_SHADOW_DEF = 1;
+
     /**
      * Constructer for RayTracerBasic that receives a scene
      * @param scene
@@ -88,6 +90,7 @@ public class RayTracerBasic extends RayTraceBase {
         return 1 == level ? color : color.add(calcGlobalEffects(gp, ray, level, k));
     }
 
+
     /**
      * Calculates the local effects of all lightsources and returns the corresponding color.
      * @param gp
@@ -106,7 +109,7 @@ public class RayTracerBasic extends RayTraceBase {
 
             if (nl * nv > 0) { // sign(nl) == sing(nv)
                // if(unshaded(gp, lightSource, l, n, nl)) {//gp, lightSource, l, n, nl
-                Double3 ktr = newTransparency(gp, lightSource, l, n, 10);
+                Double3 ktr = newTransparency(gp, lightSource, l, n);
 
                 if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)){
                     Color iL = lightSource.getIntensity(gp.point).scale(ktr);
@@ -263,10 +266,10 @@ public class RayTracerBasic extends RayTraceBase {
     }
 
 
-    private Double3 newTransparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n, int num) {
+    private Double3 newTransparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n) {
         Double3 ktr = Double3.ONE;
         Vector lightDirection = l.scale(-1); // from point to light source
-        List<Ray> rays = superSampleRays(lightDirection, gp, lightSource, n, num);
+        List<Ray> rays = superSampleRays(lightDirection, gp, lightSource, n, SOFT_SHADOW_DEF-1, lightSource.getRadius());
         if(rays == null){
             return ktr;
         }
@@ -297,7 +300,7 @@ public class RayTracerBasic extends RayTraceBase {
      * @param n
      * @return
      */
-    private List<Ray> superSampleRays(Vector dir, GeoPoint gp, LightSource lightSource, Vector n, int num){
+    private List<Ray> superSampleRays(Vector dir, GeoPoint gp, LightSource lightSource, Vector n, int num, double radius){
         //obtain perpendicular vector to the ray
         if(lightSource.getDistance(gp.point) != Double.POSITIVE_INFINITY){
         Vector up = dir.getPerpendicular().normalize();
@@ -305,7 +308,7 @@ public class RayTracerBasic extends RayTraceBase {
         //now use those rays to "move around the light source"
 
             Point lsPoint = gp.point.add(dir.normalize().scale(lightSource.getDistance(gp.point)));
-            List<Point> points = spiral(lsPoint, up, right, num);
+            List<Point> points = spiral(lsPoint, up, right, num, radius);
             List<Ray> rays = new ArrayList<Ray>();
             for(Point point : points){
                 rays.add(new Ray(gp.point, point.subtract(gp.point).normalize(), n));
@@ -316,7 +319,7 @@ public class RayTracerBasic extends RayTraceBase {
             return null;
     }
 
-    private List<Point>  spiral(Point midPoint, Vector up, Vector right, int n){
+    private List<Point>  spiral(Point midPoint, Vector up, Vector right, int n, double radius){
         //Vector upRight = up.add(right).scale(0.1);
         List<Point> points = new ArrayList<Point>();
         points.add(midPoint);
@@ -326,9 +329,14 @@ public class RayTracerBasic extends RayTraceBase {
 //            points.add(lastPoint);
 //        }
 //        return points;
-        Point start = midPoint.add(up.scale(24d)).add(right.scale(24d));
-        for(double i = 48.0/n; i < 48.0; i+=48.0/n){
-            for(double j = 48.0/n; j<48.0; j+=48.0/n){
+        if(radius == 0 || n == 0){
+            return points;
+        }
+        Point start = midPoint.add(up.scale(radius)).add(right.scale(radius));
+        points.add(start);
+        double diameter = radius*2;
+        for(double i = diameter/n; i < diameter; diameter+=4.0/n){
+            for(double j = diameter/n; j<diameter; j+=diameter/n){
 
                 points.add(start.add(up.scale(-i).add(right.scale(-j))));
 
