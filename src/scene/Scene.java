@@ -22,6 +22,30 @@ public class Scene {
     public List<LightSource> lights = new LinkedList<LightSource>();
 
     /**
+     * Soft shadow definition parameter, 1 is for 1 ray
+     * For bigger than 1, the amount of rays is the square
+     */
+    private int SOFT_SHADOW_DEF = 1;
+
+    /**
+     * Returns the softShadowDef of the scene
+     * @return
+     */
+    public int getSoftShadowDef() {
+        return SOFT_SHADOW_DEF;
+    }
+
+    /**
+     * Sets the soft shadow def of the scene and returns the scene
+     * @param softShadowDef
+     * @return
+     */
+    public Scene setSoftShadowDef(int softShadowDef) {
+        SOFT_SHADOW_DEF = softShadowDef;
+        return this;
+    }
+
+    /**
      * Setter for List<LightSource> lights that returns this (the Scene object)
      * @param lights
      * @return

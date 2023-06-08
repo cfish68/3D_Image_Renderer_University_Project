@@ -32,8 +32,6 @@ public class RayTracerBasic extends RayTraceBase {
      */
     private static final double MIN_CALC_COLOR_K = 0.001;
 
-    private static int SOFT_SHADOW_DEF = 1;
-
     /**
      * Constructer for RayTracerBasic that receives a scene
      * @param scene
