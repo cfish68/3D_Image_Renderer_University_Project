@@ -23,7 +23,7 @@ public class Scene {
 
     /**
      * Soft shadow definition parameter, 1 is for 1 ray
-     * For bigger than 1, the amount of rays is the square
+     * For bigger than 1, the amount of rays is the square of softShadowDef
      */
     private int SOFT_SHADOW_DEF = 1;
 
@@ -37,6 +37,8 @@ public class Scene {
 
     /**
      * Sets the soft shadow def of the scene and returns the scene
+     * 1 is for 1 ray
+     * For bigger than 1, the amount of rays is the square of softShadowDef
      * @param softShadowDef
      * @return
      */

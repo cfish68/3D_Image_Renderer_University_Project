@@ -137,7 +137,7 @@ public class ReflectionRefractionTests {
                       .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(Double3.ONE.scale(0.6))));
 
       //Sun
-      scene.lights.add(new DirectionalLight(new Color(YELLOW), new Vector(1,-1,-10)));
+      scene.lights.add(new DirectionalLight(new Color(YELLOW), new Vector(1,1,-1)));
 
       //Streetlight
       scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(-12,-90,110), new Vector(0, 0, -1)) //

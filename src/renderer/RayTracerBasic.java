@@ -301,10 +301,10 @@ public class RayTracerBasic extends RayTraceBase {
     private List<Ray> superSampleRays(Vector dir, GeoPoint gp, LightSource lightSource, Vector n, int num, double radius){
         //obtain perpendicular vector to the ray
         if(lightSource.getDistance(gp.point) != Double.POSITIVE_INFINITY){
-        Vector up = dir.getPerpendicular().normalize();
-        Vector right = up.crossProduct(dir).normalize();
-        //now use those rays to "move around the light source"
+            Vector up = dir.getPerpendicular().normalize();
+            Vector right = up.crossProduct(dir).normalize();
 
+            //now use those rays to "move around the light source"
             Point lsPoint = gp.point.add(dir.normalize().scale(lightSource.getDistance(gp.point)));
             List<Point> points = grid(lsPoint, up, right, num, radius);
             List<Ray> rays = new ArrayList<Ray>();
@@ -313,8 +313,10 @@ public class RayTracerBasic extends RayTraceBase {
             }
             return rays;
 
+        }else { //Its infinite directional light and returns -getL
+            return List.of(new Ray(gp.point, lightSource.getL(gp.point).scale(-1),n));
         }
-            return null;
+//            return null;
     }
 
 

@@ -102,4 +102,77 @@ public class SoftShadowsTests {
                 .writeToImage();
     }
 
+    /** Produce a picture of two triangles lighted by a spot light with a
+     * partially
+     * transparent Sphere producing partial shadow */
+    @Test
+    public void SoftShadowOwnPicture() {
+        Camera camera = new Camera(new Point(-500, -550, 100), new Vector(1, 1, -0.1), new Vector(1, 1, 20)) //
+                .setVPSize(200, 200).setVPDistance(1000);
+
+        scene.setAmbientLight(new AmbientLight(new Color(YELLOW), 0.15));
+
+        //Pyramid Material and color
+        Material PyramidM = new Material().setKd(0).setKs(0);
+        Color PyramidC = new Color(250, 96, 12);
+
+        scene.geometries.add( //
+                //1 Floor
+                new Plane(new Point(0,0,0), new Point(1,0,0), new Point(0,1,0)).setEmission(new Color(1, 50 , 32))
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
+                //2 Background/sky
+                new Plane(new Point(10000,0,0), new Point(10000,0,1), new Point(10000,1,0)).setEmission(new Color(2, 167, 222))
+                        .setMaterial(new Material()),
+                //3 Window on x-axis
+                new Triangle(new Point(0,0,-1000), new Point(0,100,120), new Point(0,-100,120)).setEmission(new Color(41, 44, 51))
+                        .setMaterial(new Material().setKd(0.02).setKs(0.8).setShininess(50).setKt(Double3.ONE.scale(0.6))),
+                //4 Ball
+                new Sphere(new Point(70, 0, 30), 30d).setEmission(new Color(77, 30, 1))
+                        .setMaterial(new Material().setKd(0.2).setKs(0.01).setShininess(30).setKt(Double3.ONE.scale(0.6))),
+                //5 Ball Hat
+                new Triangle(new Point(35,0,52), new Point(88,-25,67), new Point(88,25,67))
+                        .setEmission(new Color(BLACK))
+                        .setMaterial(PyramidM),
+                //Pyramid Start ----------
+                //6 South Side
+                new Triangle(new Point(-50,-80,0), new Point(-50,-40,0), new Point(-30,-60,50))
+                        .setEmission(PyramidC)
+                        .setMaterial(PyramidM),
+                //7 West Side
+                new Triangle(new Point(-10,-40,0), new Point(-50,-40,0), new Point(-30,-60,50))
+                        .setEmission(PyramidC)
+                        .setMaterial(PyramidM),
+                //8 North Side
+                new Triangle(new Point(-10,-40,0), new Point(-10,-80,0), new Point(-30,-60,50))
+                        .setEmission(PyramidC)
+                        .setMaterial(PyramidM),
+                //9 East Side
+                new Triangle(new Point(-10,-80,0), new Point(-50,-80,0), new Point(-30,-60,50))
+                        .setEmission(PyramidC)
+                        .setMaterial(PyramidM),
+                //Pyramid End ------------
+                //10 small Ball
+                new Sphere(new Point(20, 10, 15), 15d).setEmission(new Color(77, 60, 1))
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(Double3.ONE.scale(0.6))));
+
+        //Sun
+        scene.lights.add(new DirectionalLight(new Color(255, 249, 194), new Vector(0,1,-0.5)));
+
+        //Closer Point light
+        scene.lights.add(new PointLight(new Color(700, 400, 400), new Point(-650, -500, 80)) //
+                .setKl(4E-4).setKq(2E-6).setRadius(5));
+
+        //Closer SpotLight
+        scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(-30,-60, 1000), new Vector(0,0,-1)) //
+                .setKl(4E-3).setKq(2E-4).setRadius(5));
+
+
+
+        ImageWriter imageWriter = new ImageWriter("ownPictureSoftShadows", 2160, 2160);
+        camera.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene)) //
+                .renderImage() //
+                .writeToImage();
+    }
+
 }

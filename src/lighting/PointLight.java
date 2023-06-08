@@ -11,10 +11,10 @@ import primitives.Vector;
 public class PointLight extends Light implements LightSource{
 
 
-    private Point position;
+    protected Point position;
 
     //attenuation factor
-    private double kC=1,kL=0,kQ=0;
+    protected double kC=1,kL=0,kQ=0;
 
     //Radius and how large the light is affecting soft shadows.
     private double radius = 0;

@@ -25,7 +25,9 @@ public class SpotLight extends PointLight{
      */
     @Override
     public Color getIntensity(Point p) {
-        return this.getIntensity().scale(Math.max(0, direction.normalize().dotProduct(super.getL(p))));
+        double distance = this.position.distance(p);
+        return this.getIntensity().scale(Math.max(0, direction.normalize().dotProduct(super.getL(p))))
+                .scale(1/(kC + kL * distance + kQ * distance*distance));
         //formula according to slideshow 6, slide 35
     }
 
