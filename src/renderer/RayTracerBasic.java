@@ -329,6 +329,9 @@ public class RayTracerBasic extends RayTraceBase {
 //            points.add(lastPoint);
 //        }
 //        return points;
+        if(radius == 0 || n == 0){
+            return points;
+        }
         Point start = midPoint.add(up.scale(radius)).add(right.scale(radius));
         points.add(start);
         double diameter = radius*2;
