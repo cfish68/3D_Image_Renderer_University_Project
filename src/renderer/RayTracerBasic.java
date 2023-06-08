@@ -106,7 +106,7 @@ public class RayTracerBasic extends RayTraceBase {
 
             if (nl * nv > 0) { // sign(nl) == sing(nv)
                // if(unshaded(gp, lightSource, l, n, nl)) {//gp, lightSource, l, n, nl
-                Double3 ktr = transparency(gp, lightSource, l, n);
+                Double3 ktr = newTransparency(gp, lightSource, l, n, 10);
 
                 if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)){
                     Color iL = lightSource.getIntensity(gp.point).scale(ktr);
@@ -268,7 +268,7 @@ public class RayTracerBasic extends RayTraceBase {
         Vector lightDirection = l.scale(-1); // from point to light source
         List<Ray> rays = superSampleRays(lightDirection, gp, lightSource, n, num);
         if(rays == null){
-            return Double3.ZERO;
+            return ktr;
         }
         Double3 total = Double3.ZERO;
         for(Ray ray: rays){
@@ -291,7 +291,7 @@ public class RayTracerBasic extends RayTraceBase {
 
     /**
      * function to get a list of rays to trace for soft shadows
-     * @param midRay ray from gp to the lightSource
+     * @param dir ray from gp to the lightSource
      * @param gp
      * @param lightSource
      * @param n
@@ -317,24 +317,24 @@ public class RayTracerBasic extends RayTraceBase {
     }
 
     private List<Point>  spiral(Point midPoint, Vector up, Vector right, int n){
-        Vector upRight = up.add(right).scale(0.1);
+        //Vector upRight = up.add(right).scale(0.1);
         List<Point> points = new ArrayList<Point>();
         points.add(midPoint);
-        Point lastPoint = midPoint;
-        for(int i = 0; i < n; i++){
-            lastPoint = lastPoint.add(upRight);
-            points.add(lastPoint);
-        }
-        return points;
-//        Point start = midPoint.add(up.scale(0.5)).add(right.scale(0.5));
-//        for(double i = 1/n; i < 1; i+=1/n){
-//            for(double j = 1/n; j<1; j+=1/n){
-//
-//                points.add(start.add(up.scale(-i).add(right.scale(-j))));
-//
-//            }
+//        Point lastPoint = midPoint;
+//        for(int i = 0; i < n; i++){
+//            lastPoint = lastPoint.add(upRight);
+//            points.add(lastPoint);
 //        }
 //        return points;
+        Point start = midPoint.add(up.scale(24d)).add(right.scale(24d));
+        for(double i = 48.0/n; i < 48.0; i+=48.0/n){
+            for(double j = 48.0/n; j<48.0; j+=48.0/n){
+
+                points.add(start.add(up.scale(-i).add(right.scale(-j))));
+
+            }
+        }
+        return points;
     }
 }
 
