@@ -42,8 +42,31 @@ public class DirectionalLight extends Light implements LightSource{
         return this.direction;
     }
 
+    /**
+     * returns the distance of the light source, in this case infinity for Directional Light
+     * @param point
+     * @return
+     */
     @Override
     public double getDistance(Point point) {
         return Double.POSITIVE_INFINITY;
+    }
+
+    /**
+     * Returns the radius, for Directional Light its 0
+     * @return
+     */
+    @Override
+    public double getRadius() {
+        return 0;
+    }
+
+    /**
+     * Empty Setter, Radius of directional light is always 0.
+     * @param radius
+     */
+    @Override
+    public void setRadius(double radius) {
+
     }
 }

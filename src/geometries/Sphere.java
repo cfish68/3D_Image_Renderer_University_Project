@@ -26,6 +26,11 @@ public class Sphere extends RadialGeometry{
         this.center = center;
     }
 
+    /**
+     * Constructor for sphere with opposite parameter order
+     * @param center
+     * @param radius
+     */
     public Sphere(Point center, double radius) {
         this(radius, center);
     }
@@ -48,6 +53,11 @@ public class Sphere extends RadialGeometry{
                 "\nand sphere with center at " + this.center.toString();
     }
 
+    /**
+     * Finds and returns a list of GeoPoint intersections between the ray and the geometry
+     * @param ray
+     * @return
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
         Vector u;

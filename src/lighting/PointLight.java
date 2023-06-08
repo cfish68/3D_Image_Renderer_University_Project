@@ -16,6 +16,9 @@ public class PointLight extends Light implements LightSource{
     //attenuation factor
     private double kC=1,kL=0,kQ=0;
 
+    //Radius and how large the light is affecting soft shadows.
+    private double radius = 0;
+
     /**
      * initializer for Light with param intensity color which sets the intesity
      *
@@ -49,9 +52,32 @@ public class PointLight extends Light implements LightSource{
         //return this.position.subtract(p).normalize();
     }
 
+    /**
+     * Returns the distancce of the point from the light source
+     * @param point
+     * @return
+     */
     @Override
     public double getDistance(Point point) {
         return position.distance(point);
+    }
+
+    /**
+     * Returns the radius of the light source that affects soft shadows
+     * @return
+     */
+    @Override
+    public double getRadius() {
+        return radius;
+    }
+
+    /**
+     * Sets the radius of the light source that affects soft shadows
+     * @param radius
+     */
+    @Override
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     /**
@@ -59,7 +85,6 @@ public class PointLight extends Light implements LightSource{
      * @param kC
      * @return
      */
-
     public PointLight setKc(double kC){
         this.kC = kC;
         return this;

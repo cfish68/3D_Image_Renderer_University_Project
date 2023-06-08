@@ -33,4 +33,18 @@ public interface LightSource {
      * @return
      */
     public double getDistance(Point point);
+
+    /**
+     * Returns the radius of the lightsource
+     * Radius and how large the light is affecting soft shadows.
+     * @return
+     */
+    public double getRadius();
+
+    /**
+     * Sets the radius of the lightsource.
+     * Radius and how large the light is affecting soft shadows.
+     * @param radius
+     */
+    public void setRadius(double radius);
 }
