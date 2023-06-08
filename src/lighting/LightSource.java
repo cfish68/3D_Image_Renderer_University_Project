@@ -46,5 +46,5 @@ public interface LightSource {
      * Radius and how large the light is affecting soft shadows.
      * @param radius
      */
-    public void setRadius(double radius);
+    public LightSource setRadius(double radius);
 }

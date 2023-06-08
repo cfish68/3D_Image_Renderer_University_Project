@@ -76,8 +76,9 @@ public class PointLight extends Light implements LightSource{
      * @param radius
      */
     @Override
-    public void setRadius(double radius) {
+    public PointLight setRadius(double radius) {
         this.radius = radius;
+        return this;
     }
 
     /**

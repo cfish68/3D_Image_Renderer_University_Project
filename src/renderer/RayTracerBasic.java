@@ -267,7 +267,7 @@ public class RayTracerBasic extends RayTraceBase {
     private Double3 newTransparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n) {
         Double3 ktr = Double3.ONE;
         Vector lightDirection = l.scale(-1); // from point to light source
-        List<Ray> rays = superSampleRays(lightDirection, gp, lightSource, n, SOFT_SHADOW_DEF-1, lightSource.getRadius());
+        List<Ray> rays = superSampleRays(lightDirection, gp, lightSource, n, scene.getSoftShadowDef()-1, lightSource.getRadius());
         if(rays == null){
             return ktr;
         }
@@ -306,7 +306,7 @@ public class RayTracerBasic extends RayTraceBase {
         //now use those rays to "move around the light source"
 
             Point lsPoint = gp.point.add(dir.normalize().scale(lightSource.getDistance(gp.point)));
-            List<Point> points = spiral(lsPoint, up, right, num, radius);
+            List<Point> points = grid(lsPoint, up, right, num, radius);
             List<Ray> rays = new ArrayList<Ray>();
             for(Point point : points){
                 rays.add(new Ray(gp.point, point.subtract(gp.point).normalize(), n));
@@ -317,23 +317,27 @@ public class RayTracerBasic extends RayTraceBase {
             return null;
     }
 
-    private List<Point>  spiral(Point midPoint, Vector up, Vector right, int n, double radius){
-        //Vector upRight = up.add(right).scale(0.1);
+
+    /**
+     *
+     * @param midPoint
+     * @param up
+     * @param right
+     * @param n
+     * @param radius
+     * @return
+     */
+    private List<Point>  grid(Point midPoint, Vector up, Vector right, int n, double radius){
+
         List<Point> points = new ArrayList<Point>();
         points.add(midPoint);
-//        Point lastPoint = midPoint;
-//        for(int i = 0; i < n; i++){
-//            lastPoint = lastPoint.add(upRight);
-//            points.add(lastPoint);
-//        }
-//        return points;
         if(radius == 0 || n == 0){
             return points;
         }
         Point start = midPoint.add(up.scale(radius)).add(right.scale(radius));
         points.add(start);
         double diameter = radius*2;
-        for(double i = diameter/n; i < diameter; diameter+=4.0/n){
+        for(double i = diameter/n; i < diameter; i+=diameter/n){
             for(double j = diameter/n; j<diameter; j+=diameter/n){
 
                 points.add(start.add(up.scale(-i).add(right.scale(-j))));

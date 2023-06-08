@@ -66,7 +66,7 @@ public class DirectionalLight extends Light implements LightSource{
      * @param radius
      */
     @Override
-    public void setRadius(double radius) {
-
+    public DirectionalLight setRadius(double radius) {
+        return this;
     }
 }
