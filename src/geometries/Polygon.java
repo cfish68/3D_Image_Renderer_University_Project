@@ -93,9 +93,34 @@ public class Polygon extends Geometry {
 
    @Override
    public void setBoundingRegion() {
-      double minX, minY, minZ;
+      Point firstPoint = vertices.get(0);
+      double minX = firstPoint.getX(), minY = firstPoint.getY(), minZ = firstPoint.getZ(),
+              maxX = firstPoint.getX(), maxY = firstPoint.getY(), maxZ = firstPoint.getZ();
       for(Point p: vertices){
-         if(p.getX() > x)
+         if(p.getX() > maxX){//if this x is greater than maxX set new max.
+            maxX = p.getX();
+         }
+         if(p.getY() > maxY){//if this y is greater than maxY set new max
+            maxY = p.getY();
+         }
+         if(p.getZ() > maxZ){//if this Z is greater than maxZ set new max
+            maxZ = p.getZ();
+         }
+         if(p.getX() < minX){//if this x is less than minX set new min.
+            minX = p.getX();
+         }
+         if(p.getY() < minY){//if this y is less than minY set new min
+            minY = p.getY();
+         }
+         if(p.getZ() < minZ){//if this Z is less than minZ set new min
+            minZ = p.getZ();
+         }
+
+         Point maxxx = new Point(maxX, maxY, maxZ);
+         Point minn = new Point(minX, minY, minZ);
+
+
+
       }
    }
 }
