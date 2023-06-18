@@ -5,7 +5,6 @@ import primitives.Ray;
 import primitives.Util;
 import primitives.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -104,5 +103,12 @@ public class Sphere extends RadialGeometry{
             return List.of(new GeoPoint(this, ray.getPoint(t2)));
         }
         return null;
+    }
+
+
+    public BoundingRegion setBoundingRegion() {
+        boundingRegion.min = new Point(center.getX() - radius, center.getY() - radius, center.getZ() - radius);
+        boundingRegion.max = new Point(center.getX() + radius, center.getY() + radius, center.getZ() + radius);
+        return boundingRegion;
     }
 }
