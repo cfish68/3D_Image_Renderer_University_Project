@@ -18,12 +18,13 @@ public abstract class Intersectable {
     /**
      * max point for bounding region
      */
-    private Point max;
+    protected Point max;
 
     /**
      * min point for bounding region
      */
-    private Point min;
+    protected Point min;
+
     /**
      * static class which has a geometry and a point
      */

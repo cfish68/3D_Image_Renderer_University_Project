@@ -90,4 +90,12 @@ public class Polygon extends Geometry {
    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
       return null;
    }
+
+   @Override
+   public void setBoundingRegion() {
+      double minX, minY, minZ;
+      for(Point p: vertices){
+         if(p.getX() > x)
+      }
+   }
 }
