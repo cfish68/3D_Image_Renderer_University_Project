@@ -13,17 +13,21 @@ import static primitives.Util.alignZero;
  */
 public abstract class Intersectable {
 
+    public BoundingRegion boundingRegion;
 
+    public static class BoundingRegion{
+        /**
+         * max point for bounding region
+         */
+        public Point max;
 
-    /**
-     * max point for bounding region
-     */
-    protected Point max;
+        /**
+         * min point for bounding region
+         */
+        public Point min;
 
-    /**
-     * min point for bounding region
-     */
-    protected Point min;
+    }
+
 
     /**
      * static class which has a geometry and a point
@@ -112,9 +116,8 @@ public abstract class Intersectable {
     }
 
     /**
-     * method to set the min and max point to be implemented by each geometry
+     * method to set the min and max bounding region point to be implemented by each geometry
      */
-    public abstract void setBoundingRegion();
-
+    public abstract BoundingRegion setBoundingRegion();
 
 }
