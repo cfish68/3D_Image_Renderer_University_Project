@@ -106,6 +106,7 @@ public class Sphere extends RadialGeometry{
     }
 
 
+    @Override
     public BoundingRegion setBoundingRegion() {
         boundingRegion.min = new Point(center.getX() - radius, center.getY() - radius, center.getZ() - radius);
         boundingRegion.max = new Point(center.getX() + radius, center.getY() + radius, center.getZ() + radius);

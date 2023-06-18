@@ -63,4 +63,9 @@ public class Geometries extends Intersectable{
             return result;
         }
     }
+
+    @Override
+    public BoundingRegion setBoundingRegion() {
+        return null;
+    }
 }

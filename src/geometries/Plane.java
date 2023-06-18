@@ -91,4 +91,11 @@ public class Plane extends Geometry{
         }
         return null;
     }
+
+    @Override
+    public BoundingRegion setBoundingRegion() {
+        boundingRegion.min = new Point(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+        boundingRegion.max = new Point(Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);
+        return boundingRegion;
+    }
 }
