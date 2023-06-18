@@ -96,4 +96,9 @@ public class Tube extends RadialGeometry {
         else
             return null;
     }
+
+    @Override
+    public void setBoundingRegion() {
+        //doesn't do anything
+    }
 }

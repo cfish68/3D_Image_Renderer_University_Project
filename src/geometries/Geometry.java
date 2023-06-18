@@ -13,6 +13,7 @@ public abstract class Geometry extends Intersectable {
 
     private Material material = new Material();
 
+
     public abstract Vector getNormal(Point point);
 
     /**
@@ -50,4 +51,7 @@ public abstract class Geometry extends Intersectable {
         this.emission = emission;
         return this;
     }
+
+
+
 }
