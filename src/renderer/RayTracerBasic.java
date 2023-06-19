@@ -50,6 +50,7 @@ public class RayTracerBasic extends RayTraceBase {
      */
     @Override
     public Color traceRay(Ray ray) {
+
         List<GeoPoint> geoPoints = scene.geometries.findGeoIntersectionsHelper(ray);
         if(geoPoints == null) {
             return scene.Background;
@@ -238,30 +239,30 @@ public class RayTracerBasic extends RayTraceBase {
         return ray.findClosestGeoPoint(scene.geometries.findGeoIntersectionsHelper(ray));
     }
 
-    /**
-     * Method for calculating transparency at a GeoPoint
-     * @param gp
-     * @param lightSource
-     * @param l Vector from light source
-     * @param n
-     * @return
-     */
-    private Double3 transparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n) {
-        Double3 ktr = Double3.ONE;
-        Vector lightDirection = l.scale(-1); // from point to light source
-
-        Ray lightRay = new Ray(gp.point, lightDirection, n);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(gp.point));
-        if (intersections == null) {
-            return ktr;
-        }
-        //intersections = intersections.stream().filter(g -> !g.geometry.getMaterial().kT.equals(Double3.ZERO)
-        //).collect(Collectors.toList());
-        for(GeoPoint g: intersections){
-            ktr = ktr.product(g.geometry.getMaterial().kT);
-        }
-        return ktr;
-    }
+//    /**
+//     * Method for calculating transparency at a GeoPoint
+//     * @param gp
+//     * @param lightSource
+//     * @param l Vector from light source
+//     * @param n
+//     * @return
+//     */
+//    private Double3 transparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n) {
+//        Double3 ktr = Double3.ONE;
+//        Vector lightDirection = l.scale(-1); // from point to light source
+//
+//        Ray lightRay = new Ray(gp.point, lightDirection, n);
+//        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(gp.point));
+//        if (intersections == null) {
+//            return ktr;
+//        }
+//        //intersections = intersections.stream().filter(g -> !g.geometry.getMaterial().kT.equals(Double3.ZERO)
+//        //).collect(Collectors.toList());
+//        for(GeoPoint g: intersections){
+//            ktr = ktr.product(g.geometry.getMaterial().kT);
+//        }
+//        return ktr;
+//    }
 
 
     private Double3 newTransparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n) {

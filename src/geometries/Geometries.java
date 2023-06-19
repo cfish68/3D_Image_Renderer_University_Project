@@ -14,8 +14,14 @@ import java.util.List;
  */
 public class Geometries extends Intersectable{
 
+
+    /**
+     * bounding box for geometries
+     */
+    protected static boolean boundingBoxOn = false;
     private List<Intersectable> geometries;
 
+    private List<BoundingRegion> boundingRegions;
     /**
      * Empty Constructor which creates an empty list of geometries
      */
@@ -43,14 +49,23 @@ public class Geometries extends Intersectable{
      * @param g
      */
     public void add(Intersectable... g){
+        if(boundingBoxOn == true){
+            for(Intersectable geo: g){
+                geo.setBoundingRegion();
+            }
+        }
         geometries.addAll(List.of(g));
+
     }
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+
         if (geometries.isEmpty())
             return null;
-        else {
+        else if (boundingBoxOn == true) {
+
+        } else {
             LinkedList<GeoPoint> result = null;
             for (Intersectable geometry : geometries) {
                 List<GeoPoint> intersections = geometry.findGeoIntersectionsHelper(ray);
@@ -67,5 +82,19 @@ public class Geometries extends Intersectable{
     @Override
     public BoundingRegion setBoundingRegion() {
         return null;
+    }
+
+    public List<Intersectable> boundingBoxIntersections(Ray ray){
+
+    }
+
+    /**
+     * sets the bounding region boolean to be true and sets all the relevant bounding regions
+     */
+    public void setBoudningBoxOn(){
+        boundingBoxOn = true;
+        for(Intersectable g : geometries){
+            g.setBoundingRegion();
+        }
     }
 }

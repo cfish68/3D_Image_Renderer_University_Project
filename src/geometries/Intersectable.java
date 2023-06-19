@@ -13,6 +13,8 @@ import static primitives.Util.alignZero;
  */
 public abstract class Intersectable {
 
+
+
     public BoundingRegion boundingRegion;
 
     public static class BoundingRegion{
