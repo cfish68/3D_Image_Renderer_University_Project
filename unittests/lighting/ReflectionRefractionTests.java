@@ -37,7 +37,7 @@ public class ReflectionRefractionTests {
       scene.lights.add( //
                        new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
                           .setKl(0.0004).setKq(0.0000006));
-
+      scene.geometries.setBoudningBoxOn();
       camera.setImageWriter(new ImageWriter("refractionTwoSpheres", 500, 500)) //
          .setRayTracer(new RayTracerBasic(scene)) //
          .renderImage() //

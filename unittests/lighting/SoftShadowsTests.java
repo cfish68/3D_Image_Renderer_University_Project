@@ -17,7 +17,7 @@ public class SoftShadowsTests {
             .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30));
     private Material      trMaterial = new Material().setKd(0.5).setKs(0.5).setShininess(30);
 
-    private Scene         scene      = new Scene("Test scene").setSoftShadowDef(1);
+    private Scene         scene      = new Scene("Test scene").setSoftShadowDef(10);
     private Camera        camera     = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))   //
             .setVPSize(200, 200).setVPDistance(1000)                                                                       //
             .setRayTracer(new RayTracerBasic(scene));
@@ -28,6 +28,7 @@ public class SoftShadowsTests {
         scene.lights.add( //
                 new SpotLight(new Color(400, 240, 0), spotLocation, new Vector(1, 1, -3)) //
                         .setKl(1E-5).setKq(1.5E-7).setRadius(4));
+        scene.geometries.setBoudningBoxOn();
         camera.setImageWriter(new ImageWriter(pictName, 400, 400)) //
                 .renderImage() //
                 .writeToImage();
@@ -167,8 +168,8 @@ public class SoftShadowsTests {
                 .setKl(4E-3).setKq(2E-4).setRadius(5));
 
 
-
-        ImageWriter imageWriter = new ImageWriter("ownPictureSoftShadows", 600, 600);
+        //scene.geometries.setBoudningBoxOn();
+        ImageWriter imageWriter = new ImageWriter("ownPictureSoftShadows", 1200, 1200);
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //

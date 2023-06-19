@@ -15,7 +15,7 @@ public abstract class Intersectable {
 
 
 
-    public BoundingRegion boundingRegion;
+    public BoundingRegion boundingRegion = new BoundingRegion();
 
     public static class BoundingRegion{
         /**

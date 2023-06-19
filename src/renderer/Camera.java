@@ -89,12 +89,12 @@ public class Camera {
             });
         });
 
-        for(int i = 0; i < Nx; i++){
-            for(int j = 0; j < Ny; j++){
-                Color color = rayTraceBase.traceRay(constructRay(Nx, Ny,j,i));
-                this.imageWriter.writePixel(j,i,color);
-            }
-        }
+//        for(int i = 0; i < Nx; i++){
+//            for(int j = 0; j < Ny; j++){
+//                Color color = rayTraceBase.traceRay(constructRay(Nx, Ny,j,i));
+//                this.imageWriter.writePixel(j,i,color);
+//            }
+//        }
         return this;
     }
 

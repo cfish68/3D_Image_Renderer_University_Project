@@ -82,9 +82,41 @@ public class Geometries extends Intersectable{
     public List<Intersectable> boundingBoxIntersections(Ray ray){
         LinkedList<Intersectable> result = new LinkedList<>();
         for(Intersectable g : geometries){
-            double txMin = (g.boundingRegion.min.getX() - ray.getP0().getX())
+            double txMin = (g.boundingRegion.min.getX() - ray.getP0().getX())/ray.getDir().getX();
+            double txMax = (g.boundingRegion.max.getX() - ray.getP0().getX())/ray.getDir().getX();
+            if (txMax < txMin) {
+                double tmp = txMax;
+                txMax = txMin;
+                txMin = tmp;
+            }
+            double tyMin = (g.boundingRegion.min.getY() - ray.getP0().getY())/ray.getDir().getY();
+            double tyMax = (g.boundingRegion.max.getY() - ray.getP0().getY())/ray.getDir().getY();
+            if (tyMax < tyMin) {
+                double tmp = tyMax;
+                tyMax = tyMin;
+                tyMin = tmp;
+            }
+            double tzMin = (g.boundingRegion.min.getZ() - ray.getP0().getZ())/ray.getDir().getZ();
+            double tzMax = (g.boundingRegion.max.getZ() - ray.getP0().getZ())/ray.getDir().getZ();
+            if (tzMax < tzMin) {
+                double tmp = tzMax;
+                tzMax = tzMin;
+                tzMin = tmp;
+            }
+            double tMin = txMin>tyMin ? txMin :tyMin; //max of the min
+            double tMax = txMax<tyMax ? txMax : tyMax; //min of the max
+
+            if(txMin > tyMax || tyMin > txMax){
+                continue;//don't add to the list of intersectables to be checked
+            }
+            if(tMin > tzMax || tzMin > tMax){
+                continue;//don't add to the list of intersecatbles to be checked
+            }
+            result.add(g);
+
 
         }
+        return result;
     }
 
     /**
