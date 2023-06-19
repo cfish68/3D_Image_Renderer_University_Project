@@ -4,7 +4,7 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
+import java.util.stream.*;
 import java.util.MissingResourceException;
 
 import static primitives.Util.isZero;
@@ -79,6 +79,16 @@ public class Camera {
         int Nx = imageWriter.getNx();
         int Ny = imageWriter.getNy();
         //throw new UnsupportedOperationException();
+        Pixel.initialize(Ny, Nx, 0);
+        IntStream.range(0, Ny).parallel().forEach(i ->{
+            IntStream.range(0, Nx).parallel().forEach(j -> {
+                Color color = rayTraceBase.traceRay(constructRay(Nx, Ny, j, i));
+                this.imageWriter.writePixel(j,i,color);
+                Pixel.pixelDone();
+                //Pixel.printPixel();
+            });
+        });
+
         for(int i = 0; i < Nx; i++){
             for(int j = 0; j < Ny; j++){
                 Color color = rayTraceBase.traceRay(constructRay(Nx, Ny,j,i));

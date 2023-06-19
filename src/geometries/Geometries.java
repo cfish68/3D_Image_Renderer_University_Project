@@ -64,20 +64,15 @@ public class Geometries extends Intersectable{
         if (geometries.isEmpty())
             return null;
         else if (boundingBoxOn == true) {
-
-        } else {
-            LinkedList<GeoPoint> result = null;
-            for (Intersectable geometry : geometries) {
-                List<GeoPoint> intersections = geometry.findGeoIntersectionsHelper(ray);
-                if (intersections != null) {
-                    if (result == null) result = new LinkedList<>(intersections);
-                    else result.addAll(intersections);
-                }
-            }
-
-            return result;
+            List<Intersectable> boundedGeometries = boundingBoxIntersections(ray);
+           if(boundedGeometries.isEmpty()){
+               return null;
+           }
+            return calcIntersections(ray, boundedGeometries);
         }
+        return calcIntersections(ray, geometries);
     }
+
 
     @Override
     public BoundingRegion setBoundingRegion() {
@@ -85,7 +80,11 @@ public class Geometries extends Intersectable{
     }
 
     public List<Intersectable> boundingBoxIntersections(Ray ray){
+        LinkedList<Intersectable> result = new LinkedList<>();
+        for(Intersectable g : geometries){
+            double txMin = (g.boundingRegion.min.getX() - ray.getP0().getX())
 
+        }
     }
 
     /**
@@ -96,5 +95,23 @@ public class Geometries extends Intersectable{
         for(Intersectable g : geometries){
             g.setBoundingRegion();
         }
+    }
+
+    /**
+     * calculate the geoPoints of the ray intersections
+     * @param ray
+     * @param geometryList
+     * @return
+     */
+    private List<GeoPoint> calcIntersections(Ray ray, List<Intersectable> geometryList){
+        LinkedList<GeoPoint> result = null;
+        for (Intersectable geometry : geometryList) {
+            List<GeoPoint> intersections = geometry.findGeoIntersectionsHelper(ray);
+            if (intersections != null) {
+                if (result == null) result = new LinkedList<>(intersections);
+                else result.addAll(intersections);
+            }
+        }
+        return result;
     }
 }
