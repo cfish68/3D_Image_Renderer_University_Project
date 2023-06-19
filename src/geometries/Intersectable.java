@@ -64,11 +64,11 @@ public abstract class Intersectable {
 
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
-    /**
-     * receives a ray and returns a List fo GeoPoints, at this point just calls findGeoIntersectionsHelper(ray)
-     * @param ray
-     * @return
-     */
+//    /**
+//     * receives a ray and returns a List fo GeoPoints, at this point just calls findGeoIntersectionsHelper(ray)
+//     * @param ray
+//     * @return
+//     */
 //    public List<GeoPoint> findGeoIntersections(Ray ray){
 //        return findGeoIntersectionsHelper(ray);
 //    }
@@ -103,6 +103,13 @@ public abstract class Intersectable {
     public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         return findGeoIntersectionsHelper(ray, maxDistance);
     }
+
+    /**
+     * Returns
+     * @param ray
+     * @param maxDistance
+     * @return
+     */
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
         var geoList = findGeoIntersectionsHelper(ray);
         if(geoList == null)
