@@ -80,6 +80,11 @@ public class Geometries extends Intersectable{
         return null;
     }
 
+    /**
+     * Find and return a list of the intersections with bounding boxes.
+     * @param ray
+     * @return
+     */
     public List<Intersectable> boundingBoxIntersections(Ray ray){
         LinkedList<Intersectable> result = new LinkedList<>();
         for(Intersectable g : geometries){
@@ -148,3 +153,70 @@ public class Geometries extends Intersectable{
         return result;
     }
 }
+
+//UNUSED CODE FROM OTHER TRY OF boundingBoxIntersections()
+//    /**
+//     * Find and return a list of the intersections with bounding boxes.
+//     * @param ray
+//     * @return
+//     */
+//    public List<Intersectable> boundingBoxIntersections(Ray ray){
+//        //Plane ray intersection points
+//        double t1x, t1y, t1z, t2x, t2y, t2z, tNear, tFar;
+//        LinkedList<Intersectable> result = new LinkedList<>();
+//
+//        for(Intersectable g : geometries){
+//            //Check and assign t1x, which is the closer x-axis to P0 of the ray
+//            if (Math.abs(ray.getP0().getX() - g.boundingRegion.min.getX()) < Math.abs(ray.getP0().getX() - g.boundingRegion.max.getX())){
+//                t1x = g.boundingRegion.min.getX();
+//                t2x = g.boundingRegion.max.getX();
+//            }else {
+//                t1x = g.boundingRegion.max.getX();
+//                t2x = g.boundingRegion.min.getX();
+//            }
+//
+//            //Check and assign t1y, which is the closer y-axis to P0 of the ray
+//            if (Math.abs(ray.getP0().getY() - g.boundingRegion.min.getY()) < Math.abs(ray.getP0().getY() - g.boundingRegion.max.getY())){
+//                t1y = g.boundingRegion.min.getY();
+//                t2y = g.boundingRegion.max.getY();
+//            }else {
+//                t1y = g.boundingRegion.max.getY();
+//                t2y = g.boundingRegion.min.getY();
+//            }
+//
+//            //Check and assign t1x, which is the closer z-axis to P0 of the ray
+//            if (Math.abs(ray.getP0().getZ() - g.boundingRegion.min.getZ()) < Math.abs(ray.getP0().getZ() - g.boundingRegion.max.getZ())){
+//                t1z = g.boundingRegion.min.getZ();
+//                t2z = g.boundingRegion.max.getZ();
+//            }else {
+//                t1z = g.boundingRegion.max.getZ();
+//                t2z = g.boundingRegion.min.getZ();
+//            }
+//
+//            //Find tNear, max(t1x, t1y, t1z)
+//            if (t1x > t1y)
+//                tNear = t1x;
+//            else
+//                tNear = t1y;
+//            if (t1z > tNear)
+//                tNear = t1z;
+//
+//            //Find tFar, min(t2x, t2y, t2z)
+//            if (t2x < t2y)
+//                tFar = t2x;
+//            else
+//                tFar = t2y;
+//            if (t2z < tFar)
+//                tFar = t2z;
+//
+//            //These tests don't work, not sure what the slides I found were talking about
+//            if (tNear > tFar)
+//                continue; //Box is missed if tNear > tFar
+//            else if (tNear < tFar)
+//                continue;
+//            else
+//                result.add(g);
+//
+//        }
+//        return result;
+//    }
