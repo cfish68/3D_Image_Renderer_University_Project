@@ -15,13 +15,14 @@ import java.util.List;
 public class Geometries extends Intersectable{
 
 
+
+
+
     /**
      * bounding box for geometries
      */
     protected static boolean boundingBoxOn = false;
     private List<Intersectable> geometries;
-
-    private List<BoundingRegion> boundingRegions;
     /**
      * Empty Constructor which creates an empty list of geometries
      */

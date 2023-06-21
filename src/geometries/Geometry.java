@@ -16,6 +16,8 @@ public abstract class Geometry extends Intersectable {
 
     public abstract Vector getNormal(Point point);
 
+
+
     /**
      * Setter for material of the Geometry
      * @return
@@ -51,7 +53,4 @@ public abstract class Geometry extends Intersectable {
         this.emission = emission;
         return this;
     }
-
-
-
 }

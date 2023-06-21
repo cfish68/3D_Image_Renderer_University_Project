@@ -14,7 +14,6 @@ import static primitives.Util.alignZero;
 public abstract class Intersectable {
 
 
-
     public BoundingRegion boundingRegion = new BoundingRegion();
 
     public static class BoundingRegion{
@@ -29,6 +28,12 @@ public abstract class Intersectable {
         public Point min;
 
     }
+
+    /**
+     * method to set the min and max bounding region point to be implemented by each geometry
+     */
+    public abstract BoundingRegion setBoundingRegion();
+
 
 
     /**
@@ -47,6 +52,7 @@ public abstract class Intersectable {
             this.geometry = geometry;
             this.point = point;
         }
+
 
         @Override
         public boolean equals(Object object){
@@ -124,9 +130,6 @@ public abstract class Intersectable {
         return geoList;
     }
 
-    /**
-     * method to set the min and max bounding region point to be implemented by each geometry
-     */
-    public abstract BoundingRegion setBoundingRegion();
+
 
 }
