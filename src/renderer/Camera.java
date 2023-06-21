@@ -89,6 +89,7 @@ public class Camera {
             });
         });
 
+        //OLD non-Threading Image render code
 //        for(int i = 0; i < Nx; i++){
 //            for(int j = 0; j < Ny; j++){
 //                Color color = rayTraceBase.traceRay(constructRay(Nx, Ny,j,i));
