@@ -109,13 +109,13 @@ public class Geometries extends Intersectable{
                 tzMax = tzMin;
                 tzMin = tmp;
             }
-            double tMin = txMin>tyMin ? txMin :tyMin; //max of the min
-            double tMax = txMax<tyMax ? txMax : tyMax; //min of the max
+            double tNear = txMin>tyMin ? txMin :tyMin; //max of the min
+            double tFar = txMax<tyMax ? txMax : tyMax; //min of the max
 
             if(txMin > tyMax || tyMin > txMax){
                 continue;//don't add to the list of intersectables to be checked
             }
-            if(tMin > tzMax || tzMin > tMax){
+            if(tNear > tzMax || tzMin > tFar){
                 continue;//don't add to the list of intersecatbles to be checked
             }
             result.add(g);
@@ -133,6 +133,13 @@ public class Geometries extends Intersectable{
         for(Intersectable g : geometries){
             g.setBoundingRegion();
         }
+    }
+
+    /**
+     * shut off bounding box
+     */
+    public void setBoundingBoxOff(){
+        boundingBoxOn = false;
     }
 
     /**

@@ -42,6 +42,7 @@ public class ReflectionRefractionTests {
          .setRayTracer(new RayTracerBasic(scene)) //
          .renderImage() //
          .writeToImage();
+      scene.geometries.setBoundingBoxOff();
    }
 
    /** Produce a picture of a sphere lighted by a spot light */

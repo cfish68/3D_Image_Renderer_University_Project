@@ -32,6 +32,7 @@ public class SoftShadowsTests {
         camera.setImageWriter(new ImageWriter(pictName, 400, 400)) //
                 .renderImage() //
                 .writeToImage();
+        scene.geometries.setBoundingBoxOff();
     }
 
     /** Produce a picture of a sphere and triangle with point light and shade */
@@ -168,12 +169,13 @@ public class SoftShadowsTests {
                 .setKl(4E-3).setKq(2E-4).setRadius(5));
 
 
-        //scene.geometries.setBoudningBoxOn();
+        scene.geometries.setBoudningBoxOn();
         ImageWriter imageWriter = new ImageWriter("ownPictureSoftShadows", 1200, 1200);
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //
                 .writeToImage();
+        scene.geometries.setBoundingBoxOff();
     }
 
 }
