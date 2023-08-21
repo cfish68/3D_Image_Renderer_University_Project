@@ -17,7 +17,7 @@ public class SoftShadowsTests {
             .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30));
     private Material      trMaterial = new Material().setKd(0.5).setKs(0.5).setShininess(30);
 
-    private Scene         scene      = new Scene("Test scene").setSoftShadowDef(10);
+    private Scene         scene      = new Scene("Test scene").setSoftShadowDef(6);
     private Camera        camera     = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))   //
             .setVPSize(200, 200).setVPDistance(1000)                                                                       //
             .setRayTracer(new RayTracerBasic(scene));
